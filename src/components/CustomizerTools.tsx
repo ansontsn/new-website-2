@@ -12,7 +12,6 @@ import {
   FONT_OPTIONS,
   PRESET_PHOTOCARDS
 } from '../data/options';
-import { PhotocardUploader } from './PhotocardUploader';
 import { 
   Box, 
   Palette, 
@@ -25,7 +24,8 @@ import {
   Copy,
   RotateCw,
   Maximize2,
-  SlidersHorizontal
+  SlidersHorizontal,
+  UploadCloud
 } from 'lucide-react';
 
 interface CustomizerToolsProps {
@@ -367,25 +367,62 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
               </span>
 
               {state.tier === 'PREMIUM' ? (
-                <PhotocardUploader
-                  currentPhotoUrl={state.photocardUrl}
-                  photoName={state.photocardName}
-                  isCustomPhoto={state.isCustomPhoto}
-                  onPhotoSelected={(url, name, isCustom) => {
-                    onUpdateState({
-                      photocardUrl: url,
-                      photocardName: name,
-                      isCustomPhoto: isCustom
-                    });
-                  }}
-                  onRemovePhoto={() => {
-                    onUpdateState({
-                      photocardUrl: '',
-                      photocardName: '純空框展示',
-                      isCustomPhoto: false
-                    });
-                  }}
-                />
+                <div className="space-y-3">
+                  {state.isCustomPhoto && state.photocardUrl ? (
+                    <div className="flex items-center justify-between p-3 rounded-xl bg-white/[0.04] border border-pink-500/40">
+                      <div className="flex items-center gap-3 min-w-0">
+                        <img 
+                          src={state.photocardUrl} 
+                          alt="已上傳小卡" 
+                          className="w-10 h-14 object-cover rounded-md border border-white/20 flex-shrink-0" 
+                        />
+                        <div className="min-w-0">
+                          <span className="text-xs font-bold text-white block truncate">
+                            {state.photocardName || '自訂小卡'}
+                          </span>
+                          <span className="text-[10px] text-pink-400 font-mono">已成功套用</span>
+                        </div>
+                      </div>
+                      <button
+                        onClick={() => onUpdateState({ photocardUrl: '', photocardName: '純空框展示', isCustomPhoto: false })}
+                        className="p-2 rounded-lg bg-red-500/10 hover:bg-red-500/20 text-red-400 border border-red-500/30 text-xs flex items-center gap-1 transition-all"
+                      >
+                        <Trash2 className="w-3.5 h-3.5" />
+                        <span>清除</span>
+                      </button>
+                    </div>
+                  ) : (
+                    <label className="border-2 border-dashed border-white/15 hover:border-pink-400/50 rounded-2xl p-5 text-center flex flex-col items-center justify-center gap-2 cursor-pointer bg-white/[0.02] hover:bg-pink-500/5 transition-all">
+                      <input
+                        type="file"
+                        accept="image/png,image/jpeg,image/webp"
+                        className="hidden"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (!file) return;
+                          const reader = new FileReader();
+                          reader.onload = (ev) => {
+                            if (ev.target?.result) {
+                              onUpdateState({
+                                photocardUrl: ev.target.result as string,
+                                photocardName: file.name,
+                                isCustomPhoto: true
+                              });
+                            }
+                          };
+                          reader.readAsDataURL(file);
+                        }}
+                      />
+                      <div className="w-10 h-10 rounded-xl bg-pink-500/10 border border-pink-500/20 flex items-center justify-center text-pink-400">
+                        <UploadCloud className="w-5 h-5" />
+                      </div>
+                      <div>
+                        <span className="text-xs font-semibold text-slate-200 block">點擊上傳個人小卡圖片</span>
+                        <span className="text-[10px] text-slate-500 block mt-0.5">支援 PNG, JPG, WEBP（1:1 裝框模擬）</span>
+                      </div>
+                    </label>
+                  )}
+                </div>
               ) : (
                 <div className="p-4 rounded-2xl bg-gradient-to-br from-purple-950/40 via-slate-900/60 to-pink-950/30 border border-purple-500/30 text-center space-y-2.5">
                   <div className="w-8 h-8 rounded-full bg-purple-500/20 text-purple-300 flex items-center justify-center mx-auto border border-purple-500/30">

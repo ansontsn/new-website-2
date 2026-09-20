@@ -4,10 +4,8 @@ import { BACKGROUND_OPTIONS, FONT_OPTIONS } from '../data/options';
 export function calculatePrice(state: CustomizerState): PriceBreakdown {
   const addons: PriceItem[] = [];
 
-  // Base price based on tier
-  let basePrice = 199;
-  if (state.tier === 'CUSTOM') basePrice = 299;
-  if (state.tier === 'PREMIUM') basePrice = 399;
+  const BASE_PRICES: Record<string, number> = { BASIC: 199, CUSTOM: 299, PREMIUM: 399 };
+  const basePrice = BASE_PRICES[state.tier] || 199;
 
   // Special background (+30)
   const bg = BACKGROUND_OPTIONS.find(b => b.id === state.backgroundId);

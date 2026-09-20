@@ -47,34 +47,29 @@ export const AcrylicFramePreview: React.FC<AcrylicFramePreviewProps> = ({
   };
 
   // Dragging sticker handling (Mouse + Touch)
-  const handleStickerDragStart = (e: React.MouseEvent | React.TouchEvent, stickerId: string) => {
-    if (!interactive || state.tier === 'BASIC') return;
+  // Unified mouse & touch drag helper
+  const startDrag = (
+    e: React.MouseEvent | React.TouchEvent, 
+    onMoveCallback: (x: number, y: number) => void, 
+    onEndCallback: () => void, 
+    padding = 5
+  ) => {
     e.stopPropagation();
-    onSelectSticker?.(stickerId);
-    setDraggingStickerId(stickerId);
-
-    if (!onUpdateStickerPosition) return;
     const frameEl = frameRef.current;
     if (!frameEl) return;
-
     const rect = frameEl.getBoundingClientRect();
 
-    const getPos = (event: MouseEvent | TouchEvent) => {
-      if ('touches' in event && event.touches.length > 0) {
-        return { clientX: event.touches[0].clientX, clientY: event.touches[0].clientY };
-      }
-      return { clientX: (event as MouseEvent).clientX, clientY: (event as MouseEvent).clientY };
-    };
-
-    const onMove = (moveEvent: MouseEvent | TouchEvent) => {
-      const { clientX, clientY } = getPos(moveEvent);
-      const x = Math.max(5, Math.min(95, ((clientX - rect.left) / rect.width) * 100));
-      const y = Math.max(5, Math.min(95, ((clientY - rect.top) / rect.height) * 100));
-      onUpdateStickerPosition(stickerId, Math.round(x), Math.round(y));
+    const onMove = (evt: MouseEvent | TouchEvent) => {
+      const touch = 'touches' in evt && evt.touches[0];
+      const clientX = touch ? touch.clientX : (evt as MouseEvent).clientX;
+      const clientY = touch ? touch.clientY : (evt as MouseEvent).clientY;
+      const x = Math.max(padding, Math.min(100 - padding, ((clientX - rect.left) / rect.width) * 100));
+      const y = Math.max(padding, Math.min(100 - padding, ((clientY - rect.top) / rect.height) * 100));
+      onMoveCallback(Math.round(x), Math.round(y));
     };
 
     const onEnd = () => {
-      setDraggingStickerId(null);
+      onEndCallback();
       window.removeEventListener('mousemove', onMove);
       window.removeEventListener('mouseup', onEnd);
       window.removeEventListener('touchmove', onMove);
@@ -87,43 +82,17 @@ export const AcrylicFramePreview: React.FC<AcrylicFramePreviewProps> = ({
     window.addEventListener('touchend', onEnd);
   };
 
-  // Dragging text handling (Mouse + Touch)
+  const handleStickerDragStart = (e: React.MouseEvent | React.TouchEvent, stickerId: string) => {
+    if (!interactive || state.tier === 'BASIC' || !onUpdateStickerPosition) return;
+    onSelectSticker?.(stickerId);
+    setDraggingStickerId(stickerId);
+    startDrag(e, (x, y) => onUpdateStickerPosition(stickerId, x, y), () => setDraggingStickerId(null), 5);
+  };
+
   const handleTextDragStart = (e: React.MouseEvent | React.TouchEvent) => {
     if (!interactive || state.tier === 'BASIC' || !onUpdateTextPosition) return;
-    e.stopPropagation();
     setIsDraggingText(true);
-
-    const frameEl = frameRef.current;
-    if (!frameEl) return;
-
-    const rect = frameEl.getBoundingClientRect();
-
-    const getPos = (event: MouseEvent | TouchEvent) => {
-      if ('touches' in event && event.touches.length > 0) {
-        return { clientX: event.touches[0].clientX, clientY: event.touches[0].clientY };
-      }
-      return { clientX: (event as MouseEvent).clientX, clientY: (event as MouseEvent).clientY };
-    };
-
-    const onMove = (moveEvent: MouseEvent | TouchEvent) => {
-      const { clientX, clientY } = getPos(moveEvent);
-      const x = Math.max(8, Math.min(92, ((clientX - rect.left) / rect.width) * 100));
-      const y = Math.max(8, Math.min(92, ((clientY - rect.top) / rect.height) * 100));
-      onUpdateTextPosition(Math.round(x), Math.round(y));
-    };
-
-    const onEnd = () => {
-      setIsDraggingText(false);
-      window.removeEventListener('mousemove', onMove);
-      window.removeEventListener('mouseup', onEnd);
-      window.removeEventListener('touchmove', onMove);
-      window.removeEventListener('touchend', onEnd);
-    };
-
-    window.addEventListener('mousemove', onMove);
-    window.addEventListener('mouseup', onEnd);
-    window.addEventListener('touchmove', onMove, { passive: false });
-    window.addEventListener('touchend', onEnd);
+    startDrag(e, (x, y) => onUpdateTextPosition(x, y), () => setIsDraggingText(false), 8);
   };
 
   return (

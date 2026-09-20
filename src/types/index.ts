@@ -77,7 +77,6 @@ export interface CustomizerState {
 export interface PriceItem {
   label: string;
   amount: number;
-  isBase?: boolean;
 }
 
 export interface PriceBreakdown {

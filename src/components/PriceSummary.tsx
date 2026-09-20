@@ -9,6 +9,12 @@ interface PriceSummaryProps {
   onFinishDesign: () => void;
 }
 
+const TIER_BADGES: Record<string, { label: string; color: string }> = {
+  BASIC: { label: 'BASIC 基本款', color: 'text-slate-300 bg-slate-800 border-slate-700' },
+  CUSTOM: { label: 'CUSTOM 主題款', color: 'text-purple-300 bg-purple-950/60 border-purple-800' },
+  PREMIUM: { label: 'PREMIUM 高度客製', color: 'text-pink-300 bg-pink-950/60 border-pink-800' }
+};
+
 export const PriceSummary: React.FC<PriceSummaryProps> = ({
   state,
   priceBreakdown,
@@ -17,19 +23,7 @@ export const PriceSummary: React.FC<PriceSummaryProps> = ({
   const frameOpt = FRAME_OPTIONS.find(f => f.id === state.frameStyleId) || FRAME_OPTIONS[0];
   const colorOpt = FRAME_COLOR_OPTIONS.find(c => c.id === state.frameColorId) || FRAME_COLOR_OPTIONS[0];
   const bgOpt = BACKGROUND_OPTIONS.find(b => b.id === state.backgroundId) || BACKGROUND_OPTIONS[0];
-
-  const getTierBadge = () => {
-    switch (state.tier) {
-      case 'BASIC':
-        return { label: 'BASIC 基本款', color: 'text-slate-300 bg-slate-800 border-slate-700' };
-      case 'CUSTOM':
-        return { label: 'CUSTOM 主題款', color: 'text-purple-300 bg-purple-950/60 border-purple-800' };
-      case 'PREMIUM':
-        return { label: 'PREMIUM 高度客製', color: 'text-pink-300 bg-pink-950/60 border-pink-800' };
-    }
-  };
-
-  const badge = getTierBadge();
+  const badge = TIER_BADGES[state.tier] || TIER_BADGES.BASIC;
 
   return (
     <div className="flex flex-col h-full bg-[#12141c]/90 rounded-2xl border border-white/10 p-5 shadow-2xl backdrop-blur-xl justify-between">
