@@ -56,3 +56,12 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #475569;
 }
+
+/* Prevent Netlify badge / drawer from blocking interactive buttons */
+iframe[title*="Netlify"],
+[data-netlify-deploy-id],
+.netlify-badge,
+#netlify-badge {
+  pointer-events: none !important;
+  opacity: 0.35 !important;
+}

@@ -7,13 +7,15 @@ interface NavbarProps {
   onNavigate: (view: 'home' | 'tiers' | 'customizer' | 'confirmation' | 'about') => void;
   tier: CustomizationTier;
   totalPrice?: number;
+  onFinishDesign?: () => void;
 }
 
 export const Navbar: React.FC<NavbarProps> = ({
   currentView,
   onNavigate,
   tier,
-  totalPrice
+  totalPrice,
+  onFinishDesign
 }) => {
   return (
     <header className="sticky top-0 z-50 w-full bg-[#0c0e14]/80 backdrop-blur-xl border-b border-white/10">
@@ -88,7 +90,7 @@ export const Navbar: React.FC<NavbarProps> = ({
         </nav>
 
         {/* Action Button & Status */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-2.5 sm:gap-3">
           {currentView === 'customizer' && totalPrice !== undefined && (
             <div className="hidden sm:flex flex-col items-end mr-2">
               <span className="text-[10px] uppercase tracking-wider text-pink-400 font-mono">
@@ -100,15 +102,21 @@ export const Navbar: React.FC<NavbarProps> = ({
 
           <button
             onClick={() => {
-              if (currentView === 'home') onNavigate('tiers');
-              else if (currentView === 'tiers') onNavigate('customizer');
-              else if (currentView === 'about') onNavigate('tiers');
-              else onNavigate('tiers');
+              if (currentView === 'customizer') {
+                if (onFinishDesign) onFinishDesign();
+                else onNavigate('confirmation');
+              } else if (currentView === 'home') {
+                onNavigate('tiers');
+              } else if (currentView === 'tiers') {
+                onNavigate('customizer');
+              } else {
+                onNavigate('tiers');
+              }
             }}
-            className="px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg shadow-pink-500/20 hover:shadow-pink-500/30 transition-all duration-200 active:scale-95 flex items-center gap-2"
+            className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg shadow-pink-500/25 hover:shadow-pink-500/40 transition-all duration-200 active:scale-95 flex items-center gap-1.5"
           >
-            <Sparkles className="w-4 h-4" />
-            <span>{currentView === 'customizer' ? '切換方案' : '開始客製化'}</span>
+            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <span>{currentView === 'customizer' ? '完成設計 ➔' : '開始客製化'}</span>
           </button>
         </div>
 

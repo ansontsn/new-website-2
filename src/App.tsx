@@ -12,7 +12,7 @@ import { DesignConfirmation } from './components/DesignConfirmation';
 import { HowItWorksModal } from './components/HowItWorksModal';
 import { AboutSection } from './components/AboutSection';
 import { MobileStickyBar } from './components/MobileStickyBar';
-import { Download, Loader2 } from 'lucide-react';
+import { Download, Loader2, Sparkles } from 'lucide-react';
 import { toPng } from 'html-to-image';
 
 export const App: React.FC = () => {
@@ -135,7 +135,7 @@ export const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-[#0b0d13] text-[#e6e8ee] flex flex-col selection:bg-pink-500 selection:text-white pb-16 lg:pb-0">
+    <div className="min-h-screen bg-[#0b0d13] text-[#e6e8ee] flex flex-col selection:bg-pink-500 selection:text-white pb-32 lg:pb-0">
       
       {/* Top Navigation */}
       <Navbar
@@ -146,6 +146,10 @@ export const App: React.FC = () => {
         }}
         tier={customizerState.tier}
         totalPrice={priceBreakdown.totalPrice}
+        onFinishDesign={() => {
+          setCurrentView('confirmation');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
       />
 
       {/* Main View Router */}
@@ -225,24 +229,37 @@ export const App: React.FC = () => {
                   onUpdateTextPosition={handleUpdateTextPosition}
                   interactive={true}
                 />
-                <button
-                  onClick={handleDownloadLiveMockup}
-                  disabled={isDownloadingLive}
-                  className="mt-3.5 py-2 px-4 rounded-full text-xs font-semibold bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 hover:border-pink-500/40 transition-all flex items-center gap-2 shadow-sm disabled:opacity-50"
-                  title="匯出當前卡框高畫質 PNG 圖片"
-                >
-                  {isDownloadingLive ? (
-                    <>
-                      <Loader2 className="w-3.5 h-3.5 animate-spin text-pink-400" />
-                      <span>正在生成圖片...</span>
-                    </>
-                  ) : (
-                    <>
-                      <Download className="w-3.5 h-3.5 text-pink-400" />
-                      <span>下載目前展示框相片 (PNG)</span>
-                    </>
-                  )}
-                </button>
+                <div className="flex flex-wrap items-center justify-center gap-2.5 mt-3.5 w-full max-w-sm px-2">
+                  <button
+                    onClick={handleDownloadLiveMockup}
+                    disabled={isDownloadingLive}
+                    className="flex-1 py-2.5 px-3 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 hover:border-pink-500/40 transition-all flex items-center justify-center gap-1.5 shadow-sm disabled:opacity-50"
+                    title="匯出當前卡框高畫質 PNG 圖片"
+                  >
+                    {isDownloadingLive ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin text-pink-400" />
+                        <span>生成相片中...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Download className="w-3.5 h-3.5 text-pink-400" />
+                        <span>下載相片 (PNG)</span>
+                      </>
+                    )}
+                  </button>
+
+                  <button
+                    onClick={() => {
+                      setCurrentView('confirmation');
+                      window.scrollTo({ top: 0, behavior: 'smooth' });
+                    }}
+                    className="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-md shadow-pink-500/20 transition-all flex items-center justify-center gap-1.5 active:scale-95"
+                  >
+                    <Sparkles className="w-3.5 h-3.5" />
+                    <span>完成設計 ➔</span>
+                  </button>
+                </div>
               </div>
 
               {/* Column 3: Right Summary & Live Pricing (4 cols) */}
