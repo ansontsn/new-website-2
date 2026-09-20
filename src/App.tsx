@@ -1,0 +1,275 @@
+import React, { useState } from 'react';
+import { CustomizationTier, CustomizerState } from './types';
+import { PRESET_PHOTOCARDS, INITIAL_TEXT_CONFIG } from './data/options';
+import { calculatePrice } from './utils/pricing';
+import { Navbar } from './components/Navbar';
+import { HeroSection } from './components/HeroSection';
+import { TierSelector } from './components/TierSelector';
+import { CustomizerTools } from './components/CustomizerTools';
+import { AcrylicFramePreview } from './components/AcrylicFramePreview';
+import { PriceSummary } from './components/PriceSummary';
+import { DesignConfirmation } from './components/DesignConfirmation';
+import { HowItWorksModal } from './components/HowItWorksModal';
+import { AboutSection } from './components/AboutSection';
+import { MobileStickyBar } from './components/MobileStickyBar';
+
+export const App: React.FC = () => {
+  // Navigation View State
+  const [currentView, setCurrentView] = useState<'home' | 'tiers' | 'customizer' | 'confirmation' | 'about'>('home');
+  const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false);
+
+  // Core Customizer State
+  const [customizerState, setCustomizerState] = useState<CustomizerState>({
+    tier: 'CUSTOM',
+    frameStyleId: 'acrylic-classic',
+    frameColorId: 'clear',
+    backgroundId: 'bg-transparent',
+    customBgUrl: null,
+    photocardUrl: PRESET_PHOTOCARDS[0].url,
+    photocardName: PRESET_PHOTOCARDS[0].name,
+    isCustomPhoto: false,
+    stickers: [
+      {
+        id: 'init-stk-1',
+        stickerId: 'star-4pt',
+        symbol: '✦',
+        x: 18,
+        y: 12,
+        size: 20,
+        rotation: -8,
+        color: '#fbcfe8'
+      },
+      {
+        id: 'init-stk-2',
+        stickerId: 'star-gold',
+        symbol: '⭐',
+        x: 82,
+        y: 14,
+        size: 18,
+        rotation: 12,
+        color: '#fef08a'
+      }
+    ],
+    text: INITIAL_TEXT_CONFIG
+  });
+
+  // Active selected sticker for rotation/size inspector
+  const [selectedStickerId, setSelectedStickerId] = useState<string | null>('init-stk-1');
+
+  // Calculate live dynamic price
+  const priceBreakdown = calculatePrice(customizerState);
+
+  // State update handlers
+  const handleUpdateState = (updates: Partial<CustomizerState>) => {
+    setCustomizerState((prev) => ({ ...prev, ...updates }));
+  };
+
+  const handleUpdateStickerPosition = (id: string, x: number, y: number) => {
+    setCustomizerState((prev) => ({
+      ...prev,
+      stickers: prev.stickers.map((s) => (s.id === id ? { ...s, x, y } : s))
+    }));
+  };
+
+  const handleUpdateTextPosition = (x: number, y: number) => {
+    setCustomizerState((prev) => ({
+      ...prev,
+      text: { ...prev.text, x, y }
+    }));
+  };
+
+  const handleSelectTier = (tier: CustomizationTier) => {
+    // If selecting BASIC, clean up items not supported in BASIC
+    if (tier === 'BASIC') {
+      setCustomizerState((prev) => ({
+        ...prev,
+        tier,
+        backgroundId: 'bg-transparent',
+        customBgUrl: null,
+        stickers: [],
+        text: { ...prev.text, content: '' }
+      }));
+    } else {
+      setCustomizerState((prev) => ({
+        ...prev,
+        tier
+      }));
+    }
+    setCurrentView('customizer');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  return (
+    <div className="min-h-screen bg-[#0b0d13] text-[#e6e8ee] flex flex-col selection:bg-pink-500 selection:text-white pb-16 lg:pb-0">
+      
+      {/* Top Navigation */}
+      <Navbar
+        currentView={currentView}
+        onNavigate={(view) => {
+          setCurrentView(view);
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+        tier={customizerState.tier}
+        totalPrice={priceBreakdown.totalPrice}
+      />
+
+      {/* Main View Router */}
+      <main className="flex-1">
+        
+        {/* VIEW 1: HOME LANDING PAGE */}
+        {currentView === 'home' && (
+          <HeroSection
+            onStartCustomizing={() => {
+              setCurrentView('tiers');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            onOpenHowItWorks={() => setIsHowItWorksOpen(true)}
+          />
+        )}
+
+        {/* VIEW 2: TIER SELECTOR */}
+        {currentView === 'tiers' && (
+          <TierSelector
+            currentTier={customizerState.tier}
+            onSelectTier={handleSelectTier}
+            onBackToHome={() => {
+              setCurrentView('home');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          />
+        )}
+
+        {/* VIEW 3: CORE CUSTOMIZER (3-COLUMN DESKTOP / STACKED MOBILE) */}
+        {currentView === 'customizer' && (
+          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 space-y-6">
+            
+            {/* Top customizer breadcrumb bar */}
+            <div className="flex flex-col sm:flex-row items-start sm:items-center justify-between gap-3 p-3.5 rounded-2xl bg-white/[0.02] border border-white/10">
+              <div className="flex items-center gap-2">
+                <span className="text-xs font-mono px-2.5 py-1 rounded-md bg-pink-500/20 text-pink-300 font-bold border border-pink-500/30">
+                  {customizerState.tier} 方案
+                </span>
+                <span className="text-xs text-slate-300 font-medium">
+                  {customizerState.tier === 'BASIC'
+                    ? '基本款：僅開放框型與邊緣顏色'
+                    : customizerState.tier === 'CUSTOM'
+                    ? '主題款：開放框型、顏色、背景、貼飾與文字'
+                    : '高度客製：全功能解鎖、小卡上傳、自由拖曳擺放'}
+                </span>
+              </div>
+
+              <button
+                onClick={() => setCurrentView('tiers')}
+                className="text-xs text-slate-400 hover:text-pink-300 transition-colors underline underline-offset-4"
+              >
+                更換客製化程度方案 →
+              </button>
+            </div>
+
+            {/* Main 3-Column Studio Grid */}
+            <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
+              
+              {/* Column 1: Left Tools (4 cols) */}
+              <div className="lg:col-span-4 order-2 lg:order-1 h-[620px] lg:sticky lg:top-24">
+                <CustomizerTools
+                  state={customizerState}
+                  onUpdateState={handleUpdateState}
+                  onUpgradeTier={handleSelectTier}
+                  selectedStickerId={selectedStickerId}
+                  onSelectSticker={setSelectedStickerId}
+                />
+              </div>
+
+              {/* Column 2: Center Acrylic Frame Live Preview (4 cols) */}
+              <div className="lg:col-span-4 order-1 lg:order-2 flex flex-col items-center justify-center min-h-[500px] lg:sticky lg:top-24">
+                <AcrylicFramePreview
+                  state={customizerState}
+                  onUpdateStickerPosition={handleUpdateStickerPosition}
+                  selectedStickerId={selectedStickerId}
+                  onSelectSticker={setSelectedStickerId}
+                  onUpdateTextPosition={handleUpdateTextPosition}
+                  interactive={true}
+                />
+              </div>
+
+              {/* Column 3: Right Summary & Live Pricing (4 cols) */}
+              <div className="hidden lg:block lg:col-span-4 order-3 h-[580px] lg:sticky lg:top-24">
+                <PriceSummary
+                  state={customizerState}
+                  priceBreakdown={priceBreakdown}
+                  onFinishDesign={() => {
+                    setCurrentView('confirmation');
+                    window.scrollTo({ top: 0, behavior: 'smooth' });
+                  }}
+                />
+              </div>
+
+            </div>
+
+            {/* Mobile Bottom Sticky Bar */}
+            <MobileStickyBar
+              priceBreakdown={priceBreakdown}
+              onFinishDesign={() => {
+                setCurrentView('confirmation');
+                window.scrollTo({ top: 0, behavior: 'smooth' });
+              }}
+            />
+
+          </div>
+        )}
+
+        {/* VIEW 4: DESIGN CONFIRMATION & MOCKUP SHOWCASE */}
+        {currentView === 'confirmation' && (
+          <DesignConfirmation
+            state={customizerState}
+            priceBreakdown={priceBreakdown}
+            onModifyDesign={() => {
+              setCurrentView('customizer');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+            onChangeTier={() => {
+              setCurrentView('tiers');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          />
+        )}
+
+        {/* VIEW 5: ABOUT & PROTOTYPE CONCEPT */}
+        {currentView === 'about' && (
+          <AboutSection
+            onStartCustomizing={() => {
+              setCurrentView('tiers');
+              window.scrollTo({ top: 0, behavior: 'smooth' });
+            }}
+          />
+        )}
+
+      </main>
+
+      {/* How it works guide modal */}
+      <HowItWorksModal
+        isOpen={isHowItWorksOpen}
+        onClose={() => setIsHowItWorksOpen(false)}
+        onStartCustomizing={() => {
+          setIsHowItWorksOpen(false);
+          setCurrentView('tiers');
+          window.scrollTo({ top: 0, behavior: 'smooth' });
+        }}
+      />
+
+      {/* Clean Footer */}
+      <footer className="mt-auto border-t border-white/10 bg-[#090a0f] py-8 text-center text-xs text-slate-500">
+        <div className="max-w-7xl mx-auto px-4 space-y-2">
+          <p className="font-medium text-slate-400">
+            LUMINA FRAME · K-pop / 二次元收藏小卡客製化展示框互動平台
+          </p>
+          <p className="text-[11px] text-slate-600">
+            企管系畢業專題 MVP 研究 Prototype ‧ 專利打樣與展示概念 ‧ 規格與價格均為暫定測試資料
+          </p>
+        </div>
+      </footer>
+
+    </div>
+  );
+};
+export default App;

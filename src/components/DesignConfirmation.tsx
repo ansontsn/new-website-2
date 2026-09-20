@@ -1,0 +1,195 @@
+import React, { useEffect } from 'react';
+import { CustomizerState, PriceBreakdown } from '../types';
+import { FRAME_OPTIONS, FRAME_COLOR_OPTIONS, BACKGROUND_OPTIONS } from '../data/options';
+import { AcrylicFramePreview } from './AcrylicFramePreview';
+import { CheckCircle2, Download, RotateCcw, Layers, Share2, Info } from 'lucide-react';
+import confetti from 'canvas-confetti';
+
+interface DesignConfirmationProps {
+  state: CustomizerState;
+  priceBreakdown: PriceBreakdown;
+  onModifyDesign: () => void;
+  onChangeTier: () => void;
+}
+
+export const DesignConfirmation: React.FC<DesignConfirmationProps> = ({
+  state,
+  priceBreakdown,
+  onModifyDesign,
+  onChangeTier
+}) => {
+  // Fire celebratory confetti on mount
+  useEffect(() => {
+    confetti({
+      particleCount: 80,
+      spread: 70,
+      origin: { y: 0.6 }
+    });
+  }, []);
+
+  const frameOpt = FRAME_OPTIONS.find(f => f.id === state.frameStyleId) || FRAME_OPTIONS[0];
+  const colorOpt = FRAME_COLOR_OPTIONS.find(c => c.id === state.frameColorId) || FRAME_COLOR_OPTIONS[0];
+  const bgOpt = BACKGROUND_OPTIONS.find(b => b.id === state.backgroundId) || BACKGROUND_OPTIONS[0];
+
+  const handleDownloadMockup = () => {
+    alert('【展示框設計已保存】\n您設計的專屬小卡壓克力展示框規格已記錄，此為 Prototype 概念預覽！');
+  };
+
+  return (
+    <div className="py-10 px-4 sm:px-6 lg:px-8 max-w-5xl mx-auto space-y-10">
+      
+      {/* Top Banner */}
+      <div className="text-center space-y-3">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-semibold text-emerald-400">
+          <CheckCircle2 className="w-4 h-4" />
+          <span>設計已完成 · DESIGN COMPLETED</span>
+        </div>
+        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+          你的專屬收藏展示框已就緒
+        </h1>
+        <p className="text-sm text-slate-400 max-w-xl mx-auto">
+          依據您選擇的客製化程度與各項細節，我們已完成專屬壓克力展示框的即時打樣預覽與預估報價。
+        </p>
+      </div>
+
+      {/* Main Showcase Grid */}
+      <div className="grid grid-cols-1 lg:grid-cols-12 gap-8 items-center">
+        
+        {/* Left: Finished Acrylic Frame Preview */}
+        <div className="lg:col-span-6 flex flex-col items-center">
+          <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 w-full flex justify-center">
+            <AcrylicFramePreview state={state} interactive={false} />
+          </div>
+
+          <div className="flex items-center gap-3 mt-4 w-full max-w-sm">
+            <button
+              onClick={handleDownloadMockup}
+              className="flex-1 py-2.5 px-4 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-all flex items-center justify-center gap-2"
+            >
+              <Download className="w-3.5 h-3.5 text-pink-400" />
+              <span>保存成品資訊</span>
+            </button>
+            <button
+              onClick={() => {
+                navigator.clipboard?.writeText(window.location.href);
+                alert('已複製展示連結！');
+              }}
+              className="py-2.5 px-4 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-all flex items-center gap-1.5"
+            >
+              <Share2 className="w-3.5 h-3.5" />
+              <span>分享</span>
+            </button>
+          </div>
+        </div>
+
+        {/* Right: Specifications & Pricing Summary */}
+        <div className="lg:col-span-6 space-y-6">
+          <div className="p-6 rounded-3xl bg-[#12141c]/90 border border-white/10 shadow-2xl space-y-5">
+            
+            <div className="flex items-center justify-between pb-3 border-b border-white/10">
+              <div>
+                <span className="text-[10px] uppercase font-mono tracking-widest text-pink-400 block">
+                  SELECTED TIER
+                </span>
+                <h3 className="text-xl font-black text-white mt-0.5">
+                  {state.tier === 'BASIC' ? 'BASIC 基本客製款' : state.tier === 'CUSTOM' ? 'CUSTOM 主題客製款' : 'PREMIUM 高度客製款'}
+                </h3>
+              </div>
+              <span className="text-xs font-mono px-3 py-1 rounded-full bg-pink-500/10 text-pink-300 border border-pink-500/30">
+                PROTOTYPE
+              </span>
+            </div>
+
+            {/* Spec Breakdown */}
+            <div className="space-y-2.5 text-xs">
+              <div className="flex justify-between py-1 border-b border-white/5">
+                <span className="text-slate-400">壓克力框型</span>
+                <span className="font-semibold text-slate-200">{frameOpt.name}</span>
+              </div>
+
+              <div className="flex justify-between py-1 border-b border-white/5">
+                <span className="text-slate-400">框體外觀色</span>
+                <span className="font-semibold text-slate-200 flex items-center gap-1.5">
+                  <span className="w-2.5 h-2.5 rounded-full border border-white/30" style={{ background: colorOpt.hex }} />
+                  {colorOpt.name}
+                </span>
+              </div>
+
+              <div className="flex justify-between py-1 border-b border-white/5">
+                <span className="text-slate-400">背景視覺</span>
+                <span className="font-semibold text-slate-200">
+                  {state.tier === 'BASIC' ? '原色透亮' : bgOpt.name}
+                </span>
+              </div>
+
+              <div className="flex justify-between py-1 border-b border-white/5">
+                <span className="text-slate-400">裝飾配件</span>
+                <span className="font-semibold text-slate-200">
+                  {state.tier === 'BASIC' ? '無' : `${state.stickers.length} 枚`}
+                </span>
+              </div>
+
+              <div className="flex justify-between py-1 border-b border-white/5">
+                <span className="text-slate-400">雷雕刻字</span>
+                <span className="font-semibold text-slate-200">
+                  {state.tier === 'BASIC' || !state.text.content ? '無' : state.text.content}
+                </span>
+              </div>
+
+              <div className="flex justify-between py-1">
+                <span className="text-slate-400">小卡裝框效果</span>
+                <span className="font-semibold text-slate-200">
+                  {state.isCustomPhoto ? '個人小卡模擬' : state.photocardUrl ? '示範卡模擬預覽' : '純空框展示'}
+                </span>
+              </div>
+            </div>
+
+            {/* Price Box */}
+            <div className="p-4 rounded-2xl bg-gradient-to-tr from-pink-500/10 via-purple-500/10 to-transparent border border-pink-500/30 flex items-center justify-between">
+              <div>
+                <span className="text-xs text-slate-400 block">動態計算預估總額</span>
+                <span className="text-[11px] text-pink-400">
+                  含基礎方案與 {priceBreakdown.addons.length} 項客製加選
+                </span>
+              </div>
+              <div className="text-right">
+                <span className="text-3xl font-black text-white font-mono bg-gradient-to-r from-pink-400 to-purple-300 bg-clip-text text-transparent">
+                  NT${priceBreakdown.totalPrice}
+                </span>
+              </div>
+            </div>
+
+            <div className="flex items-start gap-2 text-[11px] text-slate-400">
+              <Info className="w-4 h-4 text-slate-500 flex-shrink-0 mt-0.5" />
+              <p>
+                本網站為企管系畢業專題開發之互動式 Prototype。實體商品為客製壓克力展示框（出貨不含小卡）。所有規格與價格僅為概念樣品參考，不涉及真實金流與購買。
+              </p>
+            </div>
+
+            {/* Action Buttons */}
+            <div className="grid grid-cols-2 gap-3 pt-2">
+              <button
+                onClick={onModifyDesign}
+                className="py-3 px-4 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white transition-all flex items-center justify-center gap-1.5"
+              >
+                <RotateCcw className="w-3.5 h-3.5" />
+                <span>返回修改設計</span>
+              </button>
+
+              <button
+                onClick={onChangeTier}
+                className="py-3 px-4 rounded-xl text-xs font-bold bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg shadow-pink-500/20 transition-all flex items-center justify-center gap-1.5"
+              >
+                <Layers className="w-3.5 h-3.5" />
+                <span>切換其他方案</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+    </div>
+  );
+};
