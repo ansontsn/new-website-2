@@ -12,6 +12,8 @@ import { DesignConfirmation } from './components/DesignConfirmation';
 import { HowItWorksModal } from './components/HowItWorksModal';
 import { AboutSection } from './components/AboutSection';
 import { MobileStickyBar } from './components/MobileStickyBar';
+import { Download, Loader2 } from 'lucide-react';
+import { toPng } from 'html-to-image';
 
 export const App: React.FC = () => {
   // Navigation View State
@@ -97,6 +99,39 @@ export const App: React.FC = () => {
     }
     setCurrentView('customizer');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
+
+  const [isDownloadingLive, setIsDownloadingLive] = useState(false);
+
+  const handleDownloadLiveMockup = async () => {
+    setSelectedStickerId(null);
+    setIsDownloadingLive(true);
+    try {
+      await new Promise(r => setTimeout(r, 120));
+      const node = document.getElementById('acrylic-display-frame');
+      if (!node) {
+        alert('找不到展示框元件，請重新整理頁面。');
+        return;
+      }
+
+      const dataUrl = await toPng(node, {
+        quality: 0.98,
+        pixelRatio: 2.5,
+        cacheBust: true,
+      });
+
+      const link = document.createElement('a');
+      link.download = `LUMINA-FRAME-${customizerState.tier}-${Date.now()}.png`;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+    } catch (err) {
+      console.error('Download live error:', err);
+      alert('圖片生成失敗，請稍候重試！');
+    } finally {
+      setIsDownloadingLive(false);
+    }
   };
 
   return (
@@ -190,6 +225,24 @@ export const App: React.FC = () => {
                   onUpdateTextPosition={handleUpdateTextPosition}
                   interactive={true}
                 />
+                <button
+                  onClick={handleDownloadLiveMockup}
+                  disabled={isDownloadingLive}
+                  className="mt-3.5 py-2 px-4 rounded-full text-xs font-semibold bg-white/5 hover:bg-white/10 text-slate-300 hover:text-white border border-white/10 hover:border-pink-500/40 transition-all flex items-center gap-2 shadow-sm disabled:opacity-50"
+                  title="匯出當前卡框高畫質 PNG 圖片"
+                >
+                  {isDownloadingLive ? (
+                    <>
+                      <Loader2 className="w-3.5 h-3.5 animate-spin text-pink-400" />
+                      <span>正在生成圖片...</span>
+                    </>
+                  ) : (
+                    <>
+                      <Download className="w-3.5 h-3.5 text-pink-400" />
+                      <span>下載目前展示框相片 (PNG)</span>
+                    </>
+                  )}
+                </button>
               </div>
 
               {/* Column 3: Right Summary & Live Pricing (4 cols) */}

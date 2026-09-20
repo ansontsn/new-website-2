@@ -1,9 +1,10 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import { CustomizerState, PriceBreakdown } from '../types';
 import { FRAME_OPTIONS, FRAME_COLOR_OPTIONS, BACKGROUND_OPTIONS } from '../data/options';
 import { AcrylicFramePreview } from './AcrylicFramePreview';
-import { CheckCircle2, Download, RotateCcw, Layers, Share2, Info } from 'lucide-react';
+import { CheckCircle2, Download, RotateCcw, Layers, Share2, Info, Loader2 } from 'lucide-react';
 import confetti from 'canvas-confetti';
+import { toPng } from 'html-to-image';
 
 interface DesignConfirmationProps {
   state: CustomizerState;
@@ -18,6 +19,10 @@ export const DesignConfirmation: React.FC<DesignConfirmationProps> = ({
   onModifyDesign,
   onChangeTier
 }) => {
+  const previewContainerRef = useRef<HTMLDivElement>(null);
+  const [isDownloading, setIsDownloading] = useState(false);
+  const [downloadSuccess, setDownloadSuccess] = useState(false);
+
   // Fire celebratory confetti on mount
   useEffect(() => {
     confetti({
@@ -31,8 +36,39 @@ export const DesignConfirmation: React.FC<DesignConfirmationProps> = ({
   const colorOpt = FRAME_COLOR_OPTIONS.find(c => c.id === state.frameColorId) || FRAME_COLOR_OPTIONS[0];
   const bgOpt = BACKGROUND_OPTIONS.find(b => b.id === state.backgroundId) || BACKGROUND_OPTIONS[0];
 
-  const handleDownloadMockup = () => {
-    alert('【展示框設計已保存】\n您設計的專屬小卡壓克力展示框規格已記錄，此為 Prototype 概念預覽！');
+  const handleDownloadMockup = async () => {
+    const node = previewContainerRef.current?.querySelector<HTMLElement>('#acrylic-display-frame');
+    if (!node) {
+      alert('找不到展示框元件，請重新整理頁面。');
+      return;
+    }
+
+    setIsDownloading(true);
+    try {
+      // Small delay to ensure all assets/fonts are stable
+      await new Promise(r => setTimeout(r, 120));
+
+      const dataUrl = await toPng(node, {
+        quality: 0.98,
+        pixelRatio: 2.5, // High resolution output
+        cacheBust: true,
+      });
+
+      const link = document.createElement('a');
+      link.download = `LUMINA-FRAME-${state.tier}-${Date.now()}.png`;
+      link.href = dataUrl;
+      document.body.appendChild(link);
+      link.click();
+      document.body.removeChild(link);
+
+      setDownloadSuccess(true);
+      setTimeout(() => setDownloadSuccess(false), 3000);
+    } catch (err) {
+      console.error('Download error:', err);
+      alert('圖片匯出失敗，請確認瀏覽器支援 Canvas 繪製。');
+    } finally {
+      setIsDownloading(false);
+    }
   };
 
   return (
@@ -57,24 +93,39 @@ export const DesignConfirmation: React.FC<DesignConfirmationProps> = ({
         
         {/* Left: Finished Acrylic Frame Preview */}
         <div className="lg:col-span-6 flex flex-col items-center">
-          <div className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 w-full flex justify-center">
+          <div ref={previewContainerRef} className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 w-full flex justify-center">
             <AcrylicFramePreview state={state} interactive={false} />
           </div>
 
           <div className="flex items-center gap-3 mt-4 w-full max-w-sm">
             <button
               onClick={handleDownloadMockup}
-              className="flex-1 py-2.5 px-4 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white border border-white/15 transition-all flex items-center justify-center gap-2"
+              disabled={isDownloading}
+              className="flex-1 py-3 px-4 rounded-xl text-xs font-bold bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg shadow-pink-500/20 transition-all flex items-center justify-center gap-2 disabled:opacity-50"
             >
-              <Download className="w-3.5 h-3.5 text-pink-400" />
-              <span>保存成品資訊</span>
+              {isDownloading ? (
+                <>
+                  <Loader2 className="w-4 h-4 animate-spin" />
+                  <span>正在生成高畫質相片...</span>
+                </>
+              ) : downloadSuccess ? (
+                <>
+                  <CheckCircle2 className="w-4 h-4 text-emerald-300" />
+                  <span>相片已成功下載！</span>
+                </>
+              ) : (
+                <>
+                  <Download className="w-4 h-4" />
+                  <span>下載展示框照片 (PNG)</span>
+                </>
+              )}
             </button>
             <button
               onClick={() => {
                 navigator.clipboard?.writeText(window.location.href);
                 alert('已複製展示連結！');
               }}
-              className="py-2.5 px-4 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-all flex items-center gap-1.5"
+              className="py-3 px-4 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-all flex items-center gap-1.5"
             >
               <Share2 className="w-3.5 h-3.5" />
               <span>分享</span>

@@ -304,7 +304,7 @@ export const PRESET_PHOTOCARDS = [
 ];
 
 export const INITIAL_TEXT_CONFIG: TextConfig = {
-  content: 'LOVE WONYOUNG',
+  content: '',
   font: 'Outfit',
   fontSize: 18,
   color: '#ffffff',
