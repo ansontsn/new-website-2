@@ -5,6 +5,9 @@ import {
   StickerOption,
   TextConfig
 } from '../types';
+import kpopSample from '../assets/cards/kpop.jpg';
+import animeSample from '../assets/cards/anime.jpg';
+import gameSample from '../assets/cards/game.jpg';
 
 export const FRAME_OPTIONS: FrameOption[] = [
   {
@@ -275,25 +278,28 @@ export const FONT_OPTIONS = [
   { id: 'Noto Sans TC', name: '洗鍊黑體 (Noto Sans)', fontClass: "font-['Noto_Sans_TC',sans-serif]", isSpecial: false }
 ];
 
-// Presets for offline demo cards (Pure SVG data URLs)
+// Presets for offline demo cards (User-provided real photos)
 export const PRESET_PHOTOCARDS = [
   {
     id: 'kpop-sample',
-    name: '示範 A: K-pop 舞台小卡 (Wonyoung Vibe)',
-    category: 'K-pop',
-    url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 450' width='300' height='450'%3E%3Cdefs%3E%3ClinearGradient id='g1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23fda4af'/%3E%3Cstop offset='50%25' stop-color='%23f43f5e'/%3E%3Cstop offset='100%25' stop-color='%23881337'/%3E%3C/linearGradient%3E%3ClinearGradient id='g2' x1='0%25' y1='100%25' x2='100%25' y2='0%25'%3E%3Cstop offset='0%25' stop-color='%23000000' stop-opacity='0.6'/%3E%3Cstop offset='100%25' stop-color='%23ffffff' stop-opacity='0.2'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='300' height='450' fill='url(%23g1)'/%3E%3Ccircle cx='150' cy='180' r='90' fill='%23ffe4e6' opacity='0.9'/%3E%3Ccircle cx='150' cy='160' r='55' fill='%23f43f5e'/%3E%3Cpath d='M100 240 Q150 210 200 240 L220 320 L80 320 Z' fill='%23be123c'/%3E%3Ctext x='150' y='360' font-family='sans-serif' font-weight='800' font-size='22' fill='%23ffffff' text-anchor='middle' letter-spacing='2'%3EIVE WONYOUNG%3C/text%3E%3Ctext x='150' y='390' font-family='sans-serif' font-weight='600' font-size='13' fill='%23ffe4e6' text-anchor='middle' letter-spacing='4'%3ESPECIAL EDITION%3C/text%3E%3Crect width='300' height='450' fill='url(%23g2)'/%3E%3C/svg%3E"
+    name: 'KPOP風格',
+    category: 'KPOP風格',
+    desc: '韓系偶像小卡',
+    url: kpopSample
   },
   {
     id: 'anime-sample',
-    name: '示範 B: 二次元熱血動漫 (Gojo Satoru Vibe)',
-    category: '二次元動漫',
-    url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 450' width='300' height='450'%3E%3Cdefs%3E%3ClinearGradient id='ag1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%230284c7'/%3E%3Cstop offset='50%25' stop-color='%230f172a'/%3E%3Cstop offset='100%25' stop-color='%2338bdf8'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='300' height='450' fill='url(%23ag1)'/%3E%3Ccircle cx='150' cy='180' r='85' fill='%2338bdf8' opacity='0.3'/%3E%3Ccircle cx='150' cy='180' r='60' fill='%23ffffff'/%3E%3Crect x='110' y='160' width='80' height='20' rx='5' fill='%230f172a'/%3E%3Ctext x='150' y='360' font-family='sans-serif' font-weight='900' font-size='24' fill='%23ffffff' text-anchor='middle' letter-spacing='3'%3ELIMITLESS ✦%3C/text%3E%3Ctext x='150' y='390' font-family='sans-serif' font-weight='500' font-size='12' fill='%2394a3b8' text-anchor='middle' letter-spacing='4'%3ESPECIAL GRADE COLLECTIBLE%3C/text%3E%3C/svg%3E"
+    name: '二次元風格',
+    category: '二次元風格',
+    desc: '日系動漫角色',
+    url: animeSample
   },
   {
     id: 'game-sample',
-    name: '示範 C: 電競手遊限定角色 (Cyber Gold)',
-    category: '手遊電競',
-    url: "data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 300 450' width='300' height='450'%3E%3Cdefs%3E%3ClinearGradient id='gg1' x1='0%25' y1='0%25' x2='100%25' y2='100%25'%3E%3Cstop offset='0%25' stop-color='%23eab308'/%3E%3Cstop offset='50%25' stop-color='%23713f12'/%3E%3Cstop offset='100%25' stop-color='%23000000'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='300' height='450' fill='url(%23gg1)'/%3E%3Cpolygon points='150,90 210,210 90,210' fill='%23fef08a' opacity='0.8'/%3E%3Ccircle cx='150' cy='180' r='30' fill='%23ca8a04'/%3E%3Ctext x='150' y='355' font-family='sans-serif' font-weight='800' font-size='22' fill='%23fef08a' text-anchor='middle' letter-spacing='2'%3ESS RARE CARD%3C/text%3E%3Ctext x='150' y='385' font-family='sans-serif' font-weight='600' font-size='12' fill='%23ca8a04' text-anchor='middle' letter-spacing='4'%3ECHAMPION RANK%3C/text%3E%3C/svg%3E"
+    name: '遊戲風格',
+    category: '遊戲風格',
+    desc: '遊戲卡牌收藏',
+    url: gameSample
   }
 ];
 

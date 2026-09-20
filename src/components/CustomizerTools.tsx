@@ -320,10 +320,10 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                       />
                       <div className="min-w-0">
                         <span className="text-xs font-bold text-slate-200 block truncate">
-                          {preset.category}
+                          {preset.name}
                         </span>
                         <span className="text-[10px] text-pink-300 truncate block mt-0.5">
-                          {preset.name.split(':')[1]?.trim() || '風格展示'}
+                          {(preset as any).desc || '示範小卡'}
                         </span>
                       </div>
                     </button>
