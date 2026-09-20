@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import { CustomizerState, PriceBreakdown } from '../types';
 import { FRAME_OPTIONS, FRAME_COLOR_OPTIONS, BACKGROUND_OPTIONS } from '../data/options';
 import { AcrylicFramePreview } from './AcrylicFramePreview';
 import { CheckCircle2, Download, RotateCcw, Layers, Share2, Info, Loader2 } from 'lucide-react';
-import confetti from 'canvas-confetti';
 import { toPng } from 'html-to-image';
 
 interface DesignConfirmationProps {
@@ -22,15 +21,6 @@ export const DesignConfirmation: React.FC<DesignConfirmationProps> = ({
   const previewContainerRef = useRef<HTMLDivElement>(null);
   const [isDownloading, setIsDownloading] = useState(false);
   const [downloadSuccess, setDownloadSuccess] = useState(false);
-
-  // Fire celebratory confetti on mount
-  useEffect(() => {
-    confetti({
-      particleCount: 80,
-      spread: 70,
-      origin: { y: 0.6 }
-    });
-  }, []);
 
   const frameOpt = FRAME_OPTIONS.find(f => f.id === state.frameStyleId) || FRAME_OPTIONS[0];
   const colorOpt = FRAME_COLOR_OPTIONS.find(c => c.id === state.frameColorId) || FRAME_COLOR_OPTIONS[0];
