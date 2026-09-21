@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { CustomizationTier, CustomizerState } from './types';
 import { PRESET_PHOTOCARDS, INITIAL_TEXT_CONFIG } from './data/options';
 import { calculatePrice } from './utils/pricing';
-import { Navbar } from './components/Navbar';
+import { AppView, Navbar } from './components/Navbar';
 import { HeroSection } from './components/HeroSection';
 import { TierSelector } from './components/TierSelector';
 import { CustomizerTools } from './components/CustomizerTools';
@@ -12,13 +12,55 @@ import { DesignConfirmation } from './components/DesignConfirmation';
 import { HowItWorksModal } from './components/HowItWorksModal';
 import { AboutSection } from './components/AboutSection';
 import { MobileStickyBar } from './components/MobileStickyBar';
+import { SubmitDesignModal } from './components/SubmitDesignModal';
+import { SubmissionSuccessView } from './components/SubmissionSuccessView';
+import { AdminDashboard } from './components/admin/AdminDashboard';
+import { DesignSubmission } from './types';
 import { Download, Loader2, Sparkles } from 'lucide-react';
 import { toPng } from 'html-to-image';
 
 export const App: React.FC = () => {
-  // Navigation View State
-  const [currentView, setCurrentView] = useState<'home' | 'tiers' | 'customizer' | 'confirmation' | 'about'>('home');
+  // Navigation View State (URL Sync)
+  const getInitialView = (): AppView => {
+    if (typeof window !== 'undefined') {
+      if (window.location.pathname.startsWith('/admin') || window.location.hash === '#admin') {
+        return 'admin';
+      }
+    }
+    return 'home';
+  };
+
+  const [currentView, setCurrentView] = useState<AppView>(getInitialView);
   const [isHowItWorksOpen, setIsHowItWorksOpen] = useState(false);
+  const [isSubmitModalOpen, setIsSubmitModalOpen] = useState(false);
+  const [lastSubmission, setLastSubmission] = useState<DesignSubmission | null>(null);
+
+  // Sync URL with browser back/forward
+  React.useEffect(() => {
+    const onPopState = () => {
+      if (window.location.pathname.startsWith('/admin') || window.location.hash === '#admin') {
+        setCurrentView('admin');
+      } else if (currentView === 'admin') {
+        setCurrentView('home');
+      }
+    };
+    window.addEventListener('popstate', onPopState);
+    return () => window.removeEventListener('popstate', onPopState);
+  }, [currentView]);
+
+  const handleNavigate = (view: AppView) => {
+    setCurrentView(view);
+    if (view === 'admin') {
+      if (window.location.pathname !== '/admin') {
+        window.history.pushState(null, '', '/admin');
+      }
+    } else {
+      if (window.location.pathname === '/admin') {
+        window.history.pushState(null, '', '/');
+      }
+    }
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   // Core Customizer State
   const [customizerState, setCustomizerState] = useState<CustomizerState>({
@@ -137,20 +179,16 @@ export const App: React.FC = () => {
   return (
     <div className="min-h-screen bg-[#FAF8F5] text-slate-800 flex flex-col selection:bg-pink-500 selection:text-white pb-32 lg:pb-0">
       
-      {/* Top Navigation */}
-      <Navbar
-        currentView={currentView}
-        onNavigate={(view) => {
-          setCurrentView(view);
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-        tier={customizerState.tier}
-        totalPrice={priceBreakdown.totalPrice}
-        onFinishDesign={() => {
-          setCurrentView('confirmation');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
-        }}
-      />
+      {/* Top Navigation (Hidden in Admin view to allow dedicated admin layout) */}
+      {currentView !== 'admin' && (
+        <Navbar
+          currentView={currentView}
+          onNavigate={handleNavigate}
+          tier={customizerState.tier}
+          totalPrice={priceBreakdown.totalPrice}
+          onFinishDesign={() => handleNavigate('confirmation')}
+        />
+      )}
 
       {/* Main View Router */}
       <main className="flex-1">
@@ -158,10 +196,7 @@ export const App: React.FC = () => {
         {/* VIEW 1: HOME LANDING PAGE */}
         {currentView === 'home' && (
           <HeroSection
-            onStartCustomizing={() => {
-              setCurrentView('tiers');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onStartCustomizing={() => handleNavigate('tiers')}
             onOpenHowItWorks={() => setIsHowItWorksOpen(true)}
           />
         )}
@@ -171,10 +206,7 @@ export const App: React.FC = () => {
           <TierSelector
             currentTier={customizerState.tier}
             onSelectTier={handleSelectTier}
-            onBackToHome={() => {
-              setCurrentView('home');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onBackToHome={() => handleNavigate('home')}
           />
         )}
 
@@ -198,7 +230,7 @@ export const App: React.FC = () => {
               </div>
 
               <button
-                onClick={() => setCurrentView('tiers')}
+                onClick={() => handleNavigate('tiers')}
                 className="text-xs text-slate-500 hover:text-pink-600 transition-colors underline underline-offset-4"
               >
                 更換客製化程度方案 →
@@ -250,10 +282,7 @@ export const App: React.FC = () => {
                   </button>
 
                   <button
-                    onClick={() => {
-                      setCurrentView('confirmation');
-                      window.scrollTo({ top: 0, behavior: 'smooth' });
-                    }}
+                    onClick={() => handleNavigate('confirmation')}
                     className="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-md shadow-pink-500/20 transition-all flex items-center justify-center gap-1.5 active:scale-95"
                   >
                     <Sparkles className="w-3.5 h-3.5" />
@@ -267,10 +296,7 @@ export const App: React.FC = () => {
                 <PriceSummary
                   state={customizerState}
                   priceBreakdown={priceBreakdown}
-                  onFinishDesign={() => {
-                    setCurrentView('confirmation');
-                    window.scrollTo({ top: 0, behavior: 'smooth' });
-                  }}
+                  onFinishDesign={() => handleNavigate('confirmation')}
                 />
               </div>
 
@@ -279,10 +305,7 @@ export const App: React.FC = () => {
             {/* Mobile Bottom Sticky Bar */}
             <MobileStickyBar
               priceBreakdown={priceBreakdown}
-              onFinishDesign={() => {
-                setCurrentView('confirmation');
-                window.scrollTo({ top: 0, behavior: 'smooth' });
-              }}
+              onFinishDesign={() => handleNavigate('confirmation')}
             />
 
           </div>
@@ -293,28 +316,48 @@ export const App: React.FC = () => {
           <DesignConfirmation
             state={customizerState}
             priceBreakdown={priceBreakdown}
-            onModifyDesign={() => {
-              setCurrentView('customizer');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
-            onChangeTier={() => {
-              setCurrentView('tiers');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
-            }}
+            onModifyDesign={() => handleNavigate('customizer')}
+            onChangeTier={() => handleNavigate('tiers')}
+            onSubmitDesign={() => setIsSubmitModalOpen(true)}
           />
         )}
 
         {/* VIEW 5: ABOUT & PROTOTYPE CONCEPT */}
         {currentView === 'about' && (
           <AboutSection
-            onStartCustomizing={() => {
-              setCurrentView('tiers');
-              window.scrollTo({ top: 0, behavior: 'smooth' });
+            onStartCustomizing={() => handleNavigate('tiers')}
+          />
+        )}
+
+        {/* VIEW 6: SUBMISSION SUCCESS SCREEN */}
+        {currentView === 'success' && lastSubmission && (
+          <SubmissionSuccessView
+            submission={lastSubmission}
+            onReset={() => {
+              setLastSubmission(null);
+              handleNavigate('home');
             }}
           />
         )}
 
+        {/* VIEW 7: ADMIN DASHBOARD */}
+        {currentView === 'admin' && (
+          <AdminDashboard onBackToStore={() => handleNavigate('home')} />
+        )}
+
       </main>
+
+      {/* Submit Design Modal Dialog */}
+      <SubmitDesignModal
+        isOpen={isSubmitModalOpen}
+        onClose={() => setIsSubmitModalOpen(false)}
+        state={customizerState}
+        priceBreakdown={priceBreakdown}
+        onSuccess={(submission) => {
+          setLastSubmission(submission);
+          handleNavigate('success');
+        }}
+      />
 
       {/* How it works guide modal */}
       <HowItWorksModal
@@ -322,22 +365,33 @@ export const App: React.FC = () => {
         onClose={() => setIsHowItWorksOpen(false)}
         onStartCustomizing={() => {
           setIsHowItWorksOpen(false);
-          setCurrentView('tiers');
-          window.scrollTo({ top: 0, behavior: 'smooth' });
+          handleNavigate('tiers');
         }}
       />
 
-      {/* Clean Footer */}
-      <footer className="mt-auto border-t border-white/10 bg-[#090a0f] py-8 text-center text-xs text-slate-500">
-        <div className="max-w-7xl mx-auto px-4 space-y-2">
-          <p className="font-medium text-slate-400">
-            LUMINA FRAME · K-pop / 二次元收藏小卡客製化展示框互動平台
-          </p>
-          <p className="text-[11px] text-slate-600">
-            企管系畢業專題 MVP 研究 Prototype ‧ 專利打樣與展示概念 ‧ 規格與價格均為暫定測試資料
-          </p>
-        </div>
-      </footer>
+      {/* Clean Footer (Hidden in Admin view) */}
+      {currentView !== 'admin' && (
+        <footer className="mt-auto border-t border-stone-200 bg-[#FAF8F5]/80 py-8 text-center text-xs text-slate-500">
+          <div className="max-w-7xl mx-auto px-4 space-y-2">
+            <p className="font-semibold text-slate-700">
+              LUMINA FRAME · K-pop / 二次元收藏小卡客製化展示框互動平台
+            </p>
+            <p className="text-[11px] text-slate-500">
+              企管系畢業專題 MVP 研究 Prototype ‧ 專利打樣與展示概念 ‧ 規格與價格均為暫定測試資料
+            </p>
+            <div className="pt-2 flex items-center justify-center gap-3 text-[11px] text-slate-400">
+              <span>© 2026 LUMINA FRAME 畢業專題研究團隊</span>
+              <span>•</span>
+              <button
+                onClick={() => handleNavigate('admin')}
+                className="text-slate-500 hover:text-purple-600 underline underline-offset-2 transition-colors font-medium"
+              >
+                管理者後台 (/admin)
+              </button>
+            </div>
+          </div>
+        </footer>
+      )}
 
     </div>
   );

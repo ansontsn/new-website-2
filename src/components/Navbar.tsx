@@ -1,10 +1,12 @@
 import React from 'react';
-import { Sparkles, Layers } from 'lucide-react';
+import { Sparkles, Layers, ShieldCheck } from 'lucide-react';
 import { CustomizationTier } from '../types';
 
+export type AppView = 'home' | 'tiers' | 'customizer' | 'confirmation' | 'about' | 'success' | 'admin';
+
 interface NavbarProps {
-  currentView: 'home' | 'tiers' | 'customizer' | 'confirmation' | 'about';
-  onNavigate: (view: 'home' | 'tiers' | 'customizer' | 'confirmation' | 'about') => void;
+  currentView: AppView;
+  onNavigate: (view: AppView) => void;
   tier: CustomizationTier;
   totalPrice?: number;
   onFinishDesign?: () => void;
@@ -86,6 +88,17 @@ export const Navbar: React.FC<NavbarProps> = ({
             }`}
           >
             關於概念
+          </button>
+          <button
+            onClick={() => onNavigate('admin')}
+            className={`px-3.5 py-1.5 rounded-full transition-all flex items-center gap-1 ${
+              currentView === 'admin'
+                ? 'bg-white text-purple-600 font-bold shadow-sm border border-purple-200'
+                : 'text-slate-500 hover:text-purple-600 hover:bg-white/60'
+            }`}
+          >
+            <ShieldCheck className="w-3.5 h-3.5" />
+            <span>管理後台</span>
           </button>
         </nav>
 

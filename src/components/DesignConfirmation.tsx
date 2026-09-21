@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { CustomizerState, PriceBreakdown } from '../types';
 import { FRAME_OPTIONS, FRAME_COLOR_OPTIONS, BACKGROUND_OPTIONS } from '../data/options';
 import { AcrylicFramePreview } from './AcrylicFramePreview';
-import { CheckCircle2, Download, RotateCcw, Layers, Share2, Info, Loader2 } from 'lucide-react';
+import { CheckCircle2, Download, RotateCcw, Layers, Share2, Info, Loader2, Send } from 'lucide-react';
 import { toPng } from 'html-to-image';
 
 interface DesignConfirmationProps {
@@ -10,13 +10,15 @@ interface DesignConfirmationProps {
   priceBreakdown: PriceBreakdown;
   onModifyDesign: () => void;
   onChangeTier: () => void;
+  onSubmitDesign?: () => void;
 }
 
 export const DesignConfirmation: React.FC<DesignConfirmationProps> = ({
   state,
   priceBreakdown,
   onModifyDesign,
-  onChangeTier
+  onChangeTier,
+  onSubmitDesign
 }) => {
   const previewContainerRef = useRef<HTMLDivElement>(null);
   const [isDownloading, setIsDownloading] = useState(false);
@@ -208,22 +210,34 @@ export const DesignConfirmation: React.FC<DesignConfirmationProps> = ({
             </div>
 
             {/* Action Buttons */}
-            <div className="grid grid-cols-2 gap-3 pt-2">
-              <button
-                onClick={onModifyDesign}
-                className="py-3 px-4 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white transition-all flex items-center justify-center gap-1.5"
-              >
-                <RotateCcw className="w-3.5 h-3.5" />
-                <span>返回修改設計</span>
-              </button>
+            <div className="space-y-2.5 pt-2">
+              {onSubmitDesign && (
+                <button
+                  onClick={onSubmitDesign}
+                  className="w-full py-4 px-6 rounded-2xl text-sm font-black bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25 hover:shadow-pink-500/40 active:scale-[0.99] transition-all flex items-center justify-center gap-2 group"
+                >
+                  <Send className="w-4 h-4 text-pink-200 group-hover:translate-x-0.5 transition-transform" />
+                  <span>送出我的專屬設計 ➔</span>
+                </button>
+              )}
 
-              <button
-                onClick={onChangeTier}
-                className="py-3 px-4 rounded-xl text-xs font-bold bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg shadow-pink-500/20 transition-all flex items-center justify-center gap-1.5"
-              >
-                <Layers className="w-3.5 h-3.5" />
-                <span>切換其他方案</span>
-              </button>
+              <div className="grid grid-cols-2 gap-2.5">
+                <button
+                  onClick={onModifyDesign}
+                  className="py-3 px-4 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white transition-all flex items-center justify-center gap-1.5"
+                >
+                  <RotateCcw className="w-3.5 h-3.5" />
+                  <span>返回修改設計</span>
+                </button>
+
+                <button
+                  onClick={onChangeTier}
+                  className="py-3 px-4 rounded-xl text-xs font-bold bg-white/10 hover:bg-white/20 text-white transition-all flex items-center justify-center gap-1.5"
+                >
+                  <Layers className="w-3.5 h-3.5" />
+                  <span>切換其他方案</span>
+                </button>
+              </div>
             </div>
 
           </div>

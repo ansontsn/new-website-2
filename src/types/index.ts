@@ -84,3 +84,27 @@ export interface PriceBreakdown {
   addons: PriceItem[];
   totalPrice: number;
 }
+
+export type SubmissionStatus = 'pending' | 'processing' | 'completed' | 'cancelled';
+
+export interface DesignSubmission {
+  id: string;
+  submission_code: string;
+  created_at: string;
+  customer_name: string;
+  customer_email: string;
+  plan: CustomizationTier;
+  plan_name: string;
+  base_price: number;
+  final_price: number;
+  card_image_url: string;
+  frame_style: string;
+  frame_color: string;
+  background: string;
+  decorations: string;
+  custom_text: string;
+  font: string;
+  design_data: Record<string, any>;
+  preview_image_url: string;
+  status: SubmissionStatus;
+}
