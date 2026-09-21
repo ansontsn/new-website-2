@@ -150,7 +150,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
                 {/* Engraved Text on Acrylic Foot */}
                 <div className="relative z-20 text-center pb-1">
                   <span className="text-[11px] font-mono font-bold tracking-widest text-slate-300 uppercase px-3 py-1 rounded bg-black/40 backdrop-blur-sm border border-white/10">
-                    LUMINA ACRYLIC 01
+                    ONLYFRAME ACRYLIC 01
                   </span>
                 </div>
 

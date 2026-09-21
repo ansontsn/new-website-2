@@ -178,10 +178,15 @@ export const AdminDashboard: React.FC<AdminDashboardProps> = ({ onBackToStore })
           >
             <ArrowLeft className="w-4 h-4" />
           </button>
+          <img 
+            src="/logo.png" 
+            alt="ONLYFRAME" 
+            className="w-9 h-9 rounded-xl shadow-sm object-contain"
+          />
           <div>
             <div className="flex items-center gap-2">
               <h1 className="text-lg font-black text-slate-900 tracking-tight">
-                LUMINA FRAME · 管理者後台
+                ONLYFRAME · 管理者後台
               </h1>
               <span className="text-[10px] font-bold px-2 py-0.5 rounded-full bg-pink-100 text-pink-600 border border-pink-200 font-mono">
                 ADMIN

@@ -47,7 +47,7 @@ export const DesignConfirmation: React.FC<DesignConfirmationProps> = ({
       });
 
       const link = document.createElement('a');
-      link.download = `LUMINA-FRAME-${state.tier}-${Date.now()}.png`;
+      link.download = `ONLYFRAME-${state.tier}-${Date.now()}.png`;
       link.href = dataUrl;
       document.body.appendChild(link);
       link.click();

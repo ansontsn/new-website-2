@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { supabase, isSupabaseConfigured } from '../../lib/supabase';
-import { Lock, Mail, KeyRound, Loader2, ArrowLeft, ShieldAlert, Sparkles } from 'lucide-react';
+import { Mail, KeyRound, Loader2, ArrowLeft, ShieldAlert, Sparkles } from 'lucide-react';
 
 interface AdminLoginProps {
   onLoginSuccess: (userEmail: string) => void;
@@ -48,13 +48,13 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({
       // 離線模擬登入模式（用於尚未配置 Supabase 專案金鑰時進行本地專題展示）
       setTimeout(() => {
         setLoading(false);
-        onLoginSuccess(email || 'admin@lumina-frame.edu.tw');
+        onLoginSuccess(email || 'admin@onlyframe.edu.tw');
       }, 400);
     }
   };
 
   const handleDemoBypass = () => {
-    onLoginSuccess('demo-admin@lumina-frame.edu.tw');
+    onLoginSuccess('demo-admin@onlyframe.edu.tw');
   };
 
   return (
@@ -70,13 +70,15 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({
           <span>返回小卡框客製前台</span>
         </button>
 
-        {/* Lock Icon & Title */}
-        <div className="text-center space-y-2">
-          <div className="w-12 h-12 rounded-2xl bg-gradient-to-tr from-pink-500 to-purple-600 text-white flex items-center justify-center mx-auto shadow-md shadow-pink-500/20">
-            <Lock className="w-6 h-6" />
-          </div>
+        {/* Brand Logo & Title */}
+        <div className="text-center space-y-3">
+          <img 
+            src="/logo.png" 
+            alt="ONLYFRAME" 
+            className="w-14 h-14 rounded-2xl mx-auto shadow-md shadow-stone-300/40 object-contain"
+          />
           <h2 className="text-2xl font-black text-slate-900 tracking-tight">
-            LUMINA FRAME 後台管理
+            ONLYFRAME 後台管理
           </h2>
           <p className="text-xs text-slate-500">
             畢業專題管理者後台 · 查看消費者送出之小卡框設計
@@ -113,7 +115,7 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({
               type="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              placeholder="admin@lumina-frame.edu.tw"
+              placeholder="admin@onlyframe.edu.tw"
               className="w-full px-3.5 py-2.5 rounded-xl bg-stone-50 border border-stone-300 focus:bg-white focus:border-pink-500 focus:ring-2 focus:ring-pink-500/20 text-xs text-slate-800 outline-none transition-all"
             />
           </div>

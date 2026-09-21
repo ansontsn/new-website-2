@@ -163,7 +163,7 @@ export const App: React.FC = () => {
       });
 
       const link = document.createElement('a');
-      link.download = `LUMINA-FRAME-${customizerState.tier}-${Date.now()}.png`;
+      link.download = `ONLYFRAME-${customizerState.tier}-${Date.now()}.png`;
       link.href = dataUrl;
       document.body.appendChild(link);
       link.click();
@@ -374,13 +374,13 @@ export const App: React.FC = () => {
         <footer className="mt-auto border-t border-stone-200 bg-[#FAF8F5]/80 py-8 text-center text-xs text-slate-500">
           <div className="max-w-7xl mx-auto px-4 space-y-2">
             <p className="font-semibold text-slate-700">
-              LUMINA FRAME · K-pop / 二次元收藏小卡客製化展示框互動平台
+              ONLYFRAME · K-pop / 二次元收藏小卡客製化展示框互動平台
             </p>
             <p className="text-[11px] text-slate-500">
               企管系畢業專題 MVP 研究 Prototype ‧ 專利打樣與展示概念 ‧ 規格與價格均為暫定測試資料
             </p>
             <div className="pt-2 flex items-center justify-center gap-3 text-[11px] text-slate-400">
-              <span>© 2026 LUMINA FRAME 畢業專題研究團隊</span>
+              <span>© 2026 ONLYFRAME 畢業專題研究團隊</span>
               <span>•</span>
               <button
                 onClick={() => handleNavigate('admin')}

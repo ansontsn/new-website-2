@@ -26,12 +26,13 @@ export const supabase = isSupabaseConfigured()
   : null;
 
 // Mock 本機儲存 Key (用於無 Supabase key 時無縫體驗與測試)
-const MOCK_STORAGE_KEY = 'lumina_mock_submissions';
+const MOCK_STORAGE_KEY = 'onlyframe_mock_submissions';
+const LEGACY_STORAGE_KEY = 'lumina_mock_submissions';
 
 // 取得 Mock 資料
 const getMockSubmissions = (): DesignSubmission[] => {
   try {
-    const raw = localStorage.getItem(MOCK_STORAGE_KEY);
+    const raw = localStorage.getItem(MOCK_STORAGE_KEY) || localStorage.getItem(LEGACY_STORAGE_KEY);
     return raw ? JSON.parse(raw) : [];
   } catch {
     return [];

@@ -16,7 +16,7 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onStartCustomizing }
           <span>企管系畢業專題 · 概念產品研究</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
-          關於 LUMINA FRAME 專題概念
+          關於 ONLYFRAME 專題概念
         </h1>
         <p className="text-sm sm:text-base text-slate-600 max-w-2xl mx-auto leading-relaxed">
           探討「客製化程度是否影響收藏型消費者的購買意願？」之實證研究與互動式 Prototype 平台。

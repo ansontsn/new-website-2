@@ -26,24 +26,16 @@ export const Navbar: React.FC<NavbarProps> = ({
         {/* Brand Logo */}
         <div 
           onClick={() => onNavigate('home')} 
-          className="flex items-center gap-3 cursor-pointer group"
+          className="flex items-center gap-2.5 cursor-pointer group"
         >
-          <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-pink-500 via-purple-600 to-indigo-500 p-[1.5px] shadow-lg shadow-pink-500/20 group-hover:scale-105 transition-transform duration-300">
-            <div className="w-full h-full bg-[#FAF8F5] rounded-[10px] flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-pink-500 animate-pulse-subtle" />
-            </div>
-          </div>
-          <div>
-            <div className="flex items-center gap-2">
-              <span className="font-extrabold tracking-wider text-base sm:text-lg bg-gradient-to-r from-slate-900 via-slate-800 to-pink-600 bg-clip-text text-transparent">
-                LUMINA FRAME
-              </span>
-              <span className="hidden sm:inline-block text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-pink-500/10 text-pink-600 border border-pink-500/20">
-                PROTOTYPE
-              </span>
-            </div>
-            <p className="text-[11px] text-slate-500 -mt-0.5">小卡客製化展示框</p>
-          </div>
+          <img 
+            src="/logo-combination.png" 
+            alt="ONLYFRAME" 
+            className="h-7 sm:h-8 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]" 
+          />
+          <span className="hidden sm:inline-block text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-pink-500/10 text-pink-600 border border-pink-500/20">
+            PROTOTYPE
+          </span>
         </div>
 
         {/* Navigation Links */}
