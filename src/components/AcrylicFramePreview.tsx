@@ -188,7 +188,8 @@ export const AcrylicFramePreview: React.FC<AcrylicFramePreviewProps> = ({
                     left: `${sticker.x}%`,
                     top: `${sticker.y}%`,
                     fontSize: `${sticker.size}px`,
-                    color: sticker.color,
+                    color: sticker.color || '#ffffff',
+                    lineHeight: 1,
                     transform: `translate(-50%, -50%) rotate(${sticker.rotation}deg)`,
                     filter: 'drop-shadow(0 2px 4px rgba(0,0,0,0.6)) drop-shadow(0 0 8px rgba(255,255,255,0.4))'
                   }}

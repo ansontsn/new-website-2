@@ -214,10 +214,15 @@ export const DesignConfirmation: React.FC<DesignConfirmationProps> = ({
               {onSubmitDesign && (
                 <button
                   onClick={onSubmitDesign}
-                  className="w-full py-4 px-6 rounded-2xl text-sm font-black bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25 hover:shadow-pink-500/40 active:scale-[0.99] transition-all flex items-center justify-center gap-2.5 group"
+                  className="w-full py-3 sm:py-3.5 px-4 sm:px-6 rounded-xl sm:rounded-2xl text-xs sm:text-sm font-bold bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg shadow-pink-500/25 hover:shadow-pink-500/40 active:scale-[0.99] transition-all flex items-center justify-center gap-2 group whitespace-nowrap"
                 >
-                  <img src="/logo.png" alt="ONLYFRAME" className="w-4.5 h-4.5 rounded object-contain shadow-xs" />
-                  <span>送出我的專屬設計 ➔</span>
+                  <img 
+                    src="/logo.png" 
+                    alt="ONLYFRAME" 
+                    className="w-4 h-4 sm:w-5 sm:h-5 rounded-sm object-contain flex-shrink-0 shadow-xs" 
+                    style={{ width: '18px', height: '18px' }}
+                  />
+                  <span className="whitespace-nowrap">送出我的專屬設計 ➔</span>
                 </button>
               )}
 

@@ -546,8 +546,8 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                 <div className="flex items-center gap-1 overflow-x-auto pb-1 text-[11px]">
                   {[
                     { id: 'all', label: '全部款式' },
-                    { id: 'star', label: '✦ 星芒' },
-                    { id: 'heart', label: '♡ 愛心' },
+                    { id: 'star', label: '⭐ 星芒' },
+                    { id: 'heart', label: '💖 愛心' },
                     { id: 'cyber', label: '⚡ 潮流/動漫' },
                     { id: 'cute', label: '🎀 甜美' }
                   ].map((cat) => (
@@ -570,17 +570,19 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                   <span className="text-xs font-semibold text-slate-400 block mb-1.5">
                     點擊即可置入展示框：
                   </span>
-                  <div className="grid grid-cols-6 gap-2 max-h-40 overflow-y-auto p-1 bg-black/20 rounded-xl border border-white/5">
+                  <div className="grid grid-cols-6 gap-2 max-h-40 overflow-y-auto p-1.5 bg-black/30 rounded-xl border border-white/10">
                     {STICKER_OPTIONS
                       .filter((stk) => stickerFilter === 'all' || stk.category === stickerFilter)
                       .map((stk) => (
                         <button
                           key={stk.id}
                           onClick={() => handleAddSticker(stk.id)}
-                          className="h-11 rounded-xl border border-white/10 bg-white/[0.03] hover:border-pink-400 hover:bg-pink-500/15 text-lg flex items-center justify-center transition-all active:scale-90 group"
+                          className="h-11 rounded-xl border border-white/10 bg-white/[0.06] hover:border-pink-400 hover:bg-pink-500/20 text-xl flex items-center justify-center transition-all active:scale-90 group text-white select-none"
                           title={`${stk.name} - 點擊置入`}
                         >
-                          <span className="group-hover:scale-125 transition-transform">{stk.symbol}</span>
+                          <span className="group-hover:scale-125 transition-transform text-white font-extrabold flex items-center justify-center select-none filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] leading-none">
+                            {stk.symbol}
+                          </span>
                         </button>
                       ))}
                   </div>
@@ -591,7 +593,7 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                   <div className="p-3.5 rounded-2xl bg-pink-950/20 border border-pink-500/40 space-y-3">
                     <div className="flex items-center justify-between pb-2 border-b border-pink-500/20">
                       <div className="flex items-center gap-2">
-                        <span className="text-2xl p-1 bg-black/40 rounded-lg border border-pink-500/30">
+                        <span className="text-2xl p-1 bg-black/50 rounded-lg border border-pink-500/30 text-white font-bold flex items-center justify-center min-w-[38px] min-h-[38px]">
                           {activeSticker.symbol}
                         </span>
                         <div>
