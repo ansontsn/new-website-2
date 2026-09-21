@@ -110,7 +110,7 @@ export const AcrylicFramePreview: React.FC<AcrylicFramePreviewProps> = ({
         id="acrylic-display-frame"
         className={`relative w-[300px] sm:w-[320px] h-[460px] sm:h-[490px] ${frameOpt.cornerStyle} transition-all duration-300 p-4 sm:p-5 flex flex-col justify-between overflow-hidden acrylic-card shadow-acrylic ${colorOpt.outerBorder}`}
         style={{
-          boxShadow: `0 25px 50px -12px rgba(0,0,0,0.7), 0 0 25px ${colorOpt.glowColor}25, inset 0 1px 2px rgba(255,255,255,0.4)`
+          boxShadow: `0 20px 45px -10px rgba(15, 23, 42, 0.16), 0 0 25px ${colorOpt.glowColor}25, inset 0 1px 2px rgba(255,255,255,0.85)`
         }}
       >
         {/* 4 Corner Magnetic Fastener Screws */}
@@ -120,7 +120,7 @@ export const AcrylicFramePreview: React.FC<AcrylicFramePreviewProps> = ({
         {renderScrew('bottom-2.5 right-2.5')}
 
         {/* Acrylic Edge Glass Refraction Highlights (Top & Left rim) */}
-        <div className="absolute inset-0 pointer-events-none rounded-[inherit] border border-white/20" />
+        <div className="absolute inset-0 pointer-events-none rounded-[inherit] border border-white/60" />
         
         {/* Diagonal Light Reflection Sweep (Simulating glossy acrylic sheet) */}
         <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] pointer-events-none glass-reflection rotate-25 opacity-70 z-20" />

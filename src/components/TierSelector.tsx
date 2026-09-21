@@ -23,9 +23,9 @@ export const TierSelector: React.FC<TierSelectorProps> = ({
       priceNote: '暫定預估價',
       description: '適合追求極簡質感的收藏者，專注純粹的壓克力光澤與幾何外型。',
       icon: Shield,
-      accentColor: 'border-slate-700 bg-slate-900/40 hover:border-slate-500',
-      tagColor: 'bg-slate-800 text-slate-300 border-slate-700',
-      btnClass: 'bg-white/10 hover:bg-white/20 text-white',
+      accentColor: 'border-stone-300 bg-white/85 hover:border-stone-400 shadow-sm',
+      tagColor: 'bg-stone-100 text-stone-700 border-stone-200',
+      btnClass: 'bg-stone-800 hover:bg-stone-900 text-white',
       features: [
         { text: '自由選擇 4 款壓克力幾何框型', included: true },
         { text: '選擇 10 種框體外觀透光顏色', included: true },
@@ -46,9 +46,9 @@ export const TierSelector: React.FC<TierSelectorProps> = ({
       priceNote: '暫定預估價',
       description: '為特定本命偶像或角色打造專屬氛圍，自由搭配背景、貼飾與應援文字。',
       icon: Zap,
-      accentColor: 'border-purple-500/60 bg-gradient-to-b from-purple-950/20 to-slate-900/60 hover:border-purple-400 shadow-lg shadow-purple-500/10',
-      tagColor: 'bg-purple-500/20 text-purple-300 border-purple-500/40',
-      btnClass: 'bg-gradient-to-r from-purple-500 to-indigo-600 hover:from-purple-600 hover:to-indigo-700 text-white shadow-lg shadow-purple-500/25',
+      accentColor: 'border-purple-300/80 bg-white/90 hover:border-purple-400 shadow-md shadow-purple-500/5',
+      tagColor: 'bg-purple-100 text-purple-700 border-purple-200',
+      btnClass: 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-md',
       features: [
         { text: '自由選擇 4 款壓克力幾何框型', included: true },
         { text: '選擇 10 種框體外觀透光顏色', included: true },
@@ -69,9 +69,9 @@ export const TierSelector: React.FC<TierSelectorProps> = ({
       priceNote: '起 · 自由升級',
       description: '完全掌控設計細節，上傳個人專屬小卡模擬、自由排版位置與專屬字體，極致個人化。',
       icon: Crown,
-      accentColor: 'border-pink-500/60 bg-gradient-to-b from-pink-950/20 to-slate-900/60 hover:border-pink-400 shadow-xl shadow-pink-500/15',
-      tagColor: 'bg-pink-500/20 text-pink-300 border-pink-500/40',
-      btnClass: 'bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg shadow-pink-500/30',
+      accentColor: 'border-pink-300/80 bg-white/90 hover:border-pink-400 shadow-lg shadow-pink-500/10',
+      tagColor: 'bg-pink-100 text-pink-700 border-pink-200',
+      btnClass: 'bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-md',
       features: [
         { text: '自由選擇 4 款壓克力幾何框型', included: true },
         { text: '選擇 10 種框體外觀透光顏色', included: true },
@@ -90,14 +90,14 @@ export const TierSelector: React.FC<TierSelectorProps> = ({
       
       {/* Step Indicator & Header */}
       <div className="text-center max-w-3xl mx-auto space-y-3">
-        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 text-xs font-semibold text-pink-400">
+        <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 text-xs font-semibold text-pink-600">
           <Sparkles className="w-3.5 h-3.5" />
           <span>STEP 1：選擇客製化程度</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
           由你決定你的收藏品應該長什麼樣子
         </h1>
-        <p className="text-sm sm:text-base text-slate-400 leading-relaxed">
+        <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
           我們提供三種不同深度的客製化體驗。從純粹俐落的基礎幾何框，到全功能開放的自訂編輯器，請挑選最符合您收藏需求的方案：
         </p>
       </div>
@@ -121,53 +121,53 @@ export const TierSelector: React.FC<TierSelectorProps> = ({
                   <span className={`text-[11px] font-bold tracking-wider uppercase px-3 py-1 rounded-full border ${tier.tagColor}`}>
                     {tier.badge}
                   </span>
-                  <div className="w-8 h-8 rounded-xl bg-white/5 flex items-center justify-center text-slate-300">
+                  <div className="w-8 h-8 rounded-xl bg-stone-100 flex items-center justify-center text-slate-700">
                     <Icon className="w-4 h-4" />
                   </div>
                 </div>
 
                 <div>
-                  <h3 className="text-2xl font-black tracking-tight text-white">
+                  <h3 className="text-2xl font-black tracking-tight text-slate-900">
                     {tier.name}
                   </h3>
-                  <p className="text-xs text-slate-400 font-medium mt-0.5">
+                  <p className="text-xs text-slate-500 font-medium mt-0.5">
                     {tier.subName}
                   </p>
                 </div>
 
                 {/* Price Display */}
-                <div className="pt-2 flex items-baseline gap-2 border-b border-white/10 pb-4">
-                  <span className="text-xs text-slate-400">預估</span>
-                  <span className="text-4xl font-black text-white font-mono">
+                <div className="pt-2 flex items-baseline gap-2 border-b border-stone-200/80 pb-4">
+                  <span className="text-xs text-slate-500">預估</span>
+                  <span className="text-4xl font-black text-slate-900 font-mono">
                     NT${tier.price}
                   </span>
-                  <span className="text-xs text-slate-400 font-medium">
+                  <span className="text-xs text-slate-500 font-medium">
                     {tier.priceNote}
                   </span>
                 </div>
 
-                <p className="text-xs text-slate-300 leading-relaxed">
+                <p className="text-xs text-slate-600 leading-relaxed">
                   {tier.description}
                 </p>
 
                 {/* Features Checklist */}
                 <div className="space-y-2.5 pt-2">
-                  <span className="text-xs font-bold text-slate-400 uppercase tracking-wider block">
+                  <span className="text-xs font-bold text-slate-500 uppercase tracking-wider block">
                     可自訂項目清單：
                   </span>
                   <ul className="space-y-2 text-xs">
                     {tier.features.map((feat, idx) => (
                       <li key={idx} className="flex items-start gap-2.5">
                         {feat.included ? (
-                          <div className="w-4 h-4 rounded-full bg-emerald-500/20 text-emerald-400 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-4 h-4 rounded-full bg-emerald-100 text-emerald-600 flex items-center justify-center flex-shrink-0 mt-0.5">
                             <Check className="w-2.5 h-2.5 stroke-[3]" />
                           </div>
                         ) : (
-                          <div className="w-4 h-4 rounded-full bg-white/5 text-slate-600 flex items-center justify-center flex-shrink-0 mt-0.5">
+                          <div className="w-4 h-4 rounded-full bg-stone-100 text-stone-400 flex items-center justify-center flex-shrink-0 mt-0.5">
                             <span className="text-[10px]">✕</span>
                           </div>
                         )}
-                        <span className={feat.included ? 'text-slate-200' : 'text-slate-500 line-through'}>
+                        <span className={feat.included ? 'text-slate-700 font-medium' : 'text-slate-400 line-through'}>
                           {feat.text}
                         </span>
                       </li>

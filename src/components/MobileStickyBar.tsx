@@ -12,12 +12,12 @@ export const MobileStickyBar: React.FC<MobileStickyBarProps> = ({
   onFinishDesign
 }) => {
   return (
-    <div className="lg:hidden fixed bottom-14 sm:bottom-12 inset-x-3 z-40 bg-[#12141c]/95 border border-pink-500/40 p-3 rounded-2xl backdrop-blur-xl flex items-center justify-between shadow-[0_10px_35px_rgba(0,0,0,0.8)]">
+    <div className="lg:hidden fixed bottom-14 sm:bottom-12 inset-x-3 z-40 bg-white/95 border border-pink-500/30 p-3 rounded-2xl backdrop-blur-xl flex items-center justify-between shadow-[0_10px_35px_rgba(0,0,0,0.12)]">
       <div className="pl-1.5">
-        <span className="text-[10px] text-slate-400 uppercase font-mono block tracking-wider">
+        <span className="text-[10px] text-slate-500 uppercase font-mono block tracking-wider font-semibold">
           預估打樣總額
         </span>
-        <div className="text-xl font-black text-pink-400 font-mono leading-none mt-0.5">
+        <div className="text-xl font-black text-pink-600 font-mono leading-none mt-0.5">
           NT${priceBreakdown.totalPrice}
         </div>
       </div>

@@ -66,14 +66,14 @@ export const DesignConfirmation: React.FC<DesignConfirmationProps> = ({
       
       {/* Top Banner */}
       <div className="text-center space-y-3">
-        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-500/10 border border-emerald-500/30 text-xs font-semibold text-emerald-400">
+        <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-emerald-50 border border-emerald-200 text-xs font-semibold text-emerald-700">
           <CheckCircle2 className="w-4 h-4" />
           <span>設計已完成 · DESIGN COMPLETED</span>
         </div>
-        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-white">
+        <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
           你的專屬收藏展示框已就緒
         </h1>
-        <p className="text-sm text-slate-400 max-w-xl mx-auto">
+        <p className="text-sm text-slate-600 max-w-xl mx-auto">
           依據您選擇的客製化程度與各項細節，我們已完成專屬壓克力展示框的即時打樣預覽與預估報價。
         </p>
       </div>
@@ -83,7 +83,7 @@ export const DesignConfirmation: React.FC<DesignConfirmationProps> = ({
         
         {/* Left: Finished Acrylic Frame Preview */}
         <div className="lg:col-span-6 flex flex-col items-center">
-          <div ref={previewContainerRef} className="p-4 rounded-3xl bg-white/[0.02] border border-white/10 w-full flex justify-center">
+          <div ref={previewContainerRef} className="p-4 rounded-3xl bg-white/80 border border-stone-200/80 shadow-sm w-full flex justify-center">
             <AcrylicFramePreview state={state} interactive={false} />
           </div>
 
@@ -115,7 +115,7 @@ export const DesignConfirmation: React.FC<DesignConfirmationProps> = ({
                 navigator.clipboard?.writeText(window.location.href);
                 alert('已複製展示連結！');
               }}
-              className="py-3 px-4 rounded-xl text-xs font-semibold bg-white/5 hover:bg-white/10 text-slate-300 border border-white/10 transition-all flex items-center gap-1.5"
+              className="py-3 px-4 rounded-xl text-xs font-semibold bg-white/80 hover:bg-white text-slate-700 border border-stone-200 shadow-sm transition-all flex items-center gap-1.5"
             >
               <Share2 className="w-3.5 h-3.5" />
               <span>分享</span>

@@ -18,7 +18,7 @@ export const Navbar: React.FC<NavbarProps> = ({
   onFinishDesign
 }) => {
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#0c0e14]/80 backdrop-blur-xl border-b border-white/10">
+    <header className="sticky top-0 z-50 w-full bg-[#FAF8F5]/85 backdrop-blur-xl border-b border-stone-200/80 shadow-sm">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
         
         {/* Brand Logo */}
@@ -27,31 +27,31 @@ export const Navbar: React.FC<NavbarProps> = ({
           className="flex items-center gap-3 cursor-pointer group"
         >
           <div className="w-10 h-10 rounded-xl bg-gradient-to-tr from-pink-500 via-purple-600 to-indigo-500 p-[1.5px] shadow-lg shadow-pink-500/20 group-hover:scale-105 transition-transform duration-300">
-            <div className="w-full h-full bg-[#0f1118] rounded-[10px] flex items-center justify-center">
-              <Sparkles className="w-5 h-5 text-pink-400 animate-pulse-subtle" />
+            <div className="w-full h-full bg-[#FAF8F5] rounded-[10px] flex items-center justify-center">
+              <Sparkles className="w-5 h-5 text-pink-500 animate-pulse-subtle" />
             </div>
           </div>
           <div>
             <div className="flex items-center gap-2">
-              <span className="font-extrabold tracking-wider text-base sm:text-lg bg-gradient-to-r from-white via-slate-200 to-pink-300 bg-clip-text text-transparent">
+              <span className="font-extrabold tracking-wider text-base sm:text-lg bg-gradient-to-r from-slate-900 via-slate-800 to-pink-600 bg-clip-text text-transparent">
                 LUMINA FRAME
               </span>
-              <span className="hidden sm:inline-block text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-pink-500/10 text-pink-400 border border-pink-500/30">
+              <span className="hidden sm:inline-block text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-pink-500/10 text-pink-600 border border-pink-500/20">
                 PROTOTYPE
               </span>
             </div>
-            <p className="text-[11px] text-slate-400 -mt-0.5">小卡客製化展示框</p>
+            <p className="text-[11px] text-slate-500 -mt-0.5">小卡客製化展示框</p>
           </div>
         </div>
 
         {/* Navigation Links */}
-        <nav className="hidden md:flex items-center gap-1 bg-white/5 p-1 rounded-full border border-white/10 text-xs font-medium">
+        <nav className="hidden md:flex items-center gap-1 bg-stone-200/60 p-1 rounded-full border border-stone-300/60 text-xs font-medium">
           <button
             onClick={() => onNavigate('home')}
             className={`px-4 py-1.5 rounded-full transition-all ${
               currentView === 'home'
-                ? 'bg-white/15 text-white font-semibold shadow-sm'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                ? 'bg-white text-slate-900 font-bold shadow-sm'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
             }`}
           >
             首頁
@@ -60,8 +60,8 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => onNavigate('tiers')}
             className={`px-4 py-1.5 rounded-full transition-all ${
               currentView === 'tiers'
-                ? 'bg-white/15 text-white font-semibold shadow-sm'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                ? 'bg-white text-slate-900 font-bold shadow-sm'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
             }`}
           >
             方案選擇
@@ -70,19 +70,19 @@ export const Navbar: React.FC<NavbarProps> = ({
             onClick={() => onNavigate('customizer')}
             className={`px-4 py-1.5 rounded-full transition-all flex items-center gap-1.5 ${
               currentView === 'customizer'
-                ? 'bg-gradient-to-r from-pink-500/30 to-purple-500/30 text-pink-300 font-semibold border border-pink-500/30'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                ? 'bg-white text-pink-600 font-bold shadow-sm border border-pink-200'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
             }`}
           >
-            <Layers className="w-3.5 h-3.5" />
+            <Layers className="w-3.5 h-3.5 text-pink-500" />
             客製化編輯器
           </button>
           <button
             onClick={() => onNavigate('about')}
             className={`px-4 py-1.5 rounded-full transition-all ${
               currentView === 'about'
-                ? 'bg-white/15 text-white font-semibold shadow-sm'
-                : 'text-slate-400 hover:text-white hover:bg-white/5'
+                ? 'bg-white text-slate-900 font-bold shadow-sm'
+                : 'text-slate-600 hover:text-slate-900 hover:bg-white/60'
             }`}
           >
             關於概念
@@ -93,10 +93,10 @@ export const Navbar: React.FC<NavbarProps> = ({
         <div className="flex items-center gap-2.5 sm:gap-3">
           {currentView === 'customizer' && totalPrice !== undefined && (
             <div className="hidden sm:flex flex-col items-end mr-2">
-              <span className="text-[10px] uppercase tracking-wider text-pink-400 font-mono">
+              <span className="text-[10px] uppercase tracking-wider text-pink-600 font-mono font-bold">
                 {tier} 方案
               </span>
-              <span className="text-sm font-bold text-white">NT${totalPrice}</span>
+              <span className="text-sm font-extrabold text-slate-900">NT${totalPrice}</span>
             </div>
           )}
 

@@ -14,7 +14,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
     <div className="relative overflow-hidden pt-8 pb-16 lg:pt-14 lg:pb-24">
       
       {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-pink-500/20 via-purple-600/15 to-indigo-600/10 blur-[130px] rounded-full pointer-events-none" />
+      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-pink-500/10 via-amber-400/10 to-purple-600/5 blur-[130px] rounded-full pointer-events-none" />
 
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
@@ -23,37 +23,37 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
           <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
             
             {/* Tagline Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/[0.05] border border-white/10 text-xs font-medium text-slate-300 backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-pink-400 animate-pulse" />
+            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-stone-200/80 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-md">
+              <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
               <span>企管系專題 MVP · 收藏品客製化互動展示平台</span>
             </div>
 
             {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-white leading-[1.15]">
+            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.15]">
               打造屬於你的
-              <span className="block mt-1 bg-gradient-to-r from-pink-400 via-rose-300 to-purple-400 bg-clip-text text-transparent">
+              <span className="block mt-1 bg-gradient-to-r from-pink-600 via-rose-500 to-purple-600 bg-clip-text text-transparent">
                 收藏小卡客製展示框
               </span>
             </h1>
 
             {/* Subtitle */}
-            <p className="text-base sm:text-lg text-slate-300 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
+            <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
               從基本款到完全客製，由你決定你的收藏品應該長什麼樣子。
               專為 K-pop 偶像小卡、二次元動漫與手遊角色設計的高透壓克力展示系統。
             </p>
 
             {/* Key Value Points */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs font-medium text-slate-300">
-              <div className="flex items-center justify-center lg:justify-start gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
-                <Sliders className="w-4 h-4 text-pink-400 flex-shrink-0" />
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs font-semibold text-slate-700">
+              <div className="flex items-center justify-center lg:justify-start gap-2 p-2.5 rounded-xl bg-white/80 border border-stone-200/80 shadow-sm">
+                <Sliders className="w-4 h-4 text-pink-500 flex-shrink-0" />
                 <span>自由掌握客製深度</span>
               </div>
-              <div className="flex items-center justify-center lg:justify-start gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
-                <Eye className="w-4 h-4 text-purple-400 flex-shrink-0" />
+              <div className="flex items-center justify-center lg:justify-start gap-2 p-2.5 rounded-xl bg-white/80 border border-stone-200/80 shadow-sm">
+                <Eye className="w-4 h-4 text-purple-600 flex-shrink-0" />
                 <span>即時光影 3D 預覽</span>
               </div>
-              <div className="flex items-center justify-center lg:justify-start gap-2 p-2.5 rounded-xl bg-white/[0.03] border border-white/5">
-                <Layers className="w-4 h-4 text-emerald-400 flex-shrink-0" />
+              <div className="flex items-center justify-center lg:justify-start gap-2 p-2.5 rounded-xl bg-white/80 border border-stone-200/80 shadow-sm">
+                <Layers className="w-4 h-4 text-emerald-600 flex-shrink-0" />
                 <span>實時透明動態計價</span>
               </div>
             </div>
@@ -71,7 +71,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
 
               <button
                 onClick={onOpenHowItWorks}
-                className="w-full sm:w-auto px-6 py-4 rounded-2xl font-semibold text-sm sm:text-base bg-white/5 hover:bg-white/10 text-slate-200 border border-white/10 transition-all duration-200 flex items-center justify-center gap-2"
+                className="w-full sm:w-auto px-6 py-4 rounded-2xl font-semibold text-sm sm:text-base bg-white/80 hover:bg-white text-slate-700 hover:text-slate-900 border border-stone-300/80 shadow-sm transition-all duration-200 flex items-center justify-center gap-2"
               >
                 <span>看看怎麼製作</span>
               </button>
