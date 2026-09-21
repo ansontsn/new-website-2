@@ -25,7 +25,8 @@ import {
   RotateCw,
   Maximize2,
   SlidersHorizontal,
-  UploadCloud
+  UploadCloud,
+  Info
 } from 'lucide-react';
 
 interface CustomizerToolsProps {
@@ -546,8 +547,8 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                 <div className="flex items-center gap-1 overflow-x-auto pb-1 text-[11px]">
                   {[
                     { id: 'all', label: '全部款式' },
-                    { id: 'star', label: '⭐ 星芒' },
-                    { id: 'heart', label: '💖 愛心' },
+                    { id: 'star', label: '✦ 星芒' },
+                    { id: 'heart', label: '♡ 愛心' },
                     { id: 'cyber', label: '⚡ 潮流/動漫' },
                     { id: 'cute', label: '🎀 甜美' }
                   ].map((cat) => (
@@ -567,9 +568,20 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
 
                 {/* Sticker picker grid */}
                 <div>
-                  <span className="text-xs font-semibold text-slate-400 block mb-1.5">
-                    點擊即可置入展示框：
-                  </span>
+                  <div className="flex items-center justify-between mb-1.5">
+                    <span className="text-xs font-semibold text-slate-300">
+                      點擊即可置入展示框：
+                    </span>
+                  </div>
+
+                  {/* Mobile Font Compatibility Notice */}
+                  <div className="mb-2 p-2 sm:p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-[11px] text-amber-300/90 leading-snug flex items-start gap-1.5">
+                    <Info className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
+                    <span>
+                      行動端若因系統字型差異出現圖案顯示空白問題，請直接點擊置入，以預覽圖顯現的圖案為主。
+                    </span>
+                  </div>
+
                   <div className="grid grid-cols-6 gap-2 max-h-40 overflow-y-auto p-1.5 bg-black/30 rounded-xl border border-white/10">
                     {STICKER_OPTIONS
                       .filter((stk) => stickerFilter === 'all' || stk.category === stickerFilter)

@@ -240,38 +240,34 @@ export const BACKGROUND_OPTIONS: BackgroundOption[] = [
 
 export const STICKER_OPTIONS: StickerOption[] = [
   // 星芒與光影
-  { id: 'star-gold', symbol: '⭐', name: '經典星光', category: 'star', priceAddon: 0 },
-  { id: 'shooting-star', symbol: '🌟', name: '閃耀星宿', category: 'star', priceAddon: 0 },
-  { id: 'sparkles', symbol: '✨', name: '細緻星芒', category: 'star', priceAddon: 0 },
   { id: 'star-4pt', symbol: '✦', name: 'Y2K 四芒星', category: 'star', priceAddon: 0 },
   { id: 'sparkle-8pt', symbol: '✧', name: '璀璨芒星', category: 'star', priceAddon: 0 },
-  { id: 'star-dizzy', symbol: '💫', name: '星芒流光', category: 'star', priceAddon: 0 },
+  { id: 'star-gold', symbol: '⭐', name: '經典星光', category: 'star', priceAddon: 0 },
+  { id: 'shooting-star', symbol: '🌟', name: '閃耀星宿', category: 'star', priceAddon: 0 },
+  { id: 'sparkles', symbol: '✨', name: '細緻星芒', category: 'cute', priceAddon: 0 },
+  { id: 'star-multi', symbol: '✦⁺₊', name: '星芒碎光', category: 'star', priceAddon: 0 },
   // 愛心與情感
-  { id: 'heart-sparkle', symbol: '💖', name: '閃亮粉心', category: 'heart', priceAddon: 0 },
-  { id: 'heart-white', symbol: '🤍', name: '純潔白心', category: 'heart', priceAddon: 0 },
+  { id: 'heart-outline', symbol: '♡', name: '空心愛心', category: 'heart', priceAddon: 0 },
+  { id: 'heart-solid', symbol: '♥', name: '實心愛心', category: 'heart', priceAddon: 0 },
   { id: 'heart-broken', symbol: '💔', name: '破碎美學', category: 'heart', priceAddon: 0 },
   { id: 'heart-arrow', symbol: '💘', name: '邱比特箭心', category: 'heart', priceAddon: 0 },
-  { id: 'heart-red', symbol: '❤️', name: '熱戀紅心', category: 'heart', priceAddon: 0 },
-  { id: 'heart-black', symbol: '🖤', name: '暗黑酷心', category: 'heart', priceAddon: 0 },
-  // 潮流、動漫與二次元
+  // 幻想、二次元與潮流
   { id: 'butterfly', symbol: '🦋', name: '夢境幻蝶', category: 'cyber', priceAddon: 0 },
   { id: 'wing', symbol: '🪽', name: '守護羽翼', category: 'cyber', priceAddon: 0 },
-  { id: 'crown', symbol: '👑', name: '王者皇冠', category: 'cyber', priceAddon: 0 },
+  { id: 'crown', symbol: '👑', name: '王者皇冠', category: 'cute', priceAddon: 0 },
   { id: 'flame', symbol: '🔥', name: '極限熱血', category: 'cyber', priceAddon: 0 },
-  { id: 'cross', symbol: '✝️', name: '哥德十字', category: 'cyber', priceAddon: 0 },
+  { id: 'cross', symbol: '✝', name: '哥德十字', category: 'cyber', priceAddon: 0 },
   { id: 'chain', symbol: '⛓️', name: '潮流金屬鍊', category: 'cyber', priceAddon: 0 },
-  // 韓系與甜美感
+  // 韓系與少女感
   { id: 'ribbon-deco', symbol: '🎀', name: '精緻緞帶', category: 'cute', priceAddon: 0 },
-  { id: 'sakura', symbol: '🌸', name: '粉嫩櫻花', category: 'cute', priceAddon: 0 },
+  { id: 'bow-cute', symbol: '𝜗𝜚', name: '韓系蝴蝶結', category: 'cute', priceAddon: 0 },
   { id: 'cherry', symbol: '🍒', name: '雙生櫻桃', category: 'cute', priceAddon: 0 },
   { id: 'bubbles', symbol: '🫧', name: '夢幻泡泡', category: 'cute', priceAddon: 0 },
   { id: 'music-note', symbol: '🎵', name: '應援音符', category: 'cute', priceAddon: 0 },
-  { id: 'teddy', symbol: '🧸', name: '萌系小熊', category: 'cute', priceAddon: 0 },
   // 天體宇宙
   { id: 'planet', symbol: '🪐', name: '土星行星', category: 'cyber', priceAddon: 0 },
   { id: 'moon', symbol: '🌙', name: '彎月夜空', category: 'cyber', priceAddon: 0 },
-  { id: 'sun', symbol: '☀️', name: '破曉暖陽', category: 'cyber', priceAddon: 0 },
-  { id: 'clover', symbol: '🍀', name: '幸運草', category: 'cute', priceAddon: 0 }
+  { id: 'sun', symbol: '☀️', name: '破曉暖陽', category: 'cyber', priceAddon: 0 }
 ];
 
 export const FONT_OPTIONS = [
