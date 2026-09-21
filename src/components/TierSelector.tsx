@@ -1,6 +1,6 @@
 import React from 'react';
 import { CustomizationTier } from '../types';
-import { Check, Sparkles, Shield, Zap, Crown, ArrowRight } from 'lucide-react';
+import { Check, Shield, Zap, Crown, ArrowRight } from 'lucide-react';
 
 interface TierSelectorProps {
   currentTier: CustomizationTier;
@@ -91,7 +91,7 @@ export const TierSelector: React.FC<TierSelectorProps> = ({
       {/* Step Indicator & Header */}
       <div className="text-center max-w-3xl mx-auto space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 text-xs font-semibold text-pink-600">
-          <Sparkles className="w-3.5 h-3.5" />
+          <img src="/logo.png" alt="ONLYFRAME" className="w-3.5 h-3.5 rounded-sm object-contain" />
           <span>STEP 1：選擇客製化程度</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
@@ -184,6 +184,7 @@ export const TierSelector: React.FC<TierSelectorProps> = ({
                     tier.btnClass
                   }`}
                 >
+                  <img src="/logo.png" alt="ONLYFRAME" className="w-4 h-4 rounded-sm object-contain" />
                   <span>選擇此方案 ({tier.name})</span>
                   <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
                 </button>

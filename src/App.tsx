@@ -16,7 +16,7 @@ import { SubmitDesignModal } from './components/SubmitDesignModal';
 import { SubmissionSuccessView } from './components/SubmissionSuccessView';
 import { AdminDashboard } from './components/admin/AdminDashboard';
 import { DesignSubmission } from './types';
-import { Download, Loader2, Sparkles } from 'lucide-react';
+import { Download, Loader2 } from 'lucide-react';
 import { toPng } from 'html-to-image';
 
 export const App: React.FC = () => {
@@ -283,9 +283,9 @@ export const App: React.FC = () => {
 
                   <button
                     onClick={() => handleNavigate('confirmation')}
-                    className="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-md shadow-pink-500/20 transition-all flex items-center justify-center gap-1.5 active:scale-95"
+                    className="flex-1 py-2.5 px-3 rounded-xl text-xs font-bold bg-gradient-to-r from-pink-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-md shadow-pink-500/20 transition-all flex items-center justify-center gap-2 active:scale-95"
                   >
-                    <Sparkles className="w-3.5 h-3.5" />
+                    <img src="/logo.png" alt="ONLYFRAME" className="w-3.5 h-3.5 rounded-sm object-contain" />
                     <span>完成設計 ➔</span>
                   </button>
                 </div>

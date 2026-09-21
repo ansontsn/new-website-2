@@ -76,9 +76,10 @@ export const AboutSection: React.FC<AboutSectionProps> = ({ onStartCustomizing }
       <div className="text-center pt-4">
         <button
           onClick={onStartCustomizing}
-          className="px-8 py-3.5 rounded-2xl font-bold text-sm bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25 transition-all"
+          className="px-8 py-3.5 rounded-2xl font-bold text-sm bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25 transition-all flex items-center justify-center gap-2 mx-auto active:scale-95"
         >
-          立即體驗展示框客製化
+          <img src="/logo.png" alt="ONLYFRAME" className="w-4 h-4 rounded object-contain shadow-xs" />
+          <span>立即體驗展示框客製化</span>
         </button>
       </div>
 

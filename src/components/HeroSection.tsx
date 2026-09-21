@@ -62,9 +62,9 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
             <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
               <button
                 onClick={onStartCustomizing}
-                className="w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-sm sm:text-base bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25 hover:shadow-pink-500/40 transition-all duration-200 active:scale-95 flex items-center justify-center gap-2 group"
+                className="w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-sm sm:text-base bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25 hover:shadow-pink-500/40 transition-all duration-200 active:scale-95 flex items-center justify-center gap-2.5 group"
               >
-                <Sparkles className="w-5 h-5 text-pink-200" />
+                <img src="/logo.png" alt="ONLYFRAME" className="w-5 h-5 rounded-md object-contain shadow-sm" />
                 <span>開始客製化</span>
                 <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
               </button>
@@ -157,8 +157,8 @@ export const HeroSection: React.FC<HeroSectionProps> = ({
               </div>
 
               {/* Click to Customize Hint Tag */}
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-1 rounded-full bg-pink-500 text-white font-bold text-xs shadow-lg shadow-pink-500/40 flex items-center gap-1.5 whitespace-nowrap animate-bounce">
-                <Sparkles className="w-3 h-3" />
+              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-pink-500 text-white font-bold text-xs shadow-lg shadow-pink-500/40 flex items-center gap-1.5 whitespace-nowrap animate-bounce">
+                <img src="/logo.png" alt="" className="w-3.5 h-3.5 rounded-sm object-contain" />
                 <span>點擊立即試做</span>
               </div>
 

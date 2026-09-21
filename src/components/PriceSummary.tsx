@@ -1,7 +1,7 @@
 import React from 'react';
 import { CustomizerState, PriceBreakdown } from '../types';
 import { FRAME_OPTIONS, FRAME_COLOR_OPTIONS, BACKGROUND_OPTIONS } from '../data/options';
-import { ArrowRight, Tag, Info, Check, Sparkles } from 'lucide-react';
+import { ArrowRight, Tag, Info, Check } from 'lucide-react';
 
 interface PriceSummaryProps {
   state: CustomizerState;
@@ -149,9 +149,9 @@ export const PriceSummary: React.FC<PriceSummaryProps> = ({
       <div className="pt-4">
         <button
           onClick={onFinishDesign}
-          className="w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25 transition-all duration-200 active:scale-98 flex items-center justify-center gap-2 group"
+          className="w-full py-3.5 px-4 rounded-xl font-bold text-sm bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25 transition-all duration-200 active:scale-98 flex items-center justify-center gap-2.5 group"
         >
-          <Sparkles className="w-4 h-4 text-pink-200 group-hover:rotate-12 transition-transform" />
+          <img src="/logo.png" alt="ONLYFRAME" className="w-4 h-4 rounded object-contain shadow-xs" />
           <span>完成設計 ‧ 查看成品</span>
           <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
         </button>

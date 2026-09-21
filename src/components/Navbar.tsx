@@ -1,5 +1,5 @@
 import React from 'react';
-import { Sparkles, Layers, ShieldCheck } from 'lucide-react';
+import { Layers, ShieldCheck } from 'lucide-react';
 import { CustomizationTier } from '../types';
 
 export type AppView = 'home' | 'tiers' | 'customizer' | 'confirmation' | 'about' | 'success' | 'admin';
@@ -20,18 +20,18 @@ export const Navbar: React.FC<NavbarProps> = ({
   onFinishDesign
 }) => {
   return (
-    <header className="sticky top-0 z-50 w-full bg-[#FAF8F5]/85 backdrop-blur-xl border-b border-stone-200/80 shadow-sm">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
+    <header className="sticky top-0 z-50 w-full bg-[#FAF8F5]/90 backdrop-blur-xl border-b border-stone-200/80 shadow-sm transition-all">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 sm:h-20 flex items-center justify-between">
         
         {/* Brand Logo */}
         <div 
           onClick={() => onNavigate('home')} 
-          className="flex items-center gap-2.5 cursor-pointer group"
+          className="flex items-center gap-3 cursor-pointer group py-1"
         >
           <img 
             src="/logo-combination.png" 
             alt="ONLYFRAME" 
-            className="h-7 sm:h-8 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]" 
+            className="h-10 sm:h-12 md:h-13.5 w-auto object-contain transition-transform duration-200 group-hover:scale-[1.02]" 
           />
           <span className="hidden sm:inline-block text-[10px] uppercase font-bold tracking-widest px-2 py-0.5 rounded-full bg-pink-500/10 text-pink-600 border border-pink-500/20">
             PROTOTYPE
@@ -118,9 +118,9 @@ export const Navbar: React.FC<NavbarProps> = ({
                 onNavigate('tiers');
               }
             }}
-            className="px-3.5 py-1.5 sm:px-4 sm:py-2 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg shadow-pink-500/25 hover:shadow-pink-500/40 transition-all duration-200 active:scale-95 flex items-center gap-1.5"
+            className="px-3.5 py-2 sm:px-4 sm:py-2.5 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg shadow-pink-500/25 hover:shadow-pink-500/40 transition-all duration-200 active:scale-95 flex items-center gap-2"
           >
-            <Sparkles className="w-3.5 h-3.5 sm:w-4 sm:h-4" />
+            <img src="/logo.png" alt="ONLYFRAME" className="w-4 h-4 sm:w-4.5 sm:h-4.5 rounded object-contain" />
             <span>{currentView === 'customizer' ? '完成設計 ➔' : '開始客製化'}</span>
           </button>
         </div>

@@ -1,6 +1,6 @@
 import React from 'react';
 import { PriceBreakdown } from '../types';
-import { Sparkles, ArrowRight } from 'lucide-react';
+import { ArrowRight } from 'lucide-react';
 
 interface MobileStickyBarProps {
   priceBreakdown: PriceBreakdown;
@@ -24,9 +24,9 @@ export const MobileStickyBar: React.FC<MobileStickyBarProps> = ({
 
       <button
         onClick={onFinishDesign}
-        className="py-2.5 px-4 sm:px-5 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg shadow-pink-500/30 flex items-center gap-1.5 active:scale-95 transition-all"
+        className="py-2.5 px-4 sm:px-5 rounded-xl text-xs sm:text-sm font-bold bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-lg shadow-pink-500/30 flex items-center gap-2 active:scale-95 transition-all"
       >
-        <Sparkles className="w-3.5 h-3.5" />
+        <img src="/logo.png" alt="ONLYFRAME" className="w-3.5 h-3.5 rounded-sm object-contain" />
         <span>完成設計</span>
         <ArrowRight className="w-3.5 h-3.5" />
       </button>

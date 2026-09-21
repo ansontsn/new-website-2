@@ -2,7 +2,7 @@ import React, { useRef, useState } from 'react';
 import { CustomizerState, PriceBreakdown } from '../types';
 import { FRAME_OPTIONS, FRAME_COLOR_OPTIONS, BACKGROUND_OPTIONS } from '../data/options';
 import { AcrylicFramePreview } from './AcrylicFramePreview';
-import { CheckCircle2, Download, RotateCcw, Layers, Share2, Info, Loader2, Send } from 'lucide-react';
+import { CheckCircle2, Download, RotateCcw, Layers, Share2, Info, Loader2 } from 'lucide-react';
 import { toPng } from 'html-to-image';
 
 interface DesignConfirmationProps {
@@ -214,9 +214,9 @@ export const DesignConfirmation: React.FC<DesignConfirmationProps> = ({
               {onSubmitDesign && (
                 <button
                   onClick={onSubmitDesign}
-                  className="w-full py-4 px-6 rounded-2xl text-sm font-black bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25 hover:shadow-pink-500/40 active:scale-[0.99] transition-all flex items-center justify-center gap-2 group"
+                  className="w-full py-4 px-6 rounded-2xl text-sm font-black bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25 hover:shadow-pink-500/40 active:scale-[0.99] transition-all flex items-center justify-center gap-2.5 group"
                 >
-                  <Send className="w-4 h-4 text-pink-200 group-hover:translate-x-0.5 transition-transform" />
+                  <img src="/logo.png" alt="ONLYFRAME" className="w-4.5 h-4.5 rounded object-contain shadow-xs" />
                   <span>送出我的專屬設計 ➔</span>
                 </button>
               )}

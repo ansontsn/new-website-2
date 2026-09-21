@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { supabase, isSupabaseConfigured } from '../../lib/supabase';
-import { Mail, KeyRound, Loader2, ArrowLeft, ShieldAlert, Sparkles } from 'lucide-react';
+import { Mail, KeyRound, Loader2, ArrowLeft, ShieldAlert } from 'lucide-react';
 
 interface AdminLoginProps {
   onLoginSuccess: (userEmail: string) => void;
@@ -156,9 +156,9 @@ export const AdminLogin: React.FC<AdminLoginProps> = ({
             <button
               onClick={handleDemoBypass}
               type="button"
-              className="w-full py-2.5 px-3 rounded-xl text-xs font-bold bg-pink-50 hover:bg-pink-100 text-pink-600 border border-pink-200 transition-colors flex items-center justify-center gap-1.5"
+              className="w-full py-2.5 px-3 rounded-xl text-xs font-bold bg-pink-50 hover:bg-pink-100 text-pink-600 border border-pink-200 transition-colors flex items-center justify-center gap-2"
             >
-              <Sparkles className="w-3.5 h-3.5" />
+              <img src="/logo.png" alt="ONLYFRAME" className="w-4 h-4 rounded-sm object-contain" />
               <span>展示模式直接進入管理後台 ➔</span>
             </button>
           </div>

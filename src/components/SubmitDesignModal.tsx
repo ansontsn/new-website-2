@@ -3,11 +3,9 @@ import { CustomizerState, PriceBreakdown, DesignSubmission } from '../types';
 import { submitDesignToBackend, dataUrlToBlob } from '../lib/supabase';
 import { toPng } from 'html-to-image';
 import { 
-  Send, 
   X, 
   Loader2, 
   AlertCircle, 
-  Sparkles, 
   ShieldCheck, 
   User, 
   Mail 
@@ -132,7 +130,7 @@ export const SubmitDesignModal: React.FC<SubmitDesignModalProps> = ({
         {/* Header */}
         <div className="space-y-1">
           <div className="inline-flex items-center gap-1.5 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 text-xs font-bold text-pink-600">
-            <Sparkles className="w-3.5 h-3.5" />
+            <img src="/logo.png" alt="ONLYFRAME" className="w-3.5 h-3.5 rounded-sm object-contain" />
             <span>送出客製化設計 · SUBMIT DESIGN</span>
           </div>
           <h2 className="text-xl sm:text-2xl font-black tracking-tight text-slate-900">
@@ -236,7 +234,7 @@ export const SubmitDesignModal: React.FC<SubmitDesignModalProps> = ({
                 </>
               ) : (
                 <>
-                  <Send className="w-4 h-4" />
+                  <img src="/logo.png" alt="ONLYFRAME" className="w-4 h-4 rounded-sm object-contain" />
                   <span>確認送出設計 ➔</span>
                 </>
               )}
