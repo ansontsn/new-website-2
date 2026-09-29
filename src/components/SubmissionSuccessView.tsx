@@ -157,7 +157,7 @@ export const SubmissionSuccessView: React.FC<SubmissionSuccessViewProps> = ({
 
             <div className="space-y-2 text-xs border-y border-stone-200 py-3">
               <div className="flex justify-between py-1">
-                <span className="text-slate-500">框型規格:</span>
+                <span className="text-slate-500">固定框體:</span>
                 <span className="font-bold text-slate-800">{submission.frame_style}</span>
               </div>
               <div className="flex justify-between py-1">

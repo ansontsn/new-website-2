@@ -146,7 +146,7 @@ export const DesignConfirmation: React.FC<DesignConfirmationProps> = ({
             {/* Spec Breakdown */}
             <div className="space-y-2.5 text-xs">
               <div className="flex justify-between py-1 border-b border-white/5">
-                <span className="text-slate-400">壓克力框型</span>
+                <span className="text-slate-400">固定框體外型</span>
                 <span className="font-semibold text-slate-200">{frameOpt.name}</span>
               </div>
 

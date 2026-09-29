@@ -48,7 +48,7 @@ export const PriceSummary: React.FC<PriceSummaryProps> = ({
         {/* Selected Config List */}
         <div className="space-y-2 py-2 border-y border-white/10 text-xs text-slate-300">
           <div className="flex justify-between items-center py-1">
-            <span className="text-slate-400">框型規格:</span>
+            <span className="text-slate-400">固定框體:</span>
             <span className="font-semibold text-white truncate max-w-[140px] text-right">
               {frameOpt.name}
             </span>

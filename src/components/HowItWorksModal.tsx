@@ -24,7 +24,7 @@ export const HowItWorksModal: React.FC<HowItWorksModalProps> = ({
     {
       step: '02',
       title: '進入互動式編輯器',
-      desc: '系統根據您選擇的方案開放對應工具。挑選 4 款壓克力幾何切面、5 種透光色、更換主題背景或上傳專屬小卡。',
+      desc: '系統根據您選擇的方案開放對應工具。框體採固定標準外型，可調整透光顏色、更換主題背景或上傳專屬小卡。',
       icon: Palette
     },
     {

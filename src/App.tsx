@@ -254,9 +254,9 @@ export const App: React.FC = () => {
                 </span>
                 <span className="text-xs text-slate-700 font-medium">
                   {customizerState.tier === 'BASIC'
-                    ? '基本款：僅開放框型與邊緣顏色'
+                    ? '基本款：標準框體外型與邊緣顏色'
                     : customizerState.tier === 'CUSTOM'
-                    ? '主題款：開放框型、顏色、背景、貼飾與文字'
+                    ? '主題款：標準框體外型、顏色、背景、貼飾與文字'
                     : '高度客製：全功能解鎖、小卡上傳、自由拖曳擺放'}
                 </span>
               </div>

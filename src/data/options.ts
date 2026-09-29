@@ -12,46 +12,13 @@ import gameSample from '../assets/cards/game.jpg';
 export const FRAME_OPTIONS: FrameOption[] = [
   {
     id: 'acrylic-classic',
-    name: '經典雙層厚壓克力',
-    enName: 'Classic Dual Acrylic',
-    description: '8mm 雙層透亮壓克力結構，四角強磁吸附，經典高透展示',
+    name: '標準矩形雙層壓克力框',
+    enName: 'Standard Dual Acrylic',
+    description: '固定標準矩形外型，搭配雙層壓克力展示結構',
     cornerStyle: 'rounded-2xl',
     borderWidth: 'border-2',
     hasScrews: true,
     screwType: 'silver',
-    priceAddon: 0
-  },
-  {
-    id: 'acrylic-bevel',
-    name: '精緻斜邊鑽石切角',
-    enName: 'Diamond Beveled',
-    description: '四邊 45° 鑽石拋光倒角，折射立體晶透光澤',
-    cornerStyle: 'rounded-3xl',
-    borderWidth: 'border-[3px]',
-    hasScrews: true,
-    screwType: 'silver',
-    priceAddon: 0
-  },
-  {
-    id: 'acrylic-minimal',
-    name: '極簡無界微浮雕',
-    enName: 'Borderless Floating',
-    description: '極窄邊框設計，聚焦卡面本體，極簡北歐藝廊感',
-    cornerStyle: 'rounded-lg',
-    borderWidth: 'border',
-    hasScrews: false,
-    screwType: 'silver',
-    priceAddon: 0
-  },
-  {
-    id: 'acrylic-gold-screw',
-    name: '輕奢曜金磁吸款',
-    enName: 'Gilded Magnetic',
-    description: '四角訂製曜金磁吸固定五金，奢華收藏質感',
-    cornerStyle: 'rounded-2xl',
-    borderWidth: 'border-2',
-    hasScrews: true,
-    screwType: 'gold',
     priceAddon: 0
   }
 ];

@@ -5,7 +5,6 @@ import {
   PlacedSticker 
 } from '../types';
 import { 
-  FRAME_OPTIONS, 
   FRAME_COLOR_OPTIONS, 
   BACKGROUND_OPTIONS, 
   STICKER_OPTIONS, 
@@ -15,7 +14,6 @@ import {
 import { StickerArtwork } from './StickerArtwork';
 import { CARD_SIZE_PRESETS, FRAME_WIDTH_MM, FRAME_HEIGHT_MM, isCardSizeSupported } from '../utils/dimensions';
 import { 
-  Box, 
   Palette, 
   Sparkles, 
   Type, 
@@ -38,7 +36,7 @@ interface CustomizerToolsProps {
   onSelectSticker?: (id: string | null) => void;
 }
 
-type TabType = 'frame' | 'color' | 'background' | 'photo' | 'stickers' | 'text';
+type TabType = 'color' | 'background' | 'photo' | 'stickers' | 'text';
 
 export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
   state,
@@ -47,7 +45,7 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
   selectedStickerId,
   onSelectSticker
 }) => {
-  const [activeTab, setActiveTab] = useState<TabType>('frame');
+  const [activeTab, setActiveTab] = useState<TabType>('color');
   const [stickerFilter, setStickerFilter] = useState<'all' | 'pearl' | 'pastel'>('all');
 
   // Tier guards
@@ -142,18 +140,6 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
       {/* Tab Navigation */}
       <div className="flex items-center gap-1 p-2 border-b border-white/10 bg-white/[0.02] overflow-x-auto">
         <button
-          onClick={() => setActiveTab('frame')}
-          className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
-            activeTab === 'frame'
-              ? 'bg-white/15 text-white font-semibold shadow-inner'
-              : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
-          }`}
-        >
-          <Box className="w-3.5 h-3.5 text-pink-400" />
-          框體外型
-        </button>
-
-        <button
           onClick={() => setActiveTab('color')}
           className={`flex items-center gap-1.5 px-3 py-2 rounded-xl text-xs font-medium transition-all whitespace-nowrap ${
             activeTab === 'color'
@@ -220,50 +206,7 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
       {/* Tab Panels Content */}
       <div className="p-4 sm:p-5 flex-1 overflow-y-auto space-y-4">
         
-        {/* 1. FRAME STYLE */}
-        {activeTab === 'frame' && (
-          <div className="space-y-3">
-            <div>
-              <h3 className="text-sm font-bold text-white flex items-center justify-between">
-                <span>選擇壓克力展示框型</span>
-                <span className="text-xs text-slate-400 font-normal">4 種幾何切面</span>
-              </h3>
-              <p className="text-xs text-slate-400 mt-0.5">
-                高透亮雙層結構，物理卡槽保護珍貴小卡
-              </p>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 gap-2.5 pt-1">
-              {FRAME_OPTIONS.map((f) => {
-                const isSelected = state.frameStyleId === f.id;
-                return (
-                  <button
-                    key={f.id}
-                    onClick={() => onUpdateState({ frameStyleId: f.id })}
-                    className={`p-3 rounded-xl border text-left transition-all ${
-                      isSelected
-                        ? 'border-pink-500 bg-pink-500/10 shadow-lg shadow-pink-500/10'
-                        : 'border-white/10 bg-white/[0.02] hover:border-white/20 hover:bg-white/[0.04]'
-                    }`}
-                  >
-                    <div className="flex items-center justify-between">
-                      <span className="text-xs font-bold text-slate-200">{f.name}</span>
-                      {isSelected && (
-                        <span className="w-2 h-2 rounded-full bg-pink-400 ring-2 ring-pink-400/30" />
-                      )}
-                    </div>
-                    <span className="text-[10px] text-pink-300 font-mono block mt-0.5">{f.enName}</span>
-                    <p className="text-[11px] text-slate-400 mt-1 leading-relaxed">
-                      {f.description}
-                    </p>
-                  </button>
-                );
-              })}
-            </div>
-          </div>
-        )}
-
-        {/* 2. FRAME COLOR */}
+        {/* FRAME COLOR */}
         {activeTab === 'color' && (
           <div className="space-y-3">
             <div>

@@ -220,7 +220,7 @@ export const SubmissionDetailModal: React.FC<SubmissionDetailModalProps> = ({
 
             <div className="p-4 rounded-2xl bg-white border border-stone-200 shadow-sm space-y-3 text-xs">
               <div className="flex justify-between py-1 border-b border-stone-100">
-                <span className="text-slate-500 font-medium">框型幾何規格:</span>
+                <span className="text-slate-500 font-medium">固定框體外型:</span>
                 <span className="font-bold text-slate-800">{submission.frame_style}</span>
               </div>
               <div className="flex justify-between py-1 border-b border-stone-100">

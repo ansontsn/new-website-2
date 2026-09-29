@@ -21,13 +21,13 @@ export const TierSelector: React.FC<TierSelectorProps> = ({
       subName: '基本客製展示框',
       price: '199',
       priceNote: '暫定預估價',
-      description: '適合追求極簡質感的收藏者，專注純粹的壓克力光澤與幾何外型。',
+      description: '適合追求簡潔質感的收藏者，採固定標準矩形框體，專注搭配壓克力色彩。',
       icon: Shield,
       accentColor: 'border-stone-300 bg-white/85 hover:border-stone-400 shadow-sm',
       tagColor: 'bg-stone-100 text-stone-700 border-stone-200',
       btnClass: 'bg-stone-800 hover:bg-stone-900 text-white',
       features: [
-        { text: '自由選擇 4 款壓克力幾何框型', included: true },
+        { text: '固定標準矩形雙層壓克力框', included: true },
         { text: '選擇 10 種框體外觀透光顏色', included: true },
         { text: '雙層 8mm 高透壓克力保護卡槽', included: true },
         { text: '支援示範小卡裝框效果模擬預覽', included: true },
@@ -50,7 +50,7 @@ export const TierSelector: React.FC<TierSelectorProps> = ({
       tagColor: 'bg-purple-100 text-purple-700 border-purple-200',
       btnClass: 'bg-gradient-to-r from-purple-600 to-indigo-600 hover:from-purple-700 hover:to-indigo-700 text-white shadow-md',
       features: [
-        { text: '自由選擇 4 款壓克力幾何框型', included: true },
+        { text: '固定標準矩形雙層壓克力框', included: true },
         { text: '選擇 10 種框體外觀透光顏色', included: true },
         { text: '雙層 8mm 高透壓克力保護卡槽', included: true },
         { text: '支援示範小卡裝框效果模擬預覽', included: true },
@@ -73,7 +73,7 @@ export const TierSelector: React.FC<TierSelectorProps> = ({
       tagColor: 'bg-pink-100 text-pink-700 border-pink-200',
       btnClass: 'bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-md',
       features: [
-        { text: '自由選擇 4 款壓克力幾何框型', included: true },
+        { text: '固定標準矩形雙層壓克力框', included: true },
         { text: '選擇 10 種框體外觀透光顏色', included: true },
         { text: '支援示範小卡裝框效果模擬預覽', included: true },
         { text: '解鎖個人專屬小卡 1:1 上傳模擬置入', included: true },
@@ -98,7 +98,7 @@ export const TierSelector: React.FC<TierSelectorProps> = ({
           選擇適合你的設計方式
         </h1>
         <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
-          我們提供三種不同深度的客製化體驗。從純粹俐落的基礎幾何框，到全功能開放的自訂編輯器，請挑選最符合您收藏需求的方案：
+          我們提供三種不同深度的客製化體驗。框體採固定標準矩形外型，您可以依需求選擇框色、背景與個人化裝飾：
         </p>
       </div>
 

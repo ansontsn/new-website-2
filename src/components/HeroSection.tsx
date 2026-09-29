@@ -106,7 +106,7 @@ export const HeroSection: React.FC<HeroSectionProps> = ({ onStartCustomizing, on
       <div className="mx-auto max-w-2xl text-center"><p className="text-xs font-bold uppercase tracking-[.2em] text-pink-600">CHOOSE YOUR DETAIL</p><h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">從簡單搭配，到自由創作</h2><p className="mt-3 text-sm leading-6 text-slate-600">先選你想參與設計的程度，進入編輯器後還能隨時調整。</p></div>
       <div className="mt-8 grid gap-4 md:grid-cols-3">
         {[
-          { title: '簡易客製', tier: 'BASIC', price: 'NT$199', note: '框型與外觀色', detail: '保留簡潔，專注挑選展示框外觀。' },
+          { title: '簡易客製', tier: 'BASIC', price: 'NT$199', note: '標準框體與外觀色', detail: '保留簡潔，專注挑選展示框外觀色。' },
           { title: '主題客製', tier: 'CUSTOM', price: 'NT$299', note: '背景、貼飾與文字', detail: '加入主題氛圍與個人化細節。', featured: true },
           { title: '完全客製', tier: 'PREMIUM', price: 'NT$399 起', note: '含個人小卡上傳', detail: '以自己的小卡預覽整體設計。' },
         ].map((plan) => <article key={plan.tier} className={`relative rounded-3xl border p-6 ${plan.featured ? 'border-pink-300 bg-pink-50/60 shadow-lg shadow-pink-100' : 'border-stone-200 bg-white'}`}>
