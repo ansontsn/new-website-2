@@ -19,6 +19,7 @@ import { AdminDashboard } from './components/admin/AdminDashboard';
 import { DesignSubmission } from './types';
 import { Download, Loader2 } from 'lucide-react';
 import { toPng } from 'html-to-image';
+import { getCardAnchorMm, isCardSizeSupported } from './utils/dimensions';
 
 export const App: React.FC = () => {
   // Navigation View State (URL Sync)
@@ -50,6 +51,10 @@ export const App: React.FC = () => {
   }, [currentView]);
 
   const handleNavigate = (view: AppView) => {
+    if ((view === 'confirmation') && !isCardSizeSupported(customizerState.cardWidthMm, customizerState.cardHeightMm)) {
+      alert('此尺寸超出 ONLYFRAME 標準框目前建議支援範圍，請先調整小卡尺寸。');
+      return;
+    }
     setCurrentView(view);
     if (view === 'admin') {
       if (window.location.pathname !== '/admin') {
@@ -65,6 +70,9 @@ export const App: React.FC = () => {
 
   // Core Customizer State
   const [customizerState, setCustomizerState] = useState<CustomizerState>({
+    cardWidthMm: 55,
+    cardHeightMm: 85,
+    cardSizePreset: '55 × 85 mm',
     tier: 'CUSTOM',
     frameStyleId: 'acrylic-classic',
     frameColorId: 'clear',
@@ -78,21 +86,27 @@ export const App: React.FC = () => {
         id: 'init-stk-1',
         stickerId: 'star-4pt',
         symbol: '✦',
-        x: 18,
-        y: 12,
-        size: 20,
+        xMm: 15.3,
+        yMm: 13.8,
+        widthMm: 7.5,
+        heightMm: 7.5,
         rotation: -8,
-        color: '#fbcfe8'
+        color: '#fbcfe8',
+        zIndex: 20,
+        anchorTarget: 'frame'
       },
       {
         id: 'init-stk-2',
         stickerId: 'star-gold',
         symbol: '⭐',
-        x: 82,
-        y: 14,
-        size: 18,
+        xMm: 69.7,
+        yMm: 16.1,
+        widthMm: 7.5,
+        heightMm: 7.5,
         rotation: 12,
-        color: '#fef08a'
+        color: '#fef08a',
+        zIndex: 20,
+        anchorTarget: 'frame'
       }
     ],
     text: INITIAL_TEXT_CONFIG
@@ -106,20 +120,34 @@ export const App: React.FC = () => {
 
   // State update handlers
   const handleUpdateState = (updates: Partial<CustomizerState>) => {
-    setCustomizerState((prev) => ({ ...prev, ...updates }));
+    setCustomizerState((prev) => {
+      const next = { ...prev, ...updates };
+      if (updates.cardWidthMm !== undefined || updates.cardHeightMm !== undefined) {
+        const widthMm = next.cardWidthMm;
+        const heightMm = next.cardHeightMm;
+        const reposition = <T extends { anchorTarget?: 'card' | 'frame'; anchorPosition?: import('./utils/dimensions').CardAnchor; offsetXmm?: number; offsetYmm?: number; xMm: number; yMm: number }>(item: T): T => {
+          if (item.anchorTarget !== 'card' || !item.anchorPosition) return item;
+          const anchor = getCardAnchorMm(item.anchorPosition, widthMm, heightMm);
+          return { ...item, xMm: anchor.xMm + (item.offsetXmm || 0), yMm: anchor.yMm + (item.offsetYmm || 0) };
+        };
+        next.stickers = next.stickers.map(reposition);
+        next.text = reposition(next.text);
+      }
+      return next;
+    });
   };
 
-  const handleUpdateStickerPosition = (id: string, x: number, y: number) => {
+  const handleUpdateStickerPosition = (id: string, xMm: number, yMm: number, anchorPosition?: import('./utils/dimensions').CardAnchor) => {
     setCustomizerState((prev) => ({
       ...prev,
-      stickers: prev.stickers.map((s) => (s.id === id ? { ...s, x, y } : s))
+      stickers: prev.stickers.map((s) => (s.id === id ? { ...s, xMm, yMm, anchorTarget: anchorPosition ? 'card' : 'frame', anchorPosition, offsetXmm: anchorPosition ? 0 : undefined, offsetYmm: anchorPosition ? 0 : undefined } : s))
     }));
   };
 
-  const handleUpdateTextPosition = (x: number, y: number) => {
+  const handleUpdateTextPosition = (xMm: number, yMm: number, anchorPosition?: import('./utils/dimensions').CardAnchor) => {
     setCustomizerState((prev) => ({
       ...prev,
-      text: { ...prev.text, x, y }
+      text: { ...prev.text, xMm, yMm, anchorTarget: anchorPosition ? 'card' : 'frame', anchorPosition, offsetXmm: anchorPosition ? 0 : undefined, offsetYmm: anchorPosition ? 0 : undefined }
     }));
   };
 

@@ -306,10 +306,14 @@ export const PRESET_PHOTOCARDS = [
 export const INITIAL_TEXT_CONFIG: TextConfig = {
   content: '',
   font: 'Outfit',
-  fontSize: 18,
+  fontSizeMm: 4.5,
   color: '#ffffff',
   rotation: 0,
-  x: 50,
-  y: 84,
+  xMm: 42.5,
+  yMm: 96.6,
+  widthMm: 30,
+  heightMm: 6,
+  zIndex: 30,
+  anchorTarget: 'frame',
   isSpecialFont: false
 };

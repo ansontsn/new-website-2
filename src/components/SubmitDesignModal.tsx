@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { CustomizerState, PriceBreakdown, DesignSubmission } from '../types';
 import { submitDesignToBackend, dataUrlToBlob } from '../lib/supabase';
 import { toPng } from 'html-to-image';
+import { isCardSizeSupported } from '../utils/dimensions';
 import { 
   X, 
   Loader2, 
@@ -40,6 +41,9 @@ export const SubmitDesignModal: React.FC<SubmitDesignModalProps> = ({
     // 1. 方案驗證
     if (!state.tier) {
       errors.push('請先選擇客製化方案（Basic / Custom / Premium）');
+    }
+    if (!isCardSizeSupported(state.cardWidthMm, state.cardHeightMm)) {
+      errors.push('此尺寸超出 ONLYFRAME 標準框目前建議支援範圍，請先調整小卡尺寸。');
     }
 
     // 2. 姓名驗證

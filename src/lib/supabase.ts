@@ -2,6 +2,7 @@ import { createClient } from '@supabase/supabase-js';
 import { CustomizerState, DesignSubmission, SubmissionStatus } from '../types';
 import { calculatePrice } from '../utils/pricing';
 import { FRAME_OPTIONS, FRAME_COLOR_OPTIONS, BACKGROUND_OPTIONS, FONT_OPTIONS } from '../data/options';
+import { centeredCardPosition, FRAME_WIDTH_MM, FRAME_HEIGHT_MM, isCardSizeSupported } from '../utils/dimensions';
 
 // 取得環境變數
 const supabaseUrl = import.meta.env.VITE_SUPABASE_URL || '';
@@ -107,6 +108,10 @@ export const submitDesignToBackend = async (params: {
 }): Promise<DesignSubmission> => {
   const { customerName, customerEmail, state, previewBlob } = params;
 
+  if (!isCardSizeSupported(state.cardWidthMm, state.cardHeightMm)) {
+    throw new Error('小卡尺寸超出 ONLYFRAME 標準框目前建議支援範圍，請先調整尺寸。');
+  }
+
   // 1. 重新驗證價格（防前端竄改 final_price）
   const verifiedPricing = calculatePrice(state);
   const basePrice = verifiedPricing.basePrice;
@@ -156,7 +161,27 @@ export const submitDesignToBackend = async (params: {
   const submissionCode = `DES-${dateStr}-${randomSeq}`;
 
   // 6. 整理完整客製化 JSON (供未來還原設計)
+  const cardPosition = centeredCardPosition(state.cardWidthMm, state.cardHeightMm);
+  const printElements = [
+    ...state.stickers.map(sticker => ({
+      id: sticker.id, type: 'sticker' as const, xMm: sticker.xMm, yMm: sticker.yMm,
+      widthMm: sticker.widthMm, heightMm: sticker.heightMm, rotation: sticker.rotation,
+      zIndex: sticker.zIndex, anchorTarget: sticker.anchorTarget || 'frame', anchorPosition: sticker.anchorPosition || null,
+      offsetXmm: sticker.offsetXmm ?? 0, offsetYmm: sticker.offsetYmm ?? 0,
+      stickerId: sticker.stickerId, symbol: sticker.symbol, color: sticker.color
+    })),
+    ...(state.text.content ? [{
+      id: 'custom-text', type: 'text' as const, xMm: state.text.xMm, yMm: state.text.yMm,
+      widthMm: state.text.widthMm, heightMm: state.text.heightMm, rotation: state.text.rotation,
+      zIndex: state.text.zIndex, anchorTarget: state.text.anchorTarget || 'frame', anchorPosition: state.text.anchorPosition || null,
+      offsetXmm: state.text.offsetXmm ?? 0, offsetYmm: state.text.offsetYmm ?? 0,
+      content: state.text.content, font: state.text.font, fontSizeMm: state.text.fontSizeMm, color: state.text.color
+    }] : [])
+  ];
   const designData = {
+    frame: { widthMm: FRAME_WIDTH_MM, heightMm: FRAME_HEIGHT_MM },
+    card: { widthMm: state.cardWidthMm, heightMm: state.cardHeightMm, ...cardPosition },
+    elements: printElements,
     plan: state.tier,
     frameStyleId: state.frameStyleId,
     frameName: frameOpt.name,

@@ -12,6 +12,7 @@ import {
   FONT_OPTIONS,
   PRESET_PHOTOCARDS
 } from '../data/options';
+import { CARD_SIZE_PRESETS, FRAME_WIDTH_MM, FRAME_HEIGHT_MM, isCardSizeSupported } from '../utils/dimensions';
 import { 
   Box, 
   Palette, 
@@ -62,11 +63,14 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
       id: newId,
       stickerId: opt.id,
       symbol: opt.symbol,
-      x: Math.floor(Math.random() * 40) + 30, // 30-70%
-      y: Math.floor(Math.random() * 40) + 30,
-      size: 26,
+      xMm: Math.round((Math.random() * 34 + 25) * 10) / 10,
+      yMm: Math.round((Math.random() * 46 + 34) * 10) / 10,
+      widthMm: 7.5,
+      heightMm: 7.5,
       rotation: Math.floor(Math.random() * 20) - 10,
-      color: '#ffffff'
+      color: '#ffffff',
+      zIndex: 20,
+      anchorTarget: 'frame'
     };
 
     onUpdateState({ stickers: [...state.stickers, newSticker] });
@@ -87,8 +91,10 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
     const cloned: PlacedSticker = {
       ...target,
       id: newId,
-      x: Math.min(90, target.x + 6),
-      y: Math.min(90, target.y + 6)
+      xMm: Math.min(FRAME_WIDTH_MM, target.xMm + 6),
+      yMm: Math.min(FRAME_HEIGHT_MM, target.yMm + 6),
+      anchorTarget: 'frame',
+      anchorPosition: undefined
     };
     onUpdateState({ stickers: [...state.stickers, cloned] });
     onSelectSticker?.(newId);
@@ -105,6 +111,21 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
 
   return (
     <div className="flex flex-col h-full bg-[#12141c]/90 rounded-2xl border border-white/10 overflow-hidden shadow-2xl backdrop-blur-xl">
+      <section className="px-4 py-3 border-b border-white/10 bg-white/[0.025] space-y-2.5">
+        <div className="flex items-center justify-between gap-2">
+          <div><h3 className="text-sm font-bold text-white">我的小卡尺寸</h3><p className="text-[10px] text-slate-400 mt-0.5">卡片固定置中，預覽依實際比例呈現</p></div>
+          <span className="text-[10px] text-slate-400 font-mono">框體 85 × 115 mm</span>
+        </div>
+        <div className="grid grid-cols-2 gap-1.5">
+          {CARD_SIZE_PRESETS.map((preset) => <button key={preset.label} onClick={() => onUpdateState({ cardWidthMm: preset.widthMm, cardHeightMm: preset.heightMm, cardSizePreset: preset.label })} className={`px-2 py-1.5 rounded-lg border text-[11px] font-medium transition-colors ${state.cardSizePreset === preset.label ? 'border-pink-400 bg-pink-500/15 text-pink-200' : 'border-white/10 bg-white/[0.02] text-slate-300 hover:border-white/25'}`}>{preset.label}</button>)}
+        </div>
+        <button onClick={() => onUpdateState({ cardSizePreset: 'custom' })} className={`w-full px-2 py-1.5 rounded-lg border text-[11px] text-left ${state.cardSizePreset === 'custom' ? 'border-pink-400 bg-pink-500/15 text-pink-200' : 'border-white/10 text-slate-300'}`}>自訂尺寸</button>
+        {state.cardSizePreset === 'custom' && <div className="grid grid-cols-2 gap-2">
+          <label className="text-[10px] text-slate-400">寬度 (mm)<input type="number" min={50} max={63} step="0.1" value={state.cardWidthMm} onChange={(e) => onUpdateState({ cardWidthMm: Number(e.target.value) })} className="mt-1 w-full rounded-lg border border-white/10 bg-black/30 px-2 py-1.5 text-xs text-white" /></label>
+          <label className="text-[10px] text-slate-400">高度 (mm)<input type="number" min={70} max={90} step="0.1" value={state.cardHeightMm} onChange={(e) => onUpdateState({ cardHeightMm: Number(e.target.value) })} className="mt-1 w-full rounded-lg border border-white/10 bg-black/30 px-2 py-1.5 text-xs text-white" /></label>
+        </div>}
+        {!isCardSizeSupported(state.cardWidthMm, state.cardHeightMm) && <p className="text-[10px] leading-relaxed text-amber-300 bg-amber-400/10 border border-amber-300/20 rounded-lg px-2 py-1.5">此尺寸超出 ONLYFRAME 標準框目前建議支援範圍，可能與磁吸區域或裝飾區重疊。</p>}
+      </section>
       
       {/* Tab Navigation */}
       <div className="flex items-center gap-1 p-2 border-b border-white/10 bg-white/[0.02] overflow-x-auto">
@@ -613,7 +634,7 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                             自訂選中貼飾
                           </span>
                           <span className="text-[10px] text-pink-400 font-mono">
-                            大小 {activeSticker.size}px ‧ 角度 {activeSticker.rotation}°
+                            大小 {activeSticker.widthMm.toFixed(1)}mm ‧ 角度 {activeSticker.rotation}°
                           </span>
                         </div>
                       </div>
@@ -643,14 +664,15 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                           <Maximize2 className="w-3 h-3 text-pink-400" />
                           自訂大小
                         </span>
-                        <span className="font-mono text-pink-300 font-bold">{activeSticker.size} px</span>
+                        <span className="font-mono text-pink-300 font-bold">{activeSticker.widthMm.toFixed(1)} mm</span>
                       </div>
                       <input
                         type="range"
-                        min={14}
-                        max={58}
-                        value={activeSticker.size}
-                        onChange={(e) => handleUpdateActiveSticker({ size: Number(e.target.value) })}
+                        min={4}
+                        max={15}
+                        step={0.5}
+                        value={activeSticker.widthMm}
+                        onChange={(e) => handleUpdateActiveSticker({ widthMm: Number(e.target.value), heightMm: Number(e.target.value) })}
                         className="w-full accent-pink-500"
                       />
                     </div>
@@ -723,28 +745,30 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                       <div>
                         <div className="flex justify-between text-slate-400 mb-0.5">
                           <span>水平 X</span>
-                          <span className="font-mono text-slate-200">{activeSticker.x}%</span>
+                          <span className="font-mono text-slate-200">{activeSticker.xMm.toFixed(1)} mm</span>
                         </div>
                         <input
                           type="range"
-                          min={5}
-                          max={95}
-                          value={activeSticker.x}
-                          onChange={(e) => handleUpdateActiveSticker({ x: Number(e.target.value) })}
+                          min={0}
+                          max={FRAME_WIDTH_MM}
+                          step={0.5}
+                          value={activeSticker.xMm}
+                          onChange={(e) => handleUpdateActiveSticker({ xMm: Number(e.target.value), anchorTarget: 'frame', anchorPosition: undefined })}
                           className="w-full accent-pink-500"
                         />
                       </div>
                       <div>
                         <div className="flex justify-between text-slate-400 mb-0.5">
                           <span>垂直 Y</span>
-                          <span className="font-mono text-slate-200">{activeSticker.y}%</span>
+                          <span className="font-mono text-slate-200">{activeSticker.yMm.toFixed(1)} mm</span>
                         </div>
                         <input
                           type="range"
-                          min={5}
-                          max={95}
-                          value={activeSticker.y}
-                          onChange={(e) => handleUpdateActiveSticker({ y: Number(e.target.value) })}
+                          min={0}
+                          max={FRAME_HEIGHT_MM}
+                          step={0.5}
+                          value={activeSticker.yMm}
+                          onChange={(e) => handleUpdateActiveSticker({ yMm: Number(e.target.value), anchorTarget: 'frame', anchorPosition: undefined })}
                           className="w-full accent-pink-500"
                         />
                       </div>
@@ -860,18 +884,18 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                   </div>
                   <div className="grid grid-cols-2 gap-2">
                     {[
-                      { label: '📌 底部中央銘牌 (推薦)', x: 50, y: 86, rot: 0 },
-                      { label: '📌 框體頂部抬頭', x: 50, y: 12, rot: 0 }
+                      { label: '📌 底部中央銘牌 (推薦)', xMm: 42.5, yMm: 98.9, rot: 0 },
+                      { label: '📌 框體頂部抬頭', xMm: 42.5, yMm: 13.8, rot: 0 }
                     ].map((pos, idx) => (
                       <button
                         key={idx}
                         onClick={() =>
                           onUpdateState({
-                            text: { ...state.text, x: pos.x, y: pos.y, rotation: pos.rot }
+                            text: { ...state.text, xMm: pos.xMm, yMm: pos.yMm, rotation: pos.rot, anchorTarget: 'frame', anchorPosition: undefined }
                           })
                         }
                         className={`px-3 py-2 rounded-xl border text-xs font-medium transition-all text-center ${
-                          state.text.x === pos.x && state.text.y === pos.y
+                          state.text.xMm === pos.xMm && state.text.yMm === pos.yMm
                             ? 'bg-pink-500/20 border-pink-400 text-pink-200 font-bold'
                             : 'bg-white/[0.03] hover:bg-pink-500/10 border-white/10 hover:border-pink-400/40 text-slate-300'
                         }`}
@@ -893,16 +917,17 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                     <div>
                       <div className="flex justify-between text-[11px] text-slate-300 mb-0.5">
                         <span>水平 X 座標</span>
-                        <span className="font-mono text-pink-300 font-bold">{state.text.x}%</span>
+                        <span className="font-mono text-pink-300 font-bold">{state.text.xMm.toFixed(1)} mm</span>
                       </div>
                       <input
                         type="range"
-                        min={10}
-                        max={90}
-                        value={state.text.x}
+                        min={0}
+                        max={FRAME_WIDTH_MM}
+                        step={0.5}
+                        value={state.text.xMm}
                         onChange={(e) =>
                           onUpdateState({
-                            text: { ...state.text, x: Number(e.target.value) }
+                            text: { ...state.text, xMm: Number(e.target.value), anchorTarget: 'frame', anchorPosition: undefined }
                           })
                         }
                         className="w-full accent-pink-500"
@@ -912,16 +937,17 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                     <div>
                       <div className="flex justify-between text-[11px] text-slate-300 mb-0.5">
                         <span>垂直 Y 座標</span>
-                        <span className="font-mono text-pink-300 font-bold">{state.text.y}%</span>
+                        <span className="font-mono text-pink-300 font-bold">{state.text.yMm.toFixed(1)} mm</span>
                       </div>
                       <input
                         type="range"
-                        min={10}
-                        max={92}
-                        value={state.text.y}
+                        min={0}
+                        max={FRAME_HEIGHT_MM}
+                        step={0.5}
+                        value={state.text.yMm}
                         onChange={(e) =>
                           onUpdateState({
-                            text: { ...state.text, y: Number(e.target.value) }
+                            text: { ...state.text, yMm: Number(e.target.value), anchorTarget: 'frame', anchorPosition: undefined }
                           })
                         }
                         className="w-full accent-pink-500"
@@ -933,16 +959,17 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                     <div>
                       <div className="flex justify-between text-[11px] text-slate-300 mb-0.5">
                         <span>字體大小</span>
-                        <span className="font-mono text-pink-300 font-bold">{state.text.fontSize}px</span>
+                        <span className="font-mono text-pink-300 font-bold">{state.text.fontSizeMm.toFixed(1)} mm</span>
                       </div>
                       <input
                         type="range"
-                        min={12}
-                        max={28}
-                        value={state.text.fontSize}
+                        min={3}
+                        max={7}
+                        step={0.5}
+                        value={state.text.fontSizeMm}
                         onChange={(e) =>
                           onUpdateState({
-                            text: { ...state.text, fontSize: Number(e.target.value) }
+                            text: { ...state.text, fontSizeMm: Number(e.target.value), heightMm: Number(e.target.value) * 1.4 }
                           })
                         }
                         className="w-full accent-pink-500"

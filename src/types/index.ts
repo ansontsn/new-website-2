@@ -43,25 +43,41 @@ export interface PlacedSticker {
   id: string;
   stickerId: string;
   symbol: string;
-  x: number; // percentage 0-100
-  y: number; // percentage 0-100
-  size: number; // px
+  xMm: number;
+  yMm: number;
+  widthMm: number;
+  heightMm: number;
   rotation: number; // deg
   color: string;
+  zIndex: number;
+  anchorTarget?: 'card' | 'frame';
+  anchorPosition?: import('../utils/dimensions').CardAnchor;
+  offsetXmm?: number;
+  offsetYmm?: number;
 }
 
 export interface TextConfig {
   content: string;
   font: string;
-  fontSize: number;
+  fontSizeMm: number;
   color: string;
   rotation: number;
-  x: number; // percentage 0-100
-  y: number; // percentage 0-100
+  xMm: number;
+  yMm: number;
+  widthMm: number;
+  heightMm: number;
+  zIndex: number;
+  anchorTarget?: 'card' | 'frame';
+  anchorPosition?: import('../utils/dimensions').CardAnchor;
+  offsetXmm?: number;
+  offsetYmm?: number;
   isSpecialFont: boolean;
 }
 
 export interface CustomizerState {
+  cardWidthMm: number;
+  cardHeightMm: number;
+  cardSizePreset: string;
   tier: CustomizationTier;
   frameStyleId: string;
   frameColorId: string;
