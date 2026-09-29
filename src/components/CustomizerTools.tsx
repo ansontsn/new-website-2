@@ -59,12 +59,24 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
     if (!opt) return;
 
     const newId = `stk-${Date.now()}-${Math.random().toString(36).substr(2, 4)}`;
+    const sideMargin = (FRAME_WIDTH_MM - state.cardWidthMm) / 2;
+    const topMargin = (FRAME_HEIGHT_MM - state.cardHeightMm) / 2;
+    const slots = [
+      { xMm: FRAME_WIDTH_MM / 2, yMm: topMargin / 2 },
+      { xMm: FRAME_WIDTH_MM / 2, yMm: FRAME_HEIGHT_MM - topMargin / 2 },
+      { xMm: sideMargin / 2, yMm: FRAME_HEIGHT_MM * 0.35 },
+      { xMm: FRAME_WIDTH_MM - sideMargin / 2, yMm: FRAME_HEIGHT_MM * 0.65 },
+      { xMm: FRAME_WIDTH_MM - sideMargin / 2, yMm: FRAME_HEIGHT_MM * 0.35 },
+      { xMm: sideMargin / 2, yMm: FRAME_HEIGHT_MM * 0.65 }
+    ];
+    const position = slots.find(slot => state.stickers.every(sticker => Math.hypot(slot.xMm - sticker.xMm, slot.yMm - sticker.yMm) >= 11))
+      || slots[state.stickers.length % slots.length];
     const newSticker: PlacedSticker = {
       id: newId,
       stickerId: opt.id,
       symbol: opt.name,
-      xMm: Math.round((Math.random() * 34 + 25) * 10) / 10,
-      yMm: Math.round((Math.random() * 46 + 34) * 10) / 10,
+      xMm: Math.round(position.xMm * 10) / 10,
+      yMm: Math.round(position.yMm * 10) / 10,
       widthMm: 7.5,
       heightMm: 7.5,
       rotation: Math.floor(Math.random() * 20) - 10,
