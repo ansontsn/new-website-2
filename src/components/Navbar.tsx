@@ -126,7 +126,7 @@ export const Navbar: React.FC<NavbarProps> = ({
               className="w-4 h-4 sm:w-5 sm:h-5 rounded-sm object-contain flex-shrink-0" 
               style={{ width: '16px', height: '16px' }}
             />
-            <span className="whitespace-nowrap">{currentView === 'customizer' ? '完成設計 ➔' : '開始客製化'}</span>
+            <span className="whitespace-nowrap">{currentView === 'customizer' ? '確認設計' : '開始設計'}</span>
           </button>
         </div>
 

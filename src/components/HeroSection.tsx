@@ -1,172 +1,145 @@
 import React from 'react';
-import { Sparkles, ArrowRight, Layers, Eye, Sliders } from 'lucide-react';
+import { ArrowDown, ArrowRight, Check, Layers, ShieldCheck, Sparkles } from 'lucide-react';
 
 interface HeroSectionProps {
   onStartCustomizing: () => void;
   onOpenHowItWorks: () => void;
 }
 
-export const HeroSection: React.FC<HeroSectionProps> = ({
-  onStartCustomizing,
-  onOpenHowItWorks
-}) => {
-  return (
-    <div className="relative overflow-hidden pt-8 pb-16 lg:pt-14 lg:pb-24">
-      
-      {/* Background ambient lighting */}
-      <div className="absolute top-1/4 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[600px] h-[350px] bg-gradient-to-tr from-pink-500/10 via-amber-400/10 to-purple-600/5 blur-[130px] rounded-full pointer-events-none" />
+const primaryButton = 'inline-flex items-center justify-center gap-2 rounded-xl bg-slate-950 px-6 py-3.5 text-sm font-bold text-white shadow-lg shadow-slate-900/10 transition hover:bg-pink-600 focus:outline-none focus-visible:ring-2 focus-visible:ring-pink-500 focus-visible:ring-offset-2';
 
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-8 items-center">
-          
-          {/* Left Column: Value Proposition & CTAs */}
-          <div className="lg:col-span-7 space-y-6 text-center lg:text-left">
-            
-            {/* Tagline Pill */}
-            <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-stone-200/80 text-xs font-semibold text-slate-700 shadow-sm backdrop-blur-md">
-              <span className="w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
-              <span>企管系專題 MVP · 收藏品客製化互動展示平台</span>
-            </div>
-
-            {/* Main Headline */}
-            <h1 className="text-4xl sm:text-5xl lg:text-6xl font-black tracking-tight text-slate-900 leading-[1.15]">
-              打造屬於你的
-              <span className="block mt-1 bg-gradient-to-r from-pink-600 via-rose-500 to-purple-600 bg-clip-text text-transparent">
-                收藏小卡客製展示框
-              </span>
+export const HeroSection: React.FC<HeroSectionProps> = ({ onStartCustomizing, onOpenHowItWorks }) => (
+  <div className="overflow-hidden">
+    <section className="relative border-b border-stone-200/80 bg-gradient-to-br from-[#fbf8f4] via-white to-[#f7eef1]">
+      <div className="pointer-events-none absolute -right-32 -top-20 h-[34rem] w-[34rem] rounded-full bg-pink-200/30 blur-3xl" />
+      <div className="relative mx-auto grid max-w-7xl items-center gap-12 px-4 py-14 sm:px-6 sm:py-20 lg:grid-cols-2 lg:px-8 lg:py-24">
+        <div className="space-y-7">
+          <span className="inline-flex items-center gap-2 rounded-full border border-pink-200 bg-white/80 px-3.5 py-1.5 text-xs font-semibold text-pink-700 shadow-sm">
+            <Sparkles className="h-3.5 w-3.5" /> 為收藏，做一個剛剛好的展示框
+          </span>
+          <div className="space-y-4">
+            <h1 className="max-w-2xl text-4xl font-black leading-[1.12] tracking-tight text-slate-950 sm:text-5xl lg:text-6xl">
+              讓喜歡的收藏，<span className="text-pink-600">成為日常風景。</span>
             </h1>
-
-            {/* Subtitle */}
-            <p className="text-base sm:text-lg text-slate-600 font-normal leading-relaxed max-w-2xl mx-auto lg:mx-0">
-              從基本款到完全客製，由你決定你的收藏品應該長什麼樣子。
-              專為 K-pop 偶像小卡、二次元動漫與手遊角色設計的高透壓克力展示系統。
-            </p>
-
-            {/* Key Value Points */}
-            <div className="grid grid-cols-1 sm:grid-cols-3 gap-3 pt-2 text-xs font-semibold text-slate-700">
-              <div className="flex items-center justify-center lg:justify-start gap-2 p-2.5 rounded-xl bg-white/80 border border-stone-200/80 shadow-sm">
-                <Sliders className="w-4 h-4 text-pink-500 flex-shrink-0" />
-                <span>自由掌握客製深度</span>
-              </div>
-              <div className="flex items-center justify-center lg:justify-start gap-2 p-2.5 rounded-xl bg-white/80 border border-stone-200/80 shadow-sm">
-                <Eye className="w-4 h-4 text-purple-600 flex-shrink-0" />
-                <span>即時光影 3D 預覽</span>
-              </div>
-              <div className="flex items-center justify-center lg:justify-start gap-2 p-2.5 rounded-xl bg-white/80 border border-stone-200/80 shadow-sm">
-                <Layers className="w-4 h-4 text-emerald-600 flex-shrink-0" />
-                <span>實時透明動態計價</span>
-              </div>
-            </div>
-
-            {/* CTAs */}
-            <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
-              <button
-                onClick={onStartCustomizing}
-                className="w-full sm:w-auto px-8 py-4 rounded-2xl font-bold text-sm sm:text-base bg-gradient-to-r from-pink-500 via-rose-500 to-purple-600 hover:from-pink-600 hover:to-purple-700 text-white shadow-xl shadow-pink-500/25 hover:shadow-pink-500/40 transition-all duration-200 active:scale-95 flex items-center justify-center gap-2.5 group"
-              >
-                <img src="/logo.png" alt="ONLYFRAME" className="w-5 h-5 rounded-md object-contain shadow-sm" />
-                <span>開始客製化</span>
-                <ArrowRight className="w-5 h-5 group-hover:translate-x-1 transition-transform" />
-              </button>
-
-              <button
-                onClick={onOpenHowItWorks}
-                className="w-full sm:w-auto px-6 py-4 rounded-2xl font-semibold text-sm sm:text-base bg-white/80 hover:bg-white text-slate-700 hover:text-slate-900 border border-stone-300/80 shadow-sm transition-all duration-200 flex items-center justify-center gap-2"
-              >
-                <span>看看怎麼製作</span>
-              </button>
-            </div>
-
-            <p className="text-xs text-slate-500 pt-2">
-              * 目前為 Prototype 概念產品，所有規格與預估價格供畢業專題打樣評估使用。
+            <p className="max-w-xl text-base leading-8 text-slate-600 sm:text-lg">
+              從選擇展示框到親手編排卡面，先在畫面上預覽專屬設計，再了解方案與暫定價格。
             </p>
           </div>
-
-          {/* Right Column: Pure CSS/HTML 3D Acrylic Frame Mockup */}
-          <div className="lg:col-span-5 flex justify-center">
-            <div className="relative group cursor-pointer" onClick={onStartCustomizing}>
-              
-              {/* Decorative background glow rings */}
-              <div className="absolute -inset-4 rounded-3xl bg-gradient-to-tr from-pink-500/30 to-purple-600/30 blur-2xl opacity-60 group-hover:opacity-100 transition-opacity duration-500" />
-
-              {/* 3D Floating Acrylic Mockup Container */}
-              <div className="relative w-[280px] sm:w-[310px] h-[430px] sm:h-[460px] rounded-2xl p-4 sm:p-5 acrylic-card shadow-acrylic border border-white/25 flex flex-col justify-between overflow-hidden animate-float">
-                
-                {/* 4 Corner Chrome Magnetic Screws */}
-                <div className="absolute top-2.5 left-2.5 w-3.5 h-3.5 rounded-full screw-head z-30 flex items-center justify-center">
-                  <div className="w-2 h-[1px] bg-slate-800" />
-                </div>
-                <div className="absolute top-2.5 right-2.5 w-3.5 h-3.5 rounded-full screw-head z-30 flex items-center justify-center">
-                  <div className="w-2 h-[1px] bg-slate-800" />
-                </div>
-                <div className="absolute bottom-2.5 left-2.5 w-3.5 h-3.5 rounded-full screw-head z-30 flex items-center justify-center">
-                  <div className="w-2 h-[1px] bg-slate-800" />
-                </div>
-                <div className="absolute bottom-2.5 right-2.5 w-3.5 h-3.5 rounded-full screw-head z-30 flex items-center justify-center">
-                  <div className="w-2 h-[1px] bg-slate-800" />
-                </div>
-
-                {/* Glass Light Reflection Beam */}
-                <div className="absolute -top-1/2 -left-1/2 w-[200%] h-[200%] pointer-events-none glass-reflection rotate-25 opacity-70 z-20" />
-
-                {/* Inner Gradient Nebula Background */}
-                <div className="absolute inset-2 sm:inset-3 rounded-xl overflow-hidden bg-gradient-to-br from-indigo-950/60 via-purple-950/40 to-black z-0">
-                  <div className="absolute inset-0 bg-[radial-gradient(#ffffff22_1px,transparent_1px)] [background-size:12px_12px]" />
-                </div>
-
-                {/* Floating Stickers on Acrylic Face */}
-                <div className="absolute top-8 left-8 text-pink-300 text-xl drop-shadow-md z-20">✦</div>
-                <div className="absolute top-10 right-8 text-yellow-300 text-lg drop-shadow-md z-20">⭐</div>
-                <div className="absolute bottom-16 right-8 text-rose-400 text-base drop-shadow-md z-20">♡</div>
-                <div className="absolute bottom-24 left-7 text-purple-300 text-sm drop-shadow-md z-20">✧</div>
-
-                {/* Embedded Photocard Slot (Pure CSS Mockup) */}
-                <div className="relative z-10 mx-auto my-auto w-[185px] sm:w-[200px] h-[285px] sm:h-[305px] rounded-xl overflow-hidden p-[2px] bg-white/20 shadow-2xl border border-white/40">
-                  <div className="w-full h-full rounded-[10px] bg-gradient-to-b from-rose-400 via-pink-600 to-indigo-950 flex flex-col justify-between p-4 relative overflow-hidden">
-                    
-                    {/* Idol Silhouette / Avatar Placeholder */}
-                    <div className="w-20 h-20 rounded-full mx-auto mt-4 bg-white/20 backdrop-blur-md border border-white/40 flex items-center justify-center shadow-lg">
-                      <Sparkles className="w-10 h-10 text-white" />
-                    </div>
-
-                    {/* Card Content Text */}
-                    <div className="text-center pb-2 z-10">
-                      <span className="text-[10px] font-mono tracking-widest uppercase text-pink-200 block">
-                        LIMITED EDITION
-                      </span>
-                      <h4 className="text-base font-black tracking-wider text-white">
-                        WONYOUNG ♡
-                      </h4>
-                      <span className="text-[9px] text-pink-300 font-semibold tracking-widest block mt-0.5">
-                        2026 WORLD TOUR
-                      </span>
-                    </div>
-
-                    {/* Laser Hologram Glare on Card */}
-                    <div className="absolute inset-0 bg-gradient-to-tr from-transparent via-white/20 to-transparent pointer-events-none" />
-                  </div>
-                </div>
-
-                {/* Engraved Text on Acrylic Foot */}
-                <div className="relative z-20 text-center pb-1">
-                  <span className="text-[11px] font-mono font-bold tracking-widest text-slate-300 uppercase px-3 py-1 rounded bg-black/40 backdrop-blur-sm border border-white/10">
-                    ONLYFRAME ACRYLIC 01
-                  </span>
-                </div>
-
-              </div>
-
-              {/* Click to Customize Hint Tag */}
-              <div className="absolute -bottom-4 left-1/2 -translate-x-1/2 px-4 py-1.5 rounded-full bg-pink-500 text-white font-bold text-xs shadow-lg shadow-pink-500/40 flex items-center gap-1.5 whitespace-nowrap animate-bounce">
-                <img src="/logo.png" alt="" className="w-3.5 h-3.5 rounded-sm object-contain" />
-                <span>點擊立即試做</span>
-              </div>
-
+          <div className="flex flex-col gap-3 sm:flex-row">
+            <button onClick={onStartCustomizing} className={primaryButton}>開始設計 <ArrowRight className="h-4 w-4" /></button>
+            <button onClick={onOpenHowItWorks} className="inline-flex items-center justify-center gap-2 rounded-xl border border-stone-300 bg-white/80 px-5 py-3.5 text-sm font-semibold text-slate-700 transition hover:border-slate-400 hover:bg-white">
+              了解設計流程 <ArrowDown className="h-4 w-4" />
+            </button>
+          </div>
+          <p className="text-xs leading-5 text-slate-500">方案 NT$199 起，為專題 Prototype 暫定估價；目前不提供實際購買或付款。</p>
+          <div className="flex flex-wrap gap-x-5 gap-y-2 text-xs font-medium text-slate-600">
+            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-600" />即時設計預覽</span>
+            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-600" />三種客製程度</span>
+            <span className="inline-flex items-center gap-1.5"><Check className="h-3.5 w-3.5 text-emerald-600" />確認前可返回修改</span>
+          </div>
+        </div>
+        <div className="relative mx-auto w-full max-w-md">
+          <div className="absolute inset-6 rounded-[2rem] bg-gradient-to-br from-pink-200/70 to-violet-200/70 blur-2xl" />
+          <div className="relative rounded-[2rem] border border-white bg-white/70 p-4 shadow-2xl shadow-slate-900/10 backdrop-blur">
+            <div className="flex items-center justify-between px-2 pb-4">
+              <div><p className="text-[10px] font-bold uppercase tracking-[.22em] text-pink-600">ONLYFRAME STUDIO</p><p className="mt-1 text-sm font-semibold text-slate-800">你的收藏，正在成形</p></div>
+              <span className="rounded-full bg-amber-50 px-2.5 py-1 text-[10px] font-bold text-amber-800">概念預覽</span>
+            </div>
+            <div className="relative mx-auto aspect-[.72] w-[78%] overflow-hidden rounded-2xl border-[10px] border-white/70 bg-slate-950 p-3 shadow-[0_24px_60px_-26px_rgba(15,23,42,.65)] ring-1 ring-slate-300/70">
+              <div className="absolute inset-0 bg-gradient-to-br from-indigo-900/50 via-purple-900/20 to-black" />
+              <img src="/cards/kpop.jpg" alt="收藏小卡設計預覽示例" className="relative z-10 h-full w-full rounded-xl object-cover shadow-xl" />
+              <span className="absolute left-5 top-5 z-20 text-xl text-pink-200 drop-shadow">✦</span>
+              <span className="absolute right-5 top-12 z-20 text-xl text-amber-200 drop-shadow">✧</span>
+              <span className="absolute bottom-5 left-1/2 z-20 -translate-x-1/2 rounded-full border border-white/20 bg-slate-950/70 px-3 py-1.5 text-[10px] font-semibold tracking-[.15em] text-white">ONLYFRAME · YOUR STYLE</span>
+            </div>
+            <div className="mt-4 flex items-center justify-between rounded-xl bg-[#f8f6f3] px-4 py-3">
+              <span className="text-xs font-medium text-slate-600">畫面示意，實際規格待打樣確認</span>
+              <span className="text-xs font-bold text-slate-900">NT$199 起*</span>
             </div>
           </div>
-
         </div>
       </div>
-    </div>
-  );
-};
+    </section>
+
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <div className="mx-auto max-w-2xl text-center">
+        <p className="text-xs font-bold uppercase tracking-[.2em] text-pink-600">A LITTLE MORE PERSONAL</p>
+        <h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">從收好一張卡，到展示你的故事</h2>
+        <p className="mt-3 text-sm leading-6 text-slate-600">不只放進框裡，也能挑選色彩、背景和裝飾，讓收藏更像你。</p>
+      </div>
+      <div className="mt-9 grid gap-4 md:grid-cols-2">
+        <article className="rounded-3xl border border-stone-200 bg-white p-6 sm:p-8">
+          <span className="text-[10px] font-bold uppercase tracking-[.18em] text-slate-400">一般展示方式</span>
+          <div className="mt-5 flex items-center gap-5">
+            <div className="grid h-28 w-24 place-items-center rounded-xl border border-slate-200 bg-slate-50 p-2 shadow-sm"><img src="/cards/kpop.jpg" alt="一般小卡展示示意" className="h-full w-full rounded-lg object-cover" /></div>
+            <div><h3 className="font-bold text-slate-800">收藏本身很珍貴</h3><p className="mt-1 text-sm leading-6 text-slate-500">但展示方式通常由現成框款決定。</p></div>
+          </div>
+        </article>
+        <article className="rounded-3xl border border-pink-200 bg-gradient-to-br from-pink-50 to-white p-6 sm:p-8">
+          <span className="text-[10px] font-bold uppercase tracking-[.18em] text-pink-600">ONLYFRAME 設計概念</span>
+          <div className="mt-5 flex items-center gap-5">
+            <div className="relative grid h-28 w-24 place-items-center rounded-xl border-[5px] border-white bg-slate-900 p-1 shadow-lg ring-1 ring-pink-200"><img src="/cards/kpop.jpg" alt="ONLYFRAME 風格化展示示意" className="h-full w-full rounded-md object-cover" /><span className="absolute -right-1 -top-2 text-amber-300">✦</span></div>
+            <div><h3 className="font-bold text-slate-900">把喜好放進設計裡</h3><p className="mt-1 text-sm leading-6 text-slate-600">在編輯器中搭配框色、背景、貼飾與文字。</p></div>
+          </div>
+        </article>
+      </div>
+      <p className="mt-3 text-center text-[11px] text-slate-400">示意比較用於說明客製概念，並非實體成品或第三方商品測試。</p>
+    </section>
+
+    <section className="bg-[#f6f3ef] py-16 sm:py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="flex flex-col justify-between gap-4 sm:flex-row sm:items-end">
+          <div><p className="text-xs font-bold uppercase tracking-[.2em] text-pink-600">DESIGN IN THREE STEPS</p><h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">簡單三步，先看到你的設計</h2></div>
+          <button onClick={onStartCustomizing} className="inline-flex items-center gap-2 self-start text-sm font-bold text-pink-700 hover:text-pink-800 sm:self-auto">開始設計 <ArrowRight className="h-4 w-4" /></button>
+        </div>
+        <div className="mt-8 grid gap-4 md:grid-cols-3">
+          {[
+            { n: '01', title: '選擇客製程度', body: '先看各方案能調整的項目與暫定價格。', icon: Layers },
+            { n: '02', title: '編排專屬樣式', body: '試選框色、背景、貼飾與文字，即時預覽。', icon: Sparkles },
+            { n: '03', title: '預覽並確認', body: '確認設計與價格；送出前仍可返回修改。', icon: ShieldCheck },
+          ].map(({ n, title, body, icon: Icon }) => <div key={n} className="rounded-2xl border border-stone-200 bg-white p-6"><div className="flex items-center justify-between"><span className="text-xs font-black tracking-widest text-pink-600">STEP {n}</span><Icon className="h-5 w-5 text-slate-400" /></div><h3 className="mt-5 text-lg font-bold text-slate-900">{title}</h3><p className="mt-2 text-sm leading-6 text-slate-600">{body}</p></div>)}
+        </div>
+      </div>
+    </section>
+
+    <section className="mx-auto max-w-7xl px-4 py-16 sm:px-6 lg:px-8 lg:py-20">
+      <div className="mx-auto max-w-2xl text-center"><p className="text-xs font-bold uppercase tracking-[.2em] text-pink-600">CHOOSE YOUR DETAIL</p><h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">從簡單搭配，到自由創作</h2><p className="mt-3 text-sm leading-6 text-slate-600">先選你想參與設計的程度，進入編輯器後還能隨時調整。</p></div>
+      <div className="mt-8 grid gap-4 md:grid-cols-3">
+        {[
+          { title: '簡易客製', tier: 'BASIC', price: 'NT$199', note: '框型與外觀色', detail: '保留簡潔，專注挑選展示框外觀。' },
+          { title: '主題客製', tier: 'CUSTOM', price: 'NT$299', note: '背景、貼飾與文字', detail: '加入主題氛圍與個人化細節。', featured: true },
+          { title: '完全客製', tier: 'PREMIUM', price: 'NT$399 起', note: '含個人小卡上傳', detail: '以自己的小卡預覽整體設計。' },
+        ].map((plan) => <article key={plan.tier} className={`relative rounded-3xl border p-6 ${plan.featured ? 'border-pink-300 bg-pink-50/60 shadow-lg shadow-pink-100' : 'border-stone-200 bg-white'}`}>
+          {plan.featured && <span className="absolute right-5 top-5 rounded-full bg-pink-600 px-2.5 py-1 text-[10px] font-bold text-white">推薦體驗</span>}
+          <p className="text-xs font-bold tracking-widest text-slate-500">{plan.tier}</p><h3 className="mt-2 text-xl font-black text-slate-950">{plan.title}</h3><p className="mt-1 text-sm text-slate-600">{plan.detail}</p>
+          <div className="mt-6 border-t border-stone-200 pt-4"><p className="text-2xl font-black text-slate-950">{plan.price}<span className="ml-2 text-xs font-medium text-slate-500">暫定估價</span></p><p className="mt-1 text-xs text-slate-500">{plan.note}</p></div>
+        </article>)}
+      </div>
+      <div className="mt-6 text-center"><button onClick={onStartCustomizing} className={primaryButton}>開始設計 <ArrowRight className="h-4 w-4" /></button></div>
+    </section>
+
+    <section className="bg-slate-950 py-16 text-white sm:py-20">
+      <div className="mx-auto max-w-7xl px-4 sm:px-6 lg:px-8">
+        <div className="mx-auto max-w-2xl text-center"><p className="text-xs font-bold uppercase tracking-[.2em] text-pink-300">MADE FOR YOUR COLLECTION</p><h2 className="mt-3 text-3xl font-black tracking-tight">不同收藏，都能找到靈感</h2><p className="mt-3 text-sm leading-6 text-slate-300">以下使用專題示例圖，展示編輯器支援的收藏風格。</p></div>
+        <div className="mt-8 grid gap-4 sm:grid-cols-3">
+          {[{ name: 'K-pop 收藏', src: '/cards/kpop.jpg' }, { name: '動漫收藏', src: '/cards/anime.jpg' }, { name: '遊戲收藏', src: '/cards/game.jpg' }].map((item) => <article key={item.name} className="group overflow-hidden rounded-2xl border border-white/10 bg-white/5"><img src={item.src} alt={`${item.name}示例`} className="h-64 w-full object-cover transition duration-500 group-hover:scale-[1.03]" /><div className="px-4 py-3 text-sm font-semibold">{item.name}</div></article>)}
+        </div>
+      </div>
+    </section>
+
+    <section className="mx-auto grid max-w-7xl gap-10 px-4 py-16 sm:px-6 lg:grid-cols-2 lg:px-8 lg:py-20">
+      <div><p className="text-xs font-bold uppercase tracking-[.2em] text-pink-600">MATERIAL & DETAILS</p><h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">先理解設計，再確認產品規格</h2><p className="mt-4 text-sm leading-7 text-slate-600">ONLYFRAME 的概念以透明壓克力展示結構為核心，搭配不同外觀與卡面設計。這是互動 Prototype，畫面中的材質效果與尺寸皆為打樣概念，尚待實際製程驗證。</p>
+        <div className="mt-6 grid gap-3 sm:grid-cols-2">{[{ title: '透明壓克力概念', text: '以層次與透光效果襯托收藏，實際材質與表面處理待確認。' }, { title: '多層展示結構', text: '目前設計稿以雙層、約 8mm 結構為示意，不代表量產規格。' }, { title: '卡片適配參考', text: '原型以 54 × 86mm 卡片為參考，適配範圍待打樣確認。' }, { title: '個人化外觀', text: '框色、背景與裝飾可在編輯器中搭配預覽。' }].map((spec) => <div key={spec.title} className="rounded-2xl border border-stone-200 bg-white p-4"><h3 className="text-sm font-bold text-slate-900">{spec.title}</h3><p className="mt-1.5 text-xs leading-5 text-slate-600">{spec.text}</p></div>)}</div>
+      </div>
+      <div className="rounded-3xl border border-stone-200 bg-[#f8f6f3] p-6 sm:p-8"><p className="text-xs font-bold uppercase tracking-[.18em] text-slate-500">AT A GLANCE</p><h3 className="mt-2 text-xl font-black text-slate-950">一般小卡框與 ONLYFRAME 概念</h3>
+        <div className="mt-5 divide-y divide-stone-200 text-sm"><div className="grid grid-cols-[1fr_1fr] gap-3 py-3"><span className="font-semibold text-slate-700">展示方式</span><span className="text-slate-600">固定外觀 ／ 可調整視覺方案</span></div><div className="grid grid-cols-[1fr_1fr] gap-3 py-3"><span className="font-semibold text-slate-700">個人化內容</span><span className="text-slate-600">依框款而定 ／ 背景、貼飾、文字</span></div><div className="grid grid-cols-[1fr_1fr] gap-3 py-3"><span className="font-semibold text-slate-700">購買前預覽</span><span className="text-slate-600">視商品而定 ／ 網頁即時模擬</span></div></div>
+        <p className="mt-4 rounded-xl bg-white p-3 text-[11px] leading-5 text-slate-500">比較描述的是本網站 Prototype 的設計方向，不構成對市售產品的品質或價格評比。</p>
+      </div>
+    </section>
+
+    <section className="border-t border-stone-200 bg-pink-50/60 px-4 py-14 text-center sm:py-16">
+      <p className="text-xs font-bold uppercase tracking-[.2em] text-pink-600">YOUR COLLECTION, YOUR WAY</p><h2 className="mt-3 text-3xl font-black tracking-tight text-slate-950">來試著設計你的展示方式</h2><p className="mx-auto mt-3 max-w-xl text-sm leading-6 text-slate-600">選擇客製程度、調整畫面，再看看不同元素組合起來的樣子。</p><button onClick={onStartCustomizing} className={`${primaryButton} mt-6`}>開始設計 <ArrowRight className="h-4 w-4" /></button>
+      <p className="mt-4 text-[11px] text-slate-500">研究用 Prototype · 暫定價格與規格不代表正式販售內容</p>
+    </section>
+  </div>
+);

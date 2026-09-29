@@ -12,6 +12,7 @@ import { DesignConfirmation } from './components/DesignConfirmation';
 import { HowItWorksModal } from './components/HowItWorksModal';
 import { AboutSection } from './components/AboutSection';
 import { MobileStickyBar } from './components/MobileStickyBar';
+import { DesignProgress } from './components/DesignProgress';
 import { SubmitDesignModal } from './components/SubmitDesignModal';
 import { SubmissionSuccessView } from './components/SubmissionSuccessView';
 import { AdminDashboard } from './components/admin/AdminDashboard';
@@ -203,11 +204,14 @@ export const App: React.FC = () => {
 
         {/* VIEW 2: TIER SELECTOR */}
         {currentView === 'tiers' && (
-          <TierSelector
-            currentTier={customizerState.tier}
-            onSelectTier={handleSelectTier}
-            onBackToHome={() => handleNavigate('home')}
-          />
+          <>
+            <div className="mx-auto max-w-7xl px-4 pt-6 sm:px-6 lg:px-8"><DesignProgress activeStep={1} /></div>
+            <TierSelector
+              currentTier={customizerState.tier}
+              onSelectTier={handleSelectTier}
+              onBackToHome={() => handleNavigate('home')}
+            />
+          </>
         )}
 
         {/* VIEW 3: CORE CUSTOMIZER (3-COLUMN DESKTOP / STACKED MOBILE) */}
@@ -236,6 +240,8 @@ export const App: React.FC = () => {
                 更換客製化程度方案 →
               </button>
             </div>
+
+            <DesignProgress activeStep={2} />
 
             {/* Main 3-Column Studio Grid */}
             <div className="grid grid-cols-1 lg:grid-cols-12 gap-6 items-start">
@@ -313,13 +319,16 @@ export const App: React.FC = () => {
 
         {/* VIEW 4: DESIGN CONFIRMATION & MOCKUP SHOWCASE */}
         {currentView === 'confirmation' && (
-          <DesignConfirmation
-            state={customizerState}
-            priceBreakdown={priceBreakdown}
-            onModifyDesign={() => handleNavigate('customizer')}
-            onChangeTier={() => handleNavigate('tiers')}
-            onSubmitDesign={() => setIsSubmitModalOpen(true)}
-          />
+          <>
+            <div className="mx-auto max-w-5xl px-4 pt-6 sm:px-6 lg:px-8"><DesignProgress activeStep={3} /></div>
+            <DesignConfirmation
+              state={customizerState}
+              priceBreakdown={priceBreakdown}
+              onModifyDesign={() => handleNavigate('customizer')}
+              onChangeTier={() => handleNavigate('tiers')}
+              onSubmitDesign={() => setIsSubmitModalOpen(true)}
+            />
+          </>
         )}
 
         {/* VIEW 5: ABOUT & PROTOTYPE CONCEPT */}

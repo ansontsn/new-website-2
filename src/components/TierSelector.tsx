@@ -92,10 +92,10 @@ export const TierSelector: React.FC<TierSelectorProps> = ({
       <div className="text-center max-w-3xl mx-auto space-y-3">
         <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-pink-500/10 border border-pink-500/20 text-xs font-semibold text-pink-600">
           <img src="/logo.png" alt="ONLYFRAME" className="w-3.5 h-3.5 rounded-sm object-contain" />
-          <span>STEP 1：選擇客製化程度</span>
+          <span>STEP 1：選擇設計方式</span>
         </div>
         <h1 className="text-3xl sm:text-4xl font-extrabold tracking-tight text-slate-900">
-          由你決定你的收藏品應該長什麼樣子
+          選擇適合你的設計方式
         </h1>
         <p className="text-sm sm:text-base text-slate-600 leading-relaxed">
           我們提供三種不同深度的客製化體驗。從純粹俐落的基礎幾何框，到全功能開放的自訂編輯器，請挑選最符合您收藏需求的方案：
