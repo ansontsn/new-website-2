@@ -186,7 +186,7 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
               : 'text-slate-400 hover:text-slate-200 hover:bg-white/5'
           }`}
         >
-          <span>⭐</span>
+          <img src="/stickers/pearl/sparkle.png" alt="" className="w-4 h-4 object-contain" />
           裝飾貼飾
           {isBasic && <Lock className="w-3 h-3 text-slate-500 ml-0.5" />}
         </button>
