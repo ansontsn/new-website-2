@@ -84,8 +84,8 @@ export const App: React.FC = () => {
     stickers: [
       {
         id: 'init-stk-1',
-        stickerId: 'star-4pt',
-        symbol: '✦',
+        stickerId: 'pearl-sparkle',
+        symbol: '水晶四芒星',
         xMm: 15.3,
         yMm: 13.8,
         widthMm: 7.5,
@@ -97,14 +97,14 @@ export const App: React.FC = () => {
       },
       {
         id: 'init-stk-2',
-        stickerId: 'star-gold',
-        symbol: '⭐',
+        stickerId: 'pastel-bow',
+        symbol: '柔粉蝴蝶結',
         xMm: 69.7,
         yMm: 16.1,
         widthMm: 7.5,
         heightMm: 7.5,
         rotation: 12,
-        color: '#fef08a',
+        color: '#ffffff',
         zIndex: 20,
         anchorTarget: 'frame'
       }

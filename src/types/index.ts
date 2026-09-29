@@ -33,9 +33,9 @@ export interface BackgroundOption {
 
 export interface StickerOption {
   id: string;
-  symbol: string;
+  imageSrc: string;
   name: string;
-  category: 'star' | 'heart' | 'cyber' | 'cute';
+  collection: 'pearl' | 'pastel';
   priceAddon: number;
 }
 

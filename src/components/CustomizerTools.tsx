@@ -12,6 +12,7 @@ import {
   FONT_OPTIONS,
   PRESET_PHOTOCARDS
 } from '../data/options';
+import { StickerArtwork } from './StickerArtwork';
 import { CARD_SIZE_PRESETS, FRAME_WIDTH_MM, FRAME_HEIGHT_MM, isCardSizeSupported } from '../utils/dimensions';
 import { 
   Box, 
@@ -26,8 +27,7 @@ import {
   RotateCw,
   Maximize2,
   SlidersHorizontal,
-  UploadCloud,
-  Info
+  UploadCloud
 } from 'lucide-react';
 
 interface CustomizerToolsProps {
@@ -48,7 +48,7 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
   onSelectSticker
 }) => {
   const [activeTab, setActiveTab] = useState<TabType>('frame');
-  const [stickerFilter, setStickerFilter] = useState<'all' | 'star' | 'heart' | 'cyber' | 'cute'>('all');
+  const [stickerFilter, setStickerFilter] = useState<'all' | 'pearl' | 'pastel'>('all');
 
   // Tier guards
   const isBasic = state.tier === 'BASIC';
@@ -62,7 +62,7 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
     const newSticker: PlacedSticker = {
       id: newId,
       stickerId: opt.id,
-      symbol: opt.symbol,
+      symbol: opt.name,
       xMm: Math.round((Math.random() * 34 + 25) * 10) / 10,
       yMm: Math.round((Math.random() * 46 + 34) * 10) / 10,
       widthMm: 7.5,
@@ -536,13 +536,13 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
           <div className="space-y-4">
             <div>
               <h3 className="text-sm font-bold text-white flex items-center justify-between">
-                <span>加入潮流裝飾配件</span>
+                <span>加入原創裝飾貼飾</span>
                 <span className="text-xs text-slate-400 font-normal">
                   已加入: {state.stickers.length} 枚
                 </span>
               </h3>
               <p className="text-xs text-slate-400 mt-0.5">
-                可自訂貼飾大小、旋轉角度、位置座標，打造極致層次感
+                從兩套原創圖案挑選，可調整大小、旋轉角度與位置
               </p>
             </div>
 
@@ -568,14 +568,12 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                 <div className="flex items-center gap-1 overflow-x-auto pb-1 text-[11px]">
                   {[
                     { id: 'all', label: '全部款式' },
-                    { id: 'star', label: '✦ 星芒' },
-                    { id: 'heart', label: '♡ 愛心' },
-                    { id: 'cyber', label: '⚡ 潮流/動漫' },
-                    { id: 'cute', label: '🎀 甜美' }
+                    { id: 'pearl', label: '珠光夢境' },
+                    { id: 'pastel', label: '柔彩花語' }
                   ].map((cat) => (
                     <button
                       key={cat.id}
-                      onClick={() => setStickerFilter(cat.id as any)}
+                      onClick={() => setStickerFilter(cat.id as typeof stickerFilter)}
                       className={`px-2.5 py-1 rounded-lg transition-colors whitespace-nowrap font-medium ${
                         stickerFilter === cat.id
                           ? 'bg-pink-500 text-white font-bold'
@@ -595,27 +593,18 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                     </span>
                   </div>
 
-                  {/* Mobile Font Compatibility Notice */}
-                  <div className="mb-2 p-2 sm:p-2.5 rounded-xl bg-amber-500/10 border border-amber-500/25 text-[11px] text-amber-300/90 leading-snug flex items-start gap-1.5">
-                    <Info className="w-3.5 h-3.5 text-amber-400 flex-shrink-0 mt-0.5" />
-                    <span>
-                      行動端若因系統字型差異出現圖案顯示空白問題，請直接點擊置入，以預覽圖顯現的圖案為主。
-                    </span>
-                  </div>
-
                   <div className="grid grid-cols-6 gap-2 max-h-40 overflow-y-auto p-1.5 bg-black/30 rounded-xl border border-white/10">
                     {STICKER_OPTIONS
-                      .filter((stk) => stickerFilter === 'all' || stk.category === stickerFilter)
+                      .filter((stk) => stickerFilter === 'all' || stk.collection === stickerFilter)
                       .map((stk) => (
                         <button
                           key={stk.id}
                           onClick={() => handleAddSticker(stk.id)}
-                          className="h-11 rounded-xl border border-white/10 bg-white/[0.06] hover:border-pink-400 hover:bg-pink-500/20 text-xl flex items-center justify-center transition-all active:scale-90 group text-white select-none"
+                          className="h-11 rounded-xl border border-white/10 bg-white/[0.06] hover:border-pink-400 hover:bg-pink-500/20 flex items-center justify-center transition-all active:scale-90 group select-none"
                           title={`${stk.name} - 點擊置入`}
+                          aria-label={`加入${stk.name}`}
                         >
-                          <span className="group-hover:scale-125 transition-transform text-white font-extrabold flex items-center justify-center select-none filter drop-shadow-[0_1px_2px_rgba(0,0,0,0.8)] leading-none">
-                            {stk.symbol}
-                          </span>
+                          <StickerArtwork stickerId={stk.id} className="w-9 h-9 group-hover:scale-110 transition-transform" />
                         </button>
                       ))}
                   </div>
@@ -626,8 +615,8 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                   <div className="p-3.5 rounded-2xl bg-pink-950/20 border border-pink-500/40 space-y-3">
                     <div className="flex items-center justify-between pb-2 border-b border-pink-500/20">
                       <div className="flex items-center gap-2">
-                        <span className="text-2xl p-1 bg-black/50 rounded-lg border border-pink-500/30 text-white font-bold flex items-center justify-center min-w-[38px] min-h-[38px]">
-                          {activeSticker.symbol}
+                        <span className="p-1 bg-black/50 rounded-lg border border-pink-500/30 flex items-center justify-center w-[38px] h-[38px]">
+                          <StickerArtwork stickerId={activeSticker.stickerId} fallback={activeSticker.symbol} className="w-full h-full" />
                         </span>
                         <div>
                           <span className="text-xs font-bold text-white block">
@@ -711,34 +700,7 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                       </div>
                     </div>
 
-                    {/* Color Palette */}
-                    <div>
-                      <span className="text-[11px] font-semibold text-slate-400 block mb-1.5">
-                        貼飾色彩外觀：
-                      </span>
-                      <div className="flex items-center gap-2">
-                        {[
-                          { hex: '#ffffff', name: '純白' },
-                          { hex: '#fda4af', name: '櫻粉' },
-                          { hex: '#67e8f9', name: '冷藍' },
-                          { hex: '#fcd34d', name: '金黃' },
-                          { hex: '#c084fc', name: '電馭紫' },
-                          { hex: '#1e293b', name: '深曜黑' }
-                        ].map((c) => (
-                          <button
-                            key={c.hex}
-                            onClick={() => handleUpdateActiveSticker({ color: c.hex })}
-                            className={`w-6 h-6 rounded-full border transition-transform ${
-                              activeSticker.color === c.hex
-                                ? 'scale-125 border-white ring-2 ring-pink-400'
-                                : 'border-white/20 hover:scale-110'
-                            }`}
-                            style={{ background: c.hex }}
-                            title={c.name}
-                          />
-                        ))}
-                      </div>
-                    </div>
+                    <p className="text-[11px] text-slate-400">圖案保留原創配色，可自由調整大小、角度與位置。</p>
 
                     {/* Precise Coordinate Controls */}
                     <div className="grid grid-cols-2 gap-3 pt-1 border-t border-white/5 text-[11px]">
@@ -777,7 +739,7 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                   </div>
                 ) : (
                   <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 text-center text-xs text-slate-400">
-                    💡 點選下方任一已加入的貼飾（或在中央展示框直接點擊），即可解鎖<strong>自訂大小、旋轉與色彩</strong>！
+                    點選下方任一已加入的貼飾（或在中央展示框直接點擊），即可調整<strong>大小、旋轉與位置</strong>。
                   </div>
                 )}
 
@@ -800,8 +762,8 @@ export const CustomizerTools: React.FC<CustomizerToolsProps> = ({
                                 : 'bg-white/5 border-white/10 text-slate-300 hover:bg-white/10 hover:border-white/20'
                             }`}
                           >
-                            <span className="text-base" style={{ color: stk.color }}>
-                              {stk.symbol}
+                            <span className="w-5 h-5 flex items-center justify-center">
+                              <StickerArtwork stickerId={stk.stickerId} fallback={stk.symbol} className="w-full h-full" />
                             </span>
                             <span className="text-[10px] text-slate-400 font-mono">#{idx + 1}</span>
                             <button

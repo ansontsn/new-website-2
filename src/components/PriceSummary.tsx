@@ -73,7 +73,7 @@ export const PriceSummary: React.FC<PriceSummaryProps> = ({
           </div>
 
           <div className="flex justify-between items-center py-1">
-            <span className="text-slate-400">潮流貼飾:</span>
+            <span className="text-slate-400">原創貼飾:</span>
             <span className="font-semibold text-white">
               {state.tier === 'BASIC' ? '無' : `${state.stickers.length} 枚`}
             </span>

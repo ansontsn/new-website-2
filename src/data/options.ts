@@ -239,35 +239,18 @@ export const BACKGROUND_OPTIONS: BackgroundOption[] = [
 ];
 
 export const STICKER_OPTIONS: StickerOption[] = [
-  // 星芒與光影
-  { id: 'star-4pt', symbol: '✦', name: 'Y2K 四芒星', category: 'star', priceAddon: 0 },
-  { id: 'sparkle-8pt', symbol: '✧', name: '璀璨芒星', category: 'star', priceAddon: 0 },
-  { id: 'star-gold', symbol: '⭐', name: '經典星光', category: 'star', priceAddon: 0 },
-  { id: 'shooting-star', symbol: '🌟', name: '閃耀星宿', category: 'star', priceAddon: 0 },
-  { id: 'sparkles', symbol: '✨', name: '細緻星芒', category: 'cute', priceAddon: 0 },
-  { id: 'star-multi', symbol: '✦⁺₊', name: '星芒碎光', category: 'star', priceAddon: 0 },
-  // 愛心與情感
-  { id: 'heart-outline', symbol: '♡', name: '空心愛心', category: 'heart', priceAddon: 0 },
-  { id: 'heart-solid', symbol: '♥', name: '實心愛心', category: 'heart', priceAddon: 0 },
-  { id: 'heart-broken', symbol: '💔', name: '破碎美學', category: 'heart', priceAddon: 0 },
-  { id: 'heart-arrow', symbol: '💘', name: '邱比特箭心', category: 'heart', priceAddon: 0 },
-  // 幻想、二次元與潮流
-  { id: 'butterfly', symbol: '🦋', name: '夢境幻蝶', category: 'cyber', priceAddon: 0 },
-  { id: 'wing', symbol: '🪽', name: '守護羽翼', category: 'cyber', priceAddon: 0 },
-  { id: 'crown', symbol: '👑', name: '王者皇冠', category: 'cute', priceAddon: 0 },
-  { id: 'flame', symbol: '🔥', name: '極限熱血', category: 'cyber', priceAddon: 0 },
-  { id: 'cross', symbol: '✝', name: '哥德十字', category: 'cyber', priceAddon: 0 },
-  { id: 'chain', symbol: '⛓️', name: '潮流金屬鍊', category: 'cyber', priceAddon: 0 },
-  // 韓系與少女感
-  { id: 'ribbon-deco', symbol: '🎀', name: '精緻緞帶', category: 'cute', priceAddon: 0 },
-  { id: 'bow-cute', symbol: '𝜗𝜚', name: '韓系蝴蝶結', category: 'cute', priceAddon: 0 },
-  { id: 'cherry', symbol: '🍒', name: '雙生櫻桃', category: 'cute', priceAddon: 0 },
-  { id: 'bubbles', symbol: '🫧', name: '夢幻泡泡', category: 'cute', priceAddon: 0 },
-  { id: 'music-note', symbol: '🎵', name: '應援音符', category: 'cute', priceAddon: 0 },
-  // 天體宇宙
-  { id: 'planet', symbol: '🪐', name: '土星行星', category: 'cyber', priceAddon: 0 },
-  { id: 'moon', symbol: '🌙', name: '彎月夜空', category: 'cyber', priceAddon: 0 },
-  { id: 'sun', symbol: '☀️', name: '破曉暖陽', category: 'cyber', priceAddon: 0 }
+  ...([
+    ['sparkle', '水晶四芒星'], ['star-cluster', '碎光星群'], ['crescent', '垂墜月光'],
+    ['heart', '星語愛心'], ['bow', '珍珠緞帶'], ['pearl-arc', '珍珠弧線'],
+    ['blossom', '柔光花朵'], ['rosebud', '玫瑰花苞'], ['orbit', '星軌'],
+    ['wing', '羽翼'], ['corner', '雕花邊角'], ['gem', '菱形寶石']
+  ] as const).map(([key, name]) => ({ id: `pearl-${key}`, imageSrc: `/stickers/pearl/${key}.png`, name, collection: 'pearl' as const, priceAddon: 0 })),
+  ...([
+    ['sparkle', '柔彩四芒星'], ['star-cluster', '柔彩星群'], ['crescent', '柔彩月光'],
+    ['heart', '粉彩愛心'], ['bow', '柔粉蝴蝶結'], ['pearl-arc', '珍珠弧線'],
+    ['blossom', '粉彩花朵'], ['rosebud', '粉彩玫瑰'], ['orbit', '柔彩星軌'],
+    ['star-charm', '星星吊飾'], ['corner', '花紋邊角'], ['gem', '柔彩寶石']
+  ] as const).map(([key, name]) => ({ id: `pastel-${key}`, imageSrc: `/stickers/pastel/${key}.png`, name, collection: 'pastel' as const, priceAddon: 0 }))
 ];
 
 export const FONT_OPTIONS = [

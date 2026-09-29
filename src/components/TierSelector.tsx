@@ -32,7 +32,7 @@ export const TierSelector: React.FC<TierSelectorProps> = ({
         { text: '雙層 8mm 高透壓克力保護卡槽', included: true },
         { text: '支援示範小卡裝框效果模擬預覽', included: true },
         { text: '主題背景與特殊漸層 (12 款)', included: false },
-        { text: '潮流貼飾自訂大小與旋轉擺放', included: false },
+        { text: '原創貼飾自訂大小與旋轉擺放', included: false },
         { text: '雷雕專屬文字與自由拖曳定位', included: false },
         { text: '個人小卡圖片 1:1 上傳模擬置入', included: false }
       ]
@@ -55,7 +55,7 @@ export const TierSelector: React.FC<TierSelectorProps> = ({
         { text: '雙層 8mm 高透壓克力保護卡槽', included: true },
         { text: '支援示範小卡裝框效果模擬預覽', included: true },
         { text: '解鎖 12 款主題背景 (銀河/星空/極光/CD雷射)', included: true },
-        { text: '解鎖 24 款潮流裝飾配件 (自由旋轉與自訂大小)', included: true },
+        { text: '解鎖兩套共 24 款原創貼飾 (自由旋轉與自訂大小)', included: true },
         { text: '加入客製刻字與自由拖曳定位', included: true },
         { text: '個人小卡圖片 1:1 上傳模擬置入', included: false }
       ]
@@ -78,7 +78,7 @@ export const TierSelector: React.FC<TierSelectorProps> = ({
         { text: '支援示範小卡裝框效果模擬預覽', included: true },
         { text: '解鎖個人專屬小卡 1:1 上傳模擬置入', included: true },
         { text: '自訂背景與專屬素材載入', included: true },
-        { text: '解鎖所有潮流貼飾 (自訂大小/旋轉/複製)', included: true },
+        { text: '解鎖兩套原創貼飾 (自訂大小/旋轉/複製)', included: true },
         { text: '全字體選擇 (含精品 Cinzel / Y2K 潮流體)', included: true },
         { text: '畫布上自由滑鼠拖曳文字與貼飾位置', included: true }
       ]

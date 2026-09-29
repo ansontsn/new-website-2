@@ -1,7 +1,7 @@
 import { createClient } from '@supabase/supabase-js';
 import { CustomizerState, DesignSubmission, SubmissionStatus } from '../types';
 import { calculatePrice } from '../utils/pricing';
-import { FRAME_OPTIONS, FRAME_COLOR_OPTIONS, BACKGROUND_OPTIONS, FONT_OPTIONS } from '../data/options';
+import { FRAME_OPTIONS, FRAME_COLOR_OPTIONS, BACKGROUND_OPTIONS, FONT_OPTIONS, STICKER_OPTIONS } from '../data/options';
 import { centeredCardPosition, FRAME_WIDTH_MM, FRAME_HEIGHT_MM, isCardSizeSupported } from '../utils/dimensions';
 
 // 取得環境變數
@@ -151,7 +151,7 @@ export const submitDesignToBackend = async (params: {
   };
 
   const decorationsSummary = state.stickers.length > 0
-    ? `${state.stickers.length} 枚貼飾 (${state.stickers.map(s => s.symbol).join(' ')})`
+    ? `${state.stickers.length} 枚貼飾 (${state.stickers.map(s => STICKER_OPTIONS.find(option => option.id === s.stickerId)?.name || s.symbol).join('、')})`
     : '無裝飾';
 
   // 5. 產生人類易讀之訂單編號格式 (DES-YYYYMMDD-XXXX)

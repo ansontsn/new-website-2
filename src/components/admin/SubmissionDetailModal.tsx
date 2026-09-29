@@ -232,7 +232,7 @@ export const SubmissionDetailModal: React.FC<SubmissionDetailModalProps> = ({
                 <span className="font-bold text-slate-800">{submission.background}</span>
               </div>
               <div className="flex justify-between py-1 border-b border-stone-100">
-                <span className="text-slate-500 font-medium">潮流裝飾配件:</span>
+                <span className="text-slate-500 font-medium">原創裝飾貼飾:</span>
                 <span className="font-bold text-slate-800">{submission.decorations}</span>
               </div>
               <div className="flex justify-between py-1 border-b border-stone-100">
